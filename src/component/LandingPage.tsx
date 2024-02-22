@@ -1,6 +1,6 @@
 "use client";
 
-import { Colors, SCREENS } from "@/styles";
+import { Colors, SCREENS, Poppins } from "@/styles";
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
@@ -42,18 +42,44 @@ export const LandingPage = () => {
           </PreviewFrame>
         </PreviewFrameContainer>
       </HeroSection>
+      <Section>
+        <NotePanel>
+          <h3>Get the latest</h3>
+          <p>
+            Get ready to indulge in a sneak peek of what&apos;s to come! Explore
+            our curated selection of premium designs and must-have accessories.
+          </p>
+        </NotePanel>
+      </Section>
+      <Section style={{ background: `${Colors.brown}` }}>
+        <SectionContainer>
+          <SectionHeader>Explore Our Diverse Range</SectionHeader>
+          <ProductsRow>
+            <PreviewFrame>
+              <PictureSlide $background="/assets/products/product_1.jpg"></PictureSlide>
+            </PreviewFrame>
+            <PreviewFrame>
+              <PictureSlide $background="/assets/products/product_2.jpg"></PictureSlide>
+            </PreviewFrame>
+            <PreviewFrame>
+              <PictureSlide $background="/assets/products/product_3.jpg"></PictureSlide>
+            </PreviewFrame>
+          </ProductsRow>
+        </SectionContainer>
+      </Section>
     </MainPage>
   );
 };
 
 const MainPage = styled.main`
   background-color: ${Colors.red};
-  width: 100vw;
-  height: 100vh;
-  color: ${Colors.brown};
+  //   width: 100vw;
+  //   height: 100vh;
+  //   color: ${Colors.brown};
   background-image: url("/assets/background.png");
   background-position: center;
   background-size: cover;
+  overflow-x: hidden;
 `;
 const Navbar = styled.nav`
   display: flex;
@@ -80,8 +106,10 @@ const Navbar = styled.nav`
 const HeroSection = styled.section`
   padding: 18px;
   padding-top: 12px;
+  padding-bottom: 42px;
   max-width: 1200px;
   margin: auto;
+  margin-bottom: 50px;
   ${SCREENS.sm} {
     display: flex;
     justify-content: center;
@@ -94,7 +122,7 @@ const PreviewFrame = styled.div`
   width: 230px;
   padding: 2px;
   height: 300px;
-  background: #fff;
+  background: ${Colors.white};
   //   margin: auto;
   border-radius: 12px;
 
@@ -119,7 +147,7 @@ const PreviewFrameContainer = styled.div`
   }
 `;
 
-const PictureSlide = styled.div<{$background: string}>`
+const PictureSlide = styled.div<{ $background: string }>`
   background-color: ${Colors.brown};
   background-position: center;
   background-image: url(${(props) => props.$background});
@@ -136,5 +164,59 @@ const Slogan = styled.p`
   ${SCREENS.lg} {
     font-size: 5rem;
     margin-left: auto;
+  }
+`;
+
+const Section = styled.section`
+  margin-top: 50px;
+  padding: 18px;
+  position: relative;
+`;
+const NotePanel = styled.div`
+  background-color: ${Colors.white};
+  padding: 18px;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  position: relative;
+  right: -20px;
+  padding-left: 27px;
+  box-shadow: #00000059 7px 7px 20px 4px;
+
+  h3 {
+    color: ${Colors.brown};
+    font-family: ${Poppins};
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 3px;
+  }
+  p {
+    font-family: ${Poppins};
+    font-weight: 300;
+    font-size: 0.8rem;
+  }
+  ${SCREENS.sm} {
+    // right: 0px;
+    max-width: 360px;
+    margin-left: auto;
+  }
+`;
+const SectionContainer = styled.div`
+  max-width: 1200px;
+  margin: auto;
+`;
+const SectionHeader = styled.h1`
+  font-family: ${Poppins};
+  text-transform: capitalize;
+  font-weight: 300;
+  text-align: center;
+  font-size: 2rem;
+`;
+const ProductsRow = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 8px;
+  overflow-x: scroll;
+  ${SCREENS.lg} {
+   overflow-x: hidden;
   }
 `;
