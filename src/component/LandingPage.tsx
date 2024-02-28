@@ -4,8 +4,14 @@ import { Colors, SCREENS, Poppins } from "@/styles";
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebook,
+  faInstagram,
+  faWhatsapp,
+} from "@fortawesome/free-brands-svg-icons";
 
-export const LandingPage = () => {
+const LandingPage = () => {
   return (
     <MainPage>
       <Navbar>
@@ -67,15 +73,39 @@ export const LandingPage = () => {
           </ProductsRow>
         </SectionContainer>
       </Section>
+      <Section style={{ background: `${Colors.red}`, marginTop: "0px" }}>
+        <SectionContainer>
+          <SectionHeader style={{ color: `${Colors.white}` }}>
+            Contact Us
+          </SectionHeader>
+          <Socials>
+            <a
+              href="https://chat.whatsapp.com/Dw0s4T6oOWXJz4Lcx9geLH"
+              target="_blank"
+            >
+              <FontAwesomeIcon icon={faWhatsapp} size="3x" />
+            </a>
+            <a
+              href="https://www.instagram.com/girliestore9ja?igsh=MXY1azJoODl2dDhhMg%3D%3D&utm_source=qr"
+              target="_blank"
+            >
+              <FontAwesomeIcon icon={faInstagram} size="3x" />
+            </a>
+            <a
+              href="https://www.facebook.com/profile.php?id=61556456963269"
+              target="_blank"
+            >
+              <FontAwesomeIcon icon={faFacebook} size="3x" />
+            </a>
+          </Socials>
+        </SectionContainer>
+      </Section>
     </MainPage>
   );
 };
 
 const MainPage = styled.main`
   background-color: ${Colors.red};
-  //   width: 100vw;
-  //   height: 100vh;
-  //   color: ${Colors.brown};
   background-image: url("/assets/background.png");
   background-position: center;
   background-size: cover;
@@ -217,6 +247,16 @@ const ProductsRow = styled.div`
   column-gap: 8px;
   overflow-x: scroll;
   ${SCREENS.lg} {
-   overflow-x: hidden;
+    overflow-x: hidden;
   }
 `;
+const Socials = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 16px;
+  color: ${Colors.white};
+`;
+
+
+export default LandingPage
