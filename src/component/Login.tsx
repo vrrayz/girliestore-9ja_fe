@@ -1,5 +1,7 @@
 import { sendLoginDetails } from "@/actions";
 import React from "react";
+import { GoogleLoginClient } from "./GoogleLoginClient";
+import { sendGoogleLoginDetails } from "@/actions/googleLogin";
 
 export const Login = () => {
   return (
@@ -12,6 +14,8 @@ export const Login = () => {
         <br />
         <input type="submit" value="Login" />
       </form>
+      <GoogleLoginClient sendGoogleLoginDetails={sendGoogleLoginDetails} />
+      <></>
     </div>
   );
 };
