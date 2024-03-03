@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function middleware(request: NextRequest) {
   const authPaths = ["/auth/login", "/auth/register"];
   if (authPaths.indexOf(request.nextUrl.pathname) !== -1) {
-    console.log("We should get a log here");
     const token = cookies().get("access_token")?.value;
 
     // check if token is undefined
@@ -22,8 +21,6 @@ export async function middleware(request: NextRequest) {
     });
     const res = await authRequest.json();
 
-    console.log(res);
-    console.log(request.url);
     // redirect to the homepage if the user is logged in already
     if (res.statusCode === 200) {
       return NextResponse.redirect(new URL("/", request.url));
