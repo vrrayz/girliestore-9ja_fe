@@ -1,11 +1,11 @@
 "use client";
 
-import { InputField } from "@/component/Input";
-import { Loading } from "@/component/Loading";
+import { InputField } from "@/components/Input";
+import { Loading } from "@/components/Loading";
 // import { LandingPage } from '@/component/LandingPage';
 import dynamic from "next/dynamic";
 
-const LandingPage = dynamic(() => import("@/component/LandingPage"), {
+const LandingPage = dynamic(() => import("@/components/LandingPage"), {
   ssr: false,
 });
 

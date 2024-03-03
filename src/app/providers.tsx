@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthContext } from "@/component/AuthContext";
+import { AuthContext } from "@/components/AuthContext";
 import React, { ReactNode } from "react";
 
 interface Props {
