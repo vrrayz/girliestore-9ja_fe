@@ -1,7 +1,7 @@
 "use client";
 
-import { login, redirect } from "@/actions";
-import React, { useState } from "react";
+import { login } from "@/actions";
+import React, { useEffect, useState } from "react";
 import { GoogleLoginClient } from "./GoogleLoginClient";
 import { sendGoogleLoginDetails } from "@/actions/googleLogin";
 import {
@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import { Colors } from "@/styles";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { redirect } from "next/navigation";
 
 type LoginFormInputs = {
   email: string;
@@ -27,13 +28,20 @@ export const Login = () => {
     formState: { errors },
   } = useForm<LoginFormInputs>();
   const [extraError, setExtraError] = useState<string>();
+  const [shouldRedirect, setShouldRedirect] = useState<boolean>();
 
   const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-    login(data).then((res) => {
+    login(data).then(async (res) => {
       setExtraError(res.statusCode !== 200 ? "Incorrect Credentials" : "");
-      if (res.statusCode === 200) redirect("/");
+      if (res.statusCode === 200) setShouldRedirect(true);
     });
   };
+
+  useEffect(() => {
+    if (shouldRedirect) {
+      redirect("/")
+    }
+  }, [shouldRedirect]);
 
   return (
     <main style={{ padding: "16px" }}>
@@ -80,9 +88,7 @@ export const Login = () => {
 
               <Input type="submit" value="Login" className="btn-primary mb-4" />
             </form>
-            <GoogleLoginClient
-              setExtraError={setExtraError}
-            />
+            <GoogleLoginClient setExtraError={setExtraError} setShouldRedirect={setShouldRedirect} />
             <div className="flex justify-between text-sm mt-2">
               <a href="#">Forgot your password?</a>
               <span>

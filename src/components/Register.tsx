@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GoogleLoginClient } from "./GoogleLoginClient";
 import {
   ErrorMessage,
@@ -13,7 +13,8 @@ import {
 // import Image from "next/image";
 import { Colors } from "@/styles";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { redirect, registerUser } from "@/actions";
+import { registerUser } from "@/actions";
+import { redirect } from "next/navigation";
 
 type RegistrationFormInputs = {
   name: string;
@@ -29,6 +30,7 @@ export const Register = () => {
     formState: { errors },
   } = useForm<RegistrationFormInputs>();
   const [extraError, setExtraError] = useState<string>();
+  const [shouldRedirect, setShouldRedirect] = useState<boolean>();
 
   const onSubmit: SubmitHandler<RegistrationFormInputs> = (data) => {
     if (data.confirm_password !== data.password) {
@@ -37,10 +39,17 @@ export const Register = () => {
       setExtraError("");
       registerUser(data).then((res) => {
         setExtraError(res.statusCode !== 200 ? res.message : "");
-        if (res.statusCode === 200) redirect("/");
+        if (res.statusCode === 200) setShouldRedirect(true);
+
       });
     }
   };
+
+  useEffect(() => {
+    if (shouldRedirect) {
+      redirect("/")
+    }
+  }, [shouldRedirect]);
  
   // use state for form validations
   return (
@@ -109,6 +118,7 @@ export const Register = () => {
             </form>
             <GoogleLoginClient
               setExtraError={setExtraError}
+              setShouldRedirect={setShouldRedirect}
             />
             <div className="flex justify-between text-sm mt-2">
               <a href="#">Forgot your password?</a>
