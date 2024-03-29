@@ -1,7 +1,23 @@
 "use client";
 
 import { Colors, Poppins, SCREENS } from "@/styles";
+import { IconDefinition } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
+
+interface Prop {
+  icon: IconDefinition;
+  placeholder: string;
+}
+
+export const CustomInput = ({ icon, placeholder }: Prop) => {
+  return (
+    <InputContainer>
+      <InputIcon icon={icon} />
+      <StyledInput placeholder={placeholder} />
+    </InputContainer>
+  );
+};
 
 export const FormContainer = styled.div`
   box-shadow: #00000059 0px 0px 14px 2px;
@@ -46,4 +62,20 @@ export const ErrorMessage = styled.span`
   color: ${Colors.red};
   margin-bottom: 8px;
   display: block;
+`;
+const InputContainer = styled.div`
+  display: flex;
+  border-radius: 12px;
+  background: ${Colors.whitesmoke};
+  padding: 8px 16px;
+  gap: 6px;
+`;
+const StyledInput = styled(Input)`
+  background: transparent;
+  border: none !important;
+  outline: none !important;
+`;
+const InputIcon = styled(FontAwesomeIcon)`
+  margin: auto;
+  color: #666;
 `;
