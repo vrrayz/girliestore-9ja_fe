@@ -8,11 +8,12 @@ import styled from "styled-components";
 interface Prop {
   icon: IconDefinition;
   placeholder: string;
+  className?: string;
 }
 
-export const CustomInput = ({ icon, placeholder }: Prop) => {
+export const CustomInput = ({ icon, placeholder, className }: Prop) => {
   return (
-    <InputContainer>
+    <InputContainer className={className}>
       <InputIcon icon={icon} />
       <StyledInput placeholder={placeholder} />
     </InputContainer>
@@ -65,10 +66,11 @@ export const ErrorMessage = styled.span`
 `;
 const InputContainer = styled.div`
   display: flex;
-  border-radius: 12px;
+  border-radius: 25px;
   background: ${Colors.whitesmoke};
   padding: 8px 16px;
   gap: 6px;
+  height: 42px
 `;
 const StyledInput = styled(Input)`
   background: transparent;
