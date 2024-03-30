@@ -48,3 +48,8 @@ input{
 ::-webkit-scrollbar-thumb:hover {
   background: #680f04;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
