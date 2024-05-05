@@ -4,6 +4,10 @@ import styled from "styled-components";
 import Image from "next/image";
 import { CustomInput } from "./Form";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { Toggler } from "./Toggler";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { UserToggler } from "./UserToggler";
 
 interface Props {
   headerTop: number;
@@ -13,7 +17,8 @@ export const Header = ({ headerTop }: Props) => {
   return (
     <HeaderContainer $headerTop={headerTop}>
       {/* Toggler Would be fixed at the top left */}
-      <div style={{ position: "fixed", top: "0px", left: "0px" }}>
+      <div style={{ position: "fixed", top: "12px", left: "12px", zIndex: "1" }}>
+        <Toggler />
       </div>
       {/* Logo and search */}
       <LogoAndSearchContainer>
@@ -31,7 +36,9 @@ export const Header = ({ headerTop }: Props) => {
         />
       </LogoAndSearchContainer>
       {/* User Dropdown would be fixed at the top right */}
-      <div style={{ position: "fixed", top: "0px", right: "0px" }}>User</div>
+      <div style={{ position: "fixed", top: "12px", right: "12px" }}>
+       <UserToggler />
+      </div>
     </HeaderContainer>
   );
 };

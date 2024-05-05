@@ -11,10 +11,10 @@ export const HomePage = () => {
   useEffect(() => {
     const handleScroll = () => {
       console.log(window.scrollY);
-      if (window.scrollY > 0 && window.scrollY <= 50) {
+      if (window.scrollY > 0 && window.scrollY <= 62) {
         setHeaderTop(window.scrollY);
       }
-      if (window.scrollY > 50) setHeaderTop(50);
+      if (window.scrollY > 62) setHeaderTop(62);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -31,10 +31,10 @@ export const HomePage = () => {
         <div className="p-4 mb-8" style={{ background: "#fff" }}>
           <HorizontalNavigation />
         </div>
+        {/* <ProductItemCard />
         <ProductItemCard />
         <ProductItemCard />
-        <ProductItemCard />
-        <ProductItemCard />
+        <ProductItemCard /> */}
       </section>
     </Body>
   );
