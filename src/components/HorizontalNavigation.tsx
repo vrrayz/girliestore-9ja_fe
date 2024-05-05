@@ -8,8 +8,8 @@ const HorizontalNavigation = () => {
   return (
     <OverflowContainer className="no-scrollbar">
       <NavigationContainer>
-        {categories.map((item, i) => (
-          <NavItem key={i}>{item}</NavItem>
+        {categories?.map((item, i) => (
+          <NavItem key={i}>{item.name}</NavItem>
         ))}
       </NavigationContainer>
     </OverflowContainer>

@@ -32,20 +32,20 @@ export const SidebarComponent = ({ toggleSidebar }: Props) => {
       <Sidebar>
         <div></div>
         <SidebarList>
-          {categories.map((item, i) => (
+          {categories?.map((item, i) => (
             <SidebarListItem href="#" key={i}>
-              {item}
+              {item.name}
             </SidebarListItem>
           ))}
           <SidebarListItem>
             {" "}
             <FontAwesomeIcon icon={faPhone} /> <span>Contact Us</span>
           </SidebarListItem>
-          <SidebarListItem>
+          <SidebarListItem href="/auth/login">
             <FontAwesomeIcon icon={faUser} />
             <span>Login</span>
           </SidebarListItem>
-          <SidebarListItem>
+          <SidebarListItem href="/auth/register">
             <FontAwesomeIcon icon={faUserPlus} />
             <span>Sign up</span>
           </SidebarListItem>
