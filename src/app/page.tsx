@@ -12,5 +12,6 @@ const LandingPage = dynamic(() => import("@/components/LandingPage"), {
 
 export default function Home() {
   // return <LandingPage />;
+  // Others coming soon
   return <HomePage />;
 }
