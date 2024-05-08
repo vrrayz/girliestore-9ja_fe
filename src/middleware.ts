@@ -1,30 +1,19 @@
 import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { getData } from "./actions";
 
+// This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-  const authPaths = ["/auth/login", "/auth/register"];
-  if (authPaths.indexOf(request.nextUrl.pathname) !== -1) {
-    const token = cookies().get("access_token")?.value;
+  const profileRequest = await getData("/user/myprofile");
 
-    // check if token is undefined
-    if (!token) {
-      console.log("Token not found");
-    }
-
-    // make api request and check if a user is returned
-    const authRequest = await fetch(`${process.env.BE_API_URL}/user/profile`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const res = await authRequest.json();
-
-    // redirect to the homepage if the user is logged in already
-    if (res.statusCode === 200) {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
-    //if the user isn't logged in already. allow the user to this page
+  if(profileRequest.statusCode === 200 && request.nextUrl.pathname.startsWith('/auth')){
+    return NextResponse.redirect(new URL("/", request.url));
   }
+  if(profileRequest.statusCode !== 200 && request.nextUrl.pathname.startsWith('/vendor')){
+    return NextResponse.redirect(new URL("/auth/login", request.url));
+  }
+  return NextResponse.next()
 }
+
+// See "Matching Paths" below to learn more
