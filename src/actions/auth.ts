@@ -1,6 +1,14 @@
 "use server";
 import { cookies } from "next/headers";
-import { postData } from ".";
+import { getData, postData } from ".";
+
+export const isUserAuthenticated = async () => {
+  const request = await getData("/user/profile");
+  if (request.statusCode === 200) {
+    return true;
+  }
+  return false;
+};
 
 export const login = async (data = {}) => {
   const loginRequest = await postData("/auth/login", data);
@@ -17,6 +25,10 @@ export const login = async (data = {}) => {
     statusCode: loginRequest.statusCode,
     message: loginRequest.message,
   };
+};
+
+export const logout = async () => {
+  cookies().delete("access_token");
 };
 
 export const registerUser = async (data = {}) => {
@@ -36,5 +48,3 @@ export const registerUser = async (data = {}) => {
     message: request.message,
   };
 };
-
-

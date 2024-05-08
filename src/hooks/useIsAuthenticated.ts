@@ -1,24 +1,16 @@
+import { isUserAuthenticated } from "@/actions";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const useIsAuthenticated = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const router = useRouter();
+    useEffect(() => {
+      isUserAuthenticated().then((res) => {
+        setIsLoggedIn(res);
+      });
+    },[]);
 
-  useEffect(() => {
-    (async () => {
-      const isUserAuthenticated = await isAuthenticated();
-
-      if (!isUserAuthenticated) {
-        router.push("/auth/login");
-        return;
-      }
-
-      setIsLoggedIn(true);
-    })();
-  }, [router]);
-
-  return { isLoggedIn };
+  return { isLoggedIn, setIsLoggedIn };
 };
 
 const isAuthenticated = async () => {

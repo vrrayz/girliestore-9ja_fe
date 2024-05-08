@@ -4,9 +4,17 @@ import styled from "styled-components";
 import { MobileNavToggler, ToggleMenuContainer } from "./Toggler";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { useIsAuthenticated } from "@/hooks/useIsAuthenticated";
+import { logout } from "@/actions";
 
 export const UserToggler = () => {
   const [isNavToggled, setIsNavToggled] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useIsAuthenticated();
+
+  const logoutAction = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    event.preventDefault()
+    logout().then(res => setIsLoggedIn(false))
+  }
   return (
     <ToggleMenuContainer>
       <UserNavToggler
@@ -21,8 +29,8 @@ export const UserToggler = () => {
           <div className="dropdown-container">
             <a href="#">My Orders</a>
             <a href="#">Profile Settings</a>
-            <a href="#">Log Out</a>
-            <a href="#">Log In / Sign up</a>
+            {isLoggedIn && <a href="#" onClick={(event) => logoutAction(event)}>Log Out</a>}
+            {!isLoggedIn && <a href="/auth/login">Log In / Sign up</a>}
           </div>
         </UserDropdown>
       )}
@@ -71,7 +79,7 @@ const UserDropdown = styled.div`
     flex-direction: column;
   }
 
-  .dropdown-container a{
+  .dropdown-container a {
     padding: 8px 16px;
     font-size: 0.8rem;
     border-bottom: 1px solid ${Colors.lightgray}8a;
