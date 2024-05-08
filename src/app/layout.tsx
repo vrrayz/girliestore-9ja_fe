@@ -4,6 +4,8 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { cookies } from "next/headers";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Body } from "@/components/Styled";
+import { Header } from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +24,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <GoogleOAuthProvider clientId={`${process.env.GOOGLE_CLIENT_ID}`}>
-          <Providers access_token={access_token}>{children}</Providers>
+          {/* <Providers access_token={access_token}>{children}</Providers> */}
+          <Body>
+            <Header displaySearch={true} />
+            <div></div>
+            {children}
+          </Body>
         </GoogleOAuthProvider>
       </body>
     </html>
