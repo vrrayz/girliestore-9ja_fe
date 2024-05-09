@@ -25,11 +25,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <GoogleOAuthProvider clientId={`${process.env.GOOGLE_CLIENT_ID}`}>
           {/* <Providers access_token={access_token}>{children}</Providers> */}
-          <Body>
-            <Header displaySearch={true} />
-            <div></div>
-            {children}
-          </Body>
+          {children}
         </GoogleOAuthProvider>
       </body>
     </html>

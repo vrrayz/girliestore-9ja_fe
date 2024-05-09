@@ -41,22 +41,24 @@ export const Header = ({ displaySearch }: Props) => {
         <Toggler />
       </div>
       {/* Logo and search */}
-      {displaySearch && (
-        <LogoAndSearchContainer>
-          <Image
-            src="/assets/logo.png"
-            width={50}
-            height={50}
-            alt="Logo"
-            className="mx-auto mb-3 logo"
-          />
+
+      <LogoAndSearchContainer>
+        <Image
+          src="/assets/logo.png"
+          width={50}
+          height={50}
+          alt="Logo"
+          className="mx-auto mb-3 logo"
+        />
+        {displaySearch && (
           <CustomInput
             icon={faSearch}
             placeholder={"Search"}
             className="w-full mx-auto header-input"
           />
-        </LogoAndSearchContainer>
-      )}
+        )}
+      </LogoAndSearchContainer>
+
       {/* User Dropdown would be fixed at the top right */}
       <div style={{ position: "fixed", top: "12px", right: "12px" }}>
         <UserToggler />
