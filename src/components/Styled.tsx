@@ -2,11 +2,16 @@
 
 import styled from "styled-components";
 
-export const Body = ({ children }: { children: React.ReactNode }) => {
-  return <MainBody>{children}</MainBody>;
+interface Props {
+  children: React.ReactNode;
+  headerSpace?: number;
+}
+
+export const Body = ({ children, headerSpace }: Props) => {
+  return <MainBody $headerSpace={headerSpace}>{children}</MainBody>;
 };
 
-export const MainBody = styled.div`
+export const MainBody = styled.div<{ $headerSpace?: number }>`
   display: grid;
-  grid-template-rows: 120px 1fr;
+  grid-template-rows: ${(props) => props.$headerSpace || 120}px 1fr;
 `;

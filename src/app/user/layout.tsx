@@ -16,7 +16,7 @@ export default function StoreLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Body>
+    <Body headerSpace={80}>
       <Header displaySearch={false} />
       <div></div>
       {children}
