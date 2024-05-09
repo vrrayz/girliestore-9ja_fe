@@ -49,6 +49,13 @@ export const Input = styled.input`
     border-color: ${Colors.saddlebrown};
   }
 `;
+export const TextArea = styled.textarea`
+  border: 1px solid #717171;
+  padding: 6px 8px;
+  width: 100%;
+  border-radius: 3px;
+  font-family: ${Poppins};
+`;
 export const Label = styled.label`
   font-family: ${Poppins};
 `;
@@ -70,7 +77,7 @@ const InputContainer = styled.div`
   background: ${Colors.whitesmoke};
   padding: 8px 16px;
   gap: 6px;
-  height: 42px
+  height: 42px;
 `;
 const StyledInput = styled(Input)`
   background: transparent;
