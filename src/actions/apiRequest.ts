@@ -2,14 +2,13 @@
 
 import { cookies } from "next/headers";
 
-
 const defaultContentType = "application/x-www-form-urlencoded";
 
 export async function postData(
   url = "",
   data = {},
   method = "POST",
-  contentType = defaultContentType
+  contentType: string | undefined = defaultContentType
 ) {
   const response = await fetch(`${process.env.BE_API_URL}${url}`, {
     method: method,
@@ -17,7 +16,25 @@ export async function postData(
       "Content-Type": contentType,
       Authorization: `Bearer ${cookies().get("access_token")?.value}`,
     },
-    body: contentType === "application/json" ? JSON.stringify(data) : new URLSearchParams(data),
+    body:
+      contentType === "application/json"
+        ? JSON.stringify(data)
+        : new URLSearchParams(data),
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+export async function postDataUpload(
+  url = "",
+  data: FormData,
+  method = "POST"
+) {
+  const response = await fetch(`${process.env.BE_API_URL}${url}`, {
+    method: method,
+    headers: {
+      Authorization: `Bearer ${cookies().get("access_token")?.value}`,
+    },
+    body: data,
   });
   return response.json(); // parses JSON response into native JavaScript objects
 }
