@@ -30,7 +30,7 @@ export const Header = ({ displaySearch }: Props) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [displaySearch]);
   return (
     <HeaderContainer $headerTop={headerTop}>
       {/* Toggler Would be fixed at the top left */}
