@@ -8,6 +8,7 @@ import { ErrorMessage, FormContainer, Input, Label, TextArea } from "../Form";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { addShop } from "@/actions/store";
 import { useShops } from "@/hooks/useShops";
+import { Loading } from "../Loading";
 
 type ShopInput = {
   name: string;
@@ -17,7 +18,7 @@ type ShopInput = {
 };
 
 export const Stores = () => {
-  const { shops, setShops } = useShops();
+  const { shops, setShops, isLoading, setIsLoading } = useShops();
   const [storeImage, setStoreImage] = useState<string>();
   const [inputFile, setInputFile] = useState<FileList>();
   const {
@@ -29,6 +30,7 @@ export const Stores = () => {
   });
 
   const onSubmit: SubmitHandler<ShopInput> = (data) => {
+    setIsLoading(true)
     let formData = new FormData()
     formData.append('name',data.name)
     formData.append('address',data.address)
@@ -39,11 +41,13 @@ export const Stores = () => {
       console.log("This is the response ",res)
       //   setExtraError(res.statusCode !== 200 ? "Incorrect Credentials" : "");
       if (res.statusCode === 200) {
+        console.log("Response success")
         // setShops((prev) => [
         //   ...prev,
         //   { id: res.data.id, name: res.data.name },
         // ]);
       }
+      setIsLoading(false)
     });
   };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,8 +61,10 @@ export const Stores = () => {
   };
   const isInCorrectFormat = (blob: Blob) =>
     !blob || (blob.type !== "image/jpeg" && blob.type !== "image/png");
+  // if(isLoading) return <Loading />
   return (
     <section style={{ width: "100vw" }}>
+      {isLoading && <Loading />}
       <CustomFormContainer>
         <div className="lg:w-1/2 px-6 py-16">
           <form onSubmit={handleSubmit(onSubmit)}>
