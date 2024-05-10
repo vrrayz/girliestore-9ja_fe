@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
+import { Overlay } from "./Styled";
 
 interface Props {
   toggleSidebar: (value: boolean) => void;
@@ -25,7 +26,7 @@ export const SidebarComponent = ({ toggleSidebar }: Props) => {
   };
 
   return (
-    <SidebarOverlay
+    <Overlay
       id="sidebar-overlay"
       onClick={(event) => closeSidebar(event)}
     >
@@ -51,19 +52,11 @@ export const SidebarComponent = ({ toggleSidebar }: Props) => {
           </SidebarListItem>
         </SidebarList>
       </Sidebar>
-    </SidebarOverlay>
+    </Overlay>
   );
 };
 
-const SidebarOverlay = styled.div`
-  position: fixed;
-  width: 100vw;
-  top: 0;
-  height: 100vh;
-  left: 0;
-  background: ${Colors.overlayDark};
-  backdrop-filter: blur(1px);
-`;
+
 const Sidebar = styled.div`
   width: 70%;
   height: 100%;
