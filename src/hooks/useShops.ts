@@ -3,7 +3,7 @@ import { Category, Shop } from "@/types";
 import { useEffect, useState } from "react";
 
 export const useShops = () => {
-  const [shops, setShops] = useState<Shop[]>([]);
+  const [shops, setShops] = useState<Shop[]>();
   useEffect(() => {
     getShops().then((res) => {
       setShops(res);
