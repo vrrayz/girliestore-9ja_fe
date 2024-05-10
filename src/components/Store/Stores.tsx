@@ -63,7 +63,7 @@ export const Stores = () => {
     !blob || (blob.type !== "image/jpeg" && blob.type !== "image/png");
   // if(isLoading) return <Loading />
   return (
-    <section style={{ width: "100vw" }}>
+    <section style={{ width: "100vw", zIndex: '0' }}>
       {isLoading && <Loading />}
       <CustomFormContainer>
         <div className="lg:w-1/2 px-6 py-16">

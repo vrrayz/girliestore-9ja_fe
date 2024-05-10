@@ -7,8 +7,6 @@ import Image from "next/image";
 import { CustomInput } from "./Form";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Toggler } from "./Toggler";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { UserToggler } from "./UserToggler";
 
 interface Props {
@@ -19,11 +17,12 @@ export const Header = ({ displaySearch }: Props) => {
   const [headerTop, setHeaderTop] = useState<number>(0);
   useEffect(() => {
     const handleScroll = () => {
-      console.log(window.scrollY);
-      if (window.scrollY > 0 && window.scrollY <= 62) {
-        setHeaderTop(window.scrollY);
+      if (displaySearch) {
+        if (window.scrollY > 0 && window.scrollY <= 62) {
+          setHeaderTop(window.scrollY);
+        }
+        if (window.scrollY > 62) setHeaderTop(62);
       }
-      if (window.scrollY > 62) setHeaderTop(62);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -75,6 +74,7 @@ const HeaderContainer = styled.header<{ $headerTop: number }>`
   box-shadow: #00000059 0px -1px 4px 1px;
   padding: 12px 16px;
   width: 100vw;
+  z-index: 1;
   top: ${(props) => 0 - props.$headerTop}px;
   //   transition: top 0ms;
 

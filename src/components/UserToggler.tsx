@@ -78,6 +78,7 @@ const UserDropdown = styled.div`
     border-radius: 6px;
     display: flex;
     flex-direction: column;
+    z-index: 10000;
   }
 
   .dropdown-container a {
