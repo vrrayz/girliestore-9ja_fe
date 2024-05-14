@@ -7,4 +7,5 @@ export const Colors = {
   overlayDark: "#000000b3",
   lightgray: "#cbcbcb",
   darkslategray: "#414141",
+  black: "#000",
 };
