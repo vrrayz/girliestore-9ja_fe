@@ -1,7 +1,7 @@
 import { deleteData, getData, postData, postDataUpload } from "./apiRequest";
 
 export const getShops = async () => {
-  const request = await getData("/shop/");
+  const request = await getData("/shop");
   if (request.statusCode === 200) {
     return request.data;
   }

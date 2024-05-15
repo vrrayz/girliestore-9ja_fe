@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Colors } from "@/styles";
+import { Colors, SCREENS } from "@/styles";
 import Image from "next/image";
 import { ErrorMessage, FormContainer, Input, Label, TextArea } from "../Form";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -11,10 +11,20 @@ import { useShops } from "@/hooks/useShops";
 import { Loading } from "../Loading";
 import { Button } from "../Buttons";
 import { AddStoreModal } from "./AddStoreModal";
+import {
+  CardBody,
+  CardBodyHeadingOne,
+  CardBodyText,
+  CardContainer,
+} from "../Card";
 
 export const Stores = () => {
   const { shops, setShops, isLoading, setIsLoading } = useShops();
   const [showModal, setShowModal] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log("Shops from ui ",shops) 
+  })
 
   // if(isLoading) return <Loading />
   return (
@@ -26,9 +36,27 @@ export const Stores = () => {
         </div>
       </CustomFormContainer> */}
       <SectionHeader className="my-3">
-        <Button className="btn-primary" onClick={() => setShowModal(true)}>Add Store</Button>
+        <Button className="btn-primary" onClick={() => setShowModal(true)}>
+          Add Store
+        </Button>
       </SectionHeader>
-      {showModal && <AddStoreModal setShowModal={setShowModal} setIsLoading={setIsLoading} />}
+      {showModal && (
+        <AddStoreModal
+          setShowModal={setShowModal}
+          setIsLoading={setIsLoading}
+        />
+      )}
+      <StoreList>
+        {shops?.map((shop, i) => (
+          <StoreItem key={i} className="mb-2">
+            <Image src={shop.photo_url || "/assets/icons/toast_success.svg"} width={78} height={78} alt="shop_image" />
+            <CardBody>
+              <CardBodyHeadingOne>{shop.name}</CardBodyHeadingOne>
+              <CardBodyText>{shop.address}</CardBodyText>
+            </CardBody>
+          </StoreItem>
+        ))}
+      </StoreList>
     </section>
   );
 };
@@ -44,3 +72,38 @@ const SectionHeader = styled.div`
     max-width: 200px;
   }
 `;
+const StoreItem = styled(CardContainer)`
+  display: flex;
+  padding: 0px 8px;
+  border-radius: 12px;
+  transform: scale(1);
+  transition: transform 500ms;
+  img {
+    width: 25%;
+    max-width: 70px;
+    max-height: 70px;
+    margin: auto;
+    border-radius: 8px;
+  }
+  &:hover{
+    transform: scale(1.05);
+    box-shadow: 1px 1px 3px 0px #0000008a;
+    background-color: ${Colors.red};
+    color: ${Colors.white};
+  }
+  ${CardBody} {
+    width: 100%;
+  }
+`;
+const StoreList = styled.div`
+padding: 16px;
+${SCREENS.md}{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;   
+}
+${SCREENS.lg}{
+  grid-template-columns: repeat(3, 1fr);
+}
+
+`
