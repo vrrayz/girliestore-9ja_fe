@@ -1,15 +1,13 @@
 import { useCategories } from "@/hooks/useCategories";
 import { Colors, Poppins } from "@/styles";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-import {
-  faPhone,
-  faPhoneAlt,
-  faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPhone, faShop, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
-import { Overlay } from "./Styled";
+import { Overlay } from "../Styled";
+import { SidebarItemDropdown } from "./SidebarItemDropdown";
+import { storeLinks } from "@/actions/store";
 
 interface Props {
   toggleSidebar: (value: boolean) => void;
@@ -26,10 +24,7 @@ export const SidebarComponent = ({ toggleSidebar }: Props) => {
   };
 
   return (
-    <Overlay
-      id="sidebar-overlay"
-      onClick={(event) => closeSidebar(event)}
-    >
+    <Overlay id="sidebar-overlay" onClick={(event) => closeSidebar(event)}>
       <Sidebar>
         <div></div>
         <SidebarList>
@@ -38,6 +33,11 @@ export const SidebarComponent = ({ toggleSidebar }: Props) => {
               {item.name}
             </SidebarListItem>
           ))}
+          <SidebarItemDropdown
+            dropdownIconName={faShop}
+            dropdownItems={storeLinks}
+            sidebarItemName="Store"
+          />
           <SidebarListItem>
             {" "}
             <FontAwesomeIcon icon={faPhone} /> <span>Contact Us</span>
@@ -56,7 +56,6 @@ export const SidebarComponent = ({ toggleSidebar }: Props) => {
   );
 };
 
-
 const Sidebar = styled.div`
   width: 70%;
   height: 100%;
@@ -71,7 +70,7 @@ const SidebarList = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const SidebarListItem = styled.a`
+export const SidebarListItem = styled.a`
   padding: 12px 24px;
   font-size: 0.8rem;
   display: flex;

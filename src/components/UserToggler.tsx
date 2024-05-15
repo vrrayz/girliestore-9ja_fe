@@ -29,7 +29,6 @@ export const UserToggler = () => {
           <div className="dropdown-container">
             <a href="#">My Orders</a>
             <a href="#">Profile Settings</a>
-            <a href="/user/store">Store</a>
             {isLoggedIn && <a href="#" onClick={(event) => logoutAction(event)}>Log Out</a>}
             {!isLoggedIn && <a href="/auth/login">Log In / Sign up</a>}
           </div>

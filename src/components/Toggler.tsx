@@ -1,7 +1,7 @@
 import { SCREENS } from "@/styles";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { SidebarComponent } from "./Sidebar";
+import { SidebarComponent } from "./Sidebar/Sidebar";
 
 export const Toggler = () => {
   const [isNavToggled, setIsNavToggled] = useState(false);

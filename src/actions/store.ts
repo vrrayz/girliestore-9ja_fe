@@ -1,4 +1,11 @@
+import { link } from "fs";
 import { deleteData, getData, postData, postDataUpload } from "./apiRequest";
+
+export const storeLinks = [
+  { name: "My stores", link: "/user/store" },
+  { name: "Products", link: "/user/product" },
+  { name: "Orders", link: "#" },
+];
 
 export const getShops = async () => {
   const request = await getData("/shop");
