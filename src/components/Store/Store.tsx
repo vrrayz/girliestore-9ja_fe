@@ -23,6 +23,7 @@ import {
   CardContainer,
 } from "../Card";
 import { useShop } from "@/hooks/useShop";
+import { ProductItemCard, ProductListContainer } from "../ProductItemCard";
 
 interface Props {
   id: number;
@@ -74,22 +75,11 @@ export const Store = ({ id }: Props) => {
             />
           )}
 
-          {shop.products.map((product, i) => (
-            <StoreList key={i}>
-              <StoreItem className="mb-2">
-                <Image
-                  src={product.photos[0].url || "/assets/icons/toast_success.svg"}
-                  width={78}
-                  height={78}
-                  alt="shop_image"
-                />
-                <CardBody>
-                  <CardBodyHeadingOne>{product.name}</CardBodyHeadingOne>
-                  {/* <CardBodyText>{shop.address}</CardBodyText> */}
-                </CardBody>
-              </StoreItem>
-            </StoreList>
-          ))}
+          <ProductListContainer>
+            {shop.products.map((product, i) => (
+              <ProductItemCard product={product} key={i} />
+            ))}
+          </ProductListContainer>
         </>
       )}
     </section>
@@ -148,7 +138,7 @@ const StoreItem = styled(CardContainer)`
   }
 `;
 const StoreList = styled.div`
-//   padding: 16px;
+  //   padding: 16px;
   ${SCREENS.md} {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
