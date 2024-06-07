@@ -21,13 +21,19 @@ Since the majority of this project is still in developement, here's a list of th
 
 ```
 ************** TODO **************
+Display All Products On The First Page
+User View Product Details
+User Order Product
+Store Owner / Admin View Order(s)
+Store Owner / Admin Starts Processing the Order
+
+Add New Product From Store
 Add middlewares/restrictions That lets only the admin create the stores
-Admin View the stores
-Shift the layout of the Create stores page to a modal(under consideration)
 **********************************
 
 ************** Finished **************
 Create Store Feature (Done)
+Admin View the stores
 **************************************
 ```
 
