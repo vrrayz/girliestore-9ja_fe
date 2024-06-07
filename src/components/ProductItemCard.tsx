@@ -24,8 +24,13 @@ export const ProductItemCard = ({ product }: Props) => {
       />
       <CardBody>
         <CardBodyHeadingOne>{product.name}</CardBodyHeadingOne>
-        <CardBodyHeadingTwo>&pound;24,999.99</CardBodyHeadingTwo>
-        <CardBodyText>10 peices</CardBodyText>
+        <CardBodyHeadingTwo>
+          {new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "NGN",
+          }).format(product.price)}
+        </CardBodyHeadingTwo>
+        <CardBodyText>{product.quantity} Items</CardBodyText>
       </CardBody>
     </ProductItemCardContainer>
   );

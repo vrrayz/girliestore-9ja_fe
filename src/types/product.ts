@@ -7,6 +7,8 @@ export interface Product {
   photos: {
     url: string;
   }[];
+  quantity: number;
+  price: number;
   createdAt: Date;
   updatedAt: Date;
 }
