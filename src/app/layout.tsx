@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Providers } from "./providers";
+import "@fortawesome/fontawesome-svg-core/styles.css"
 import { cookies } from "next/headers";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { Body } from "@/components/Styled";
-import { Header } from "@/components/Header";
+import StyledComponentsRegistry from "@/lib/registry";
+import { config } from "@fortawesome/fontawesome-svg-core";
 
 const inter = Inter({ subsets: ["latin"] });
+config.autoAddCss = false;
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,10 +24,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <GoogleOAuthProvider clientId={`${process.env.GOOGLE_CLIENT_ID}`}>
-          {/* <Providers access_token={access_token}>{children}</Providers> */}
-          {children}
-        </GoogleOAuthProvider>
+        <StyledComponentsRegistry>
+          <GoogleOAuthProvider clientId={`${process.env.GOOGLE_CLIENT_ID}`}>
+            {/* <Providers access_token={access_token}>{children}</Providers> */}
+            {children}
+          </GoogleOAuthProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
