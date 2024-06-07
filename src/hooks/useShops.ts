@@ -1,5 +1,5 @@
 import { getShops } from "@/actions/store";
-import { Category, Shop } from "@/types";
+import { Shop } from "@/types";
 import { useEffect, useState } from "react";
 
 export const useShops = () => {

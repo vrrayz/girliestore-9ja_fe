@@ -22,11 +22,6 @@ export const Stores = () => {
   const { shops, setShops, isLoading, setIsLoading } = useShops();
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  useEffect(() => {
-    console.log("Shops from ui ",shops) 
-  })
-
-  // if(isLoading) return <Loading />
   return (
     <section style={{ width: "100vw" }}>
       {isLoading && <Loading />}
@@ -48,7 +43,7 @@ export const Stores = () => {
       )}
       <StoreList>
         {shops?.map((shop, i) => (
-          <StoreItem key={i} className="mb-2">
+          <StoreItem as={"a"} href={`/user/store/${shop.id}`} key={i} className="mb-2">
             <Image src={shop.photo_url || "/assets/icons/toast_success.svg"} width={78} height={78} alt="shop_image" />
             <CardBody>
               <CardBodyHeadingOne>{shop.name}</CardBodyHeadingOne>

@@ -15,6 +15,14 @@ export const getShops = async () => {
   return request;
 };
 
+export const getShop = async (id: number) => {
+  const request = await getData(`/shop/${id}`);
+  if (request.statusCode === 200) {
+    return request.data;
+  }
+  return request;
+};
+
 export const addShop = async (data: FormData) => {
   const request = await postDataUpload("/shop/create", data, "POST");
   return {

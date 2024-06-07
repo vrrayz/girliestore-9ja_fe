@@ -1,3 +1,4 @@
+import { Product } from "./product";
 import { User } from "./user";
 
 export interface Shop {
@@ -10,4 +11,5 @@ export interface Shop {
   createdAt: Date;
   updatedAt: Date;
   owner: User;
+  products: Product[];
 }
