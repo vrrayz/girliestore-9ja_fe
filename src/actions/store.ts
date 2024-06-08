@@ -7,7 +7,7 @@ export const storeLinks = [
   { name: "Orders", link: "#" },
 ];
 
-export const getShops = async () => {
+export const getStores = async () => {
   const request = await getData("/shop");
   if (request.statusCode === 200) {
     return request.data;
@@ -15,7 +15,7 @@ export const getShops = async () => {
   return request;
 };
 
-export const getShop = async (id: number) => {
+export const getStore = async (id: number) => {
   const request = await getData(`/shop/${id}`);
   if (request.statusCode === 200) {
     return request.data;
@@ -23,7 +23,7 @@ export const getShop = async (id: number) => {
   return request;
 };
 
-export const addShop = async (data: FormData) => {
+export const addStore = async (data: FormData) => {
   const request = await postDataUpload("/shop/create", data, "POST");
   return {
     statusCode: request.statusCode,

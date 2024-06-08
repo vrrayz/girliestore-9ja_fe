@@ -22,7 +22,7 @@ import {
   CardBodyText,
   CardContainer,
 } from "../Card";
-import { useShop } from "@/hooks/useShop";
+import { useStore } from "@/hooks/useStore";
 import { ProductItemCard, ProductListContainer } from "../ProductItemCard";
 
 interface Props {
@@ -30,24 +30,24 @@ interface Props {
 }
 
 export const Store = ({ id }: Props) => {
-  const { shop, setShop, isLoading, setIsLoading } = useShop(id);
+  const { store, setStore, isLoading, setIsLoading } = useStore(id);
   const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("Shops from ui ", shop);
+    console.log("Shops from ui ", store);
   });
 
   // if(isLoading) return <Loading />
   return (
     <section style={{ width: "100vw" }}>
       {isLoading && <Loading />}
-      {shop && (
+      {store && (
         <>
           <Image
-            src={shop?.photo_url || "/assets/icons/toast_success.svg"}
+            src={store?.photo_url || "/assets/icons/toast_success.svg"}
             width={200}
             height={200}
-            alt="shop_image"
+            alt="store_image"
             className="mx-auto my-4"
           />
           <StoreInfoContainer>
@@ -55,11 +55,11 @@ export const Store = ({ id }: Props) => {
               <CardBodyHeadingOne>Store Info</CardBodyHeadingOne>
               <CardBodyText>
                 <FontAwesomeIcon icon={faGlobe} />
-                <span>{shop.address}</span>
+                <span>{store.address}</span>
               </CardBodyText>
               <CardBodyText>
                 <FontAwesomeIcon icon={faInfoCircle} />
-                <span>{shop.description}</span>
+                <span>{store.description}</span>
               </CardBodyText>
             </CardBody>
           </StoreInfoContainer>
@@ -76,7 +76,7 @@ export const Store = ({ id }: Props) => {
           )}
 
           <ProductListContainer>
-            {shop.products.map((product, i) => (
+            {store.products.map((product, i) => (
               <ProductItemCard product={product} key={i} />
             ))}
           </ProductListContainer>

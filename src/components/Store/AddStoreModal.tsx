@@ -15,7 +15,7 @@ import { ErrorMessage, Input, Label, TextArea } from "../Form";
 import { register } from "module";
 import styled from "styled-components";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { addShop } from "@/actions/store";
+import { addStore } from "@/actions/store";
 
 interface Props {
   setShowModal: (value: boolean) => void;
@@ -54,13 +54,13 @@ export const AddStoreModal = ({ setShowModal, setIsLoading }: Props) => {
     formData.append("description", data.description);
     formData.append("file", data.file[0]);
 
-    addShop(formData).then(async (res) => {
+    addStore(formData).then(async (res) => {
       console.log("This is the response ", res);
       //   setExtraError(res.statusCode !== 200 ? "Incorrect Credentials" : "");
       if (res.statusCode === 200) {
         console.log("Response success");
         setShowModal(false);
-        // setShops((prev) => [
+        // setStores((prev) => [
         //   ...prev,
         //   { id: res.data.id, name: res.data.name },
         // ]);

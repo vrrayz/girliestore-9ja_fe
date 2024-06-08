@@ -6,8 +6,7 @@ import { Colors, SCREENS } from "@/styles";
 import Image from "next/image";
 import { ErrorMessage, FormContainer, Input, Label, TextArea } from "../Form";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { addShop } from "@/actions/store";
-import { useShops } from "@/hooks/useShops";
+import { addStore } from "@/actions/store";
 import { Loading } from "../Loading";
 import { Button } from "../Buttons";
 import { AddStoreModal } from "./AddStoreModal";
@@ -17,9 +16,10 @@ import {
   CardBodyText,
   CardContainer,
 } from "../Card";
+import { useStores } from "@/hooks/useStores";
 
 export const Stores = () => {
-  const { shops, setShops, isLoading, setIsLoading } = useShops();
+  const { stores, setStores, isLoading, setIsLoading } = useStores();
   const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
@@ -42,12 +42,12 @@ export const Stores = () => {
         />
       )}
       <StoreList>
-        {shops?.map((shop, i) => (
-          <StoreItem as={"a"} href={`/user/store/${shop.id}`} key={i} className="mb-2">
-            <Image src={shop.photo_url || "/assets/icons/toast_success.svg"} width={78} height={78} alt="shop_image" />
+        {stores?.map((store, i) => (
+          <StoreItem as={"a"} href={`/user/store/${store.id}`} key={i} className="mb-2">
+            <Image src={store.photo_url || "/assets/icons/toast_success.svg"} width={78} height={78} alt="store_image" />
             <CardBody>
-              <CardBodyHeadingOne>{shop.name}</CardBodyHeadingOne>
-              <CardBodyText>{shop.address}</CardBodyText>
+              <CardBodyHeadingOne>{store.name}</CardBodyHeadingOne>
+              <CardBodyText>{store.address}</CardBodyText>
             </CardBody>
           </StoreItem>
         ))}
