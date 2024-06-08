@@ -1,4 +1,3 @@
-import { link } from "fs";
 import { deleteData, getData, postData, postDataUpload } from "./apiRequest";
 
 export const storeLinks = [
