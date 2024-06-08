@@ -42,13 +42,15 @@ export const Header = ({ displaySearch }: Props) => {
       {/* Logo and search */}
 
       <LogoAndSearchContainer>
-        <Image
-          src="/assets/logo.png"
-          width={50}
-          height={50}
-          alt="Logo"
-          className="mx-auto mb-3 logo"
-        />
+        <a href="/" className="mx-auto mb-3">
+          <Image
+            src="/assets/logo.png"
+            width={50}
+            height={50}
+            alt="Logo"
+            className="logo"
+          />
+        </a>
         {displaySearch && (
           <CustomInput
             icon={faSearch}
