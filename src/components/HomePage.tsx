@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Body } from "./Styled";
 import { Header } from "./Header";
 import { useProducts } from "@/hooks/useProducts";
-import { Loading } from "./Loading";
+import { Loading, LoadingLogo } from "./Loading";
 import { ProductItemCard, ProductListContainer } from "./ProductItemCard";
 
 export const HomePage = () => {
@@ -18,7 +18,7 @@ export const HomePage = () => {
         <div className="p-4 mb-8" style={{ background: "#fff" }}>
           <HorizontalNavigation />
         </div>
-        {isLoading && <Loading />}
+        {isLoading && <LoadingLogo />}
         <ProductListContainer>
           {products?.map((product, i) => (
             <ProductItemCard product={product} key={i} />

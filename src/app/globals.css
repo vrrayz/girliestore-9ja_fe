@@ -63,3 +63,12 @@ input{
     transform: rotate(360deg);
   }
 }
+
+@keyframes scaleLoading {
+  0%{
+    transform: scale(1);
+  }
+  100%{
+    transform: scale(1.05);
+  }
+}
