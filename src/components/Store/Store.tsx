@@ -24,20 +24,23 @@ import {
 } from "../Card";
 import { useStore } from "@/hooks/useStore";
 import { ProductItemCard, ProductListContainer } from "../ProductItemCard";
+import { paramsToId } from "@/helpers";
+import { useParamsRedirect } from "@/hooks/useParamsRedirect";
 
 interface Props {
-  id: number;
+  id: string;
 }
 
 export const Store = ({ id }: Props) => {
-  const { store, setStore, isLoading, setIsLoading } = useStore(id);
+  const { store, setStore, isLoading, setIsLoading } = useStore(
+    paramsToId(id)
+  );
+  const {} = useParamsRedirect(id, store?.name);
   const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     console.log("Shops from ui ", store);
   });
-
-  // if(isLoading) return <Loading />
   return (
     <section style={{ width: "100vw" }}>
       {isLoading && <Loading />}
@@ -76,7 +79,7 @@ export const Store = ({ id }: Props) => {
           )}
 
           <ProductListContainer>
-            {store.products.map((product, i) => (
+            {store.products?.map((product, i) => (
               <ProductItemCard product={product} key={i} />
             ))}
           </ProductListContainer>
