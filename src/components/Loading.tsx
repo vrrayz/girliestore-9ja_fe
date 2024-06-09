@@ -35,12 +35,13 @@ const LogoContainer = styled.div`
   flex-direction: column;
 
   img {
+    opacity: 0.65;
     margin: 0 auto;
     transform: scale(1);
     animation: scaleLoading;
     animation-duration: 1.5s;
     animation-iteration-count: infinite;
-    animation-timing-function: linear;
+    animation-timing-function: ease-in;
   }
 `;
 
