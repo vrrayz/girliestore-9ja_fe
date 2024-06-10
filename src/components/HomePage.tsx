@@ -9,7 +9,7 @@ import { Loading, LoadingLogo } from "./Loading";
 import { ProductItemCard, ProductListContainer } from "./Products/ProductItemCard";
 
 export const HomePage = () => {
-  const { products, setProducts, isLoading } = useProducts();
+  const { products, isLoading } = useProducts();
   return (
     <Body>
       <Header displaySearch={true} />
