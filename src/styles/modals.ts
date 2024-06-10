@@ -41,4 +41,6 @@ export const CloseButton = styled.button`
 `;
 export const ModalBody = styled.div`
   padding: 8px 16px;
+  max-height: 600px;
+  overflow-y: scroll;
 `;

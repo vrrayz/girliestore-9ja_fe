@@ -30,7 +30,7 @@ export const ProductItemCard = ({ product, hasLink, link }: Props) => {
       onClick={() => redirectToLink(link)}
     >
       <ProductItemImage
-        src={product.photos[0].url || "/assets/icons/toast_success.svg"}
+        src={product.photos[0]?.url || "/assets/icons/toast_success.svg"}
       />
       <CardBody>
         <CardBodyHeadingOne>{product.name}</CardBodyHeadingOne>

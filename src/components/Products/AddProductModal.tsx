@@ -11,7 +11,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { closeModal, ErrorModal } from "../Modals/Modals";
 import Image from "next/image";
-import { DragAndDropContainer, ErrorMessage, FileEmptyPlaceholder, ImagePreview, Input, Label, TextArea } from "../Form";
+import {
+  DragAndDropContainer,
+  ErrorMessage,
+  FileEmptyPlaceholder,
+  ImagePreview,
+  Input,
+  Label,
+  TextArea,
+} from "../Form";
 import styled from "styled-components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useCategories } from "@/hooks/useCategories";
@@ -29,8 +37,12 @@ type ShopInput = {
   categoryId: number;
   price: number;
   quantity: number;
-  file: FileList;
+  file: FileList[];
 };
+interface MultiPhotos {
+  image: string;
+  inputFile: FileList;
+}
 
 export const AddProductModal = ({
   setShowModal,
@@ -39,7 +51,8 @@ export const AddProductModal = ({
 }: Props) => {
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
   const [productImage, setProductImage] = useState<string>();
-  const [inputFile, setInputFile] = useState<FileList>();
+  const [photoCount, setPhotoCount] = useState<number>(1);
+  const [multiPhotos, setMultiPhotos] = useState<MultiPhotos[]>([]);
   const { categories } = useCategories();
   const {
     register,
@@ -62,9 +75,12 @@ export const AddProductModal = ({
     formData.append("description", data.description);
     formData.append("shopId", data.shopId.toString());
     formData.append("categoryId", data.categoryId.toString());
-    formData.append("categoryId", data.price.toString());
-    formData.append("categoryId", data.quantity.toString());
-    formData.append("file", data.file[0]);
+    formData.append("price", data.price.toString());
+    formData.append("quantity", data.quantity.toString());
+    // formData.append("files", JSON.stringify(data.file));
+    multiPhotos.map(({ inputFile }) => {
+      formData.append("file", inputFile[0]);
+    });
 
     addProduct(formData).then(async (res) => {
       console.log("This is the response ", res);
@@ -78,11 +94,18 @@ export const AddProductModal = ({
     });
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const addPhotoFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       if (!isInCorrectFormat(event.target.files[0])) {
-        setProductImage(URL.createObjectURL(event.target.files[0]));
-        setInputFile(event.target.files);
+        // setProductImage(URL.createObjectURL(event.target.files[0]));
+        setMultiPhotos([
+          ...multiPhotos,
+          {
+            image: URL.createObjectURL(event.target.files[0]),
+            inputFile: event.target.files,
+          },
+        ]);
+        // setInputFile(event.target.files);
       }
     }
   };
@@ -105,37 +128,42 @@ export const AddProductModal = ({
             </CloseButton>
             <ModalBody>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <DragAndDropContainer>
-                  {productImage && !errors.file ? (
-                    <ImagePreview>
-                      <Image
-                        src={productImage}
-                        alt="img_preview"
-                        width={300}
-                        height={200}
-                      />
-                    </ImagePreview>
-                  ) : (
+                <MultiplePhotosContainer $photoCount={multiPhotos.length + 1}>
+                  {multiPhotos.map((productFile, i) => (
+                    <DragAndDropContainer key={i} $width={270}>
+                      <ImagePreview>
+                        <Image
+                          src={productFile.image}
+                          alt="img_preview"
+                          width={300}
+                          height={200}
+                        />
+                      </ImagePreview>
+                    </DragAndDropContainer>
+                  ))}
+                  <DragAndDropContainer $width={260}>
                     <FileEmptyPlaceholder>
                       <div className="mx-auto text-center flex flex-col opacity-50">
                         <FontAwesomeIcon icon={faPlus} size="2x" />
                         Upload Image
                       </div>
                     </FileEmptyPlaceholder>
-                  )}
-                  <input
-                    type="file"
-                    {...register("file", {
-                      onChange: (event) => handleChange(event),
-                      required: "Photo is required",
-                      validate: (value) =>
-                        !isInCorrectFormat(value[0]) ||
-                        "Incorrect file format, must be either a .png or .jpg",
-                    })}
-                  />
-                </DragAndDropContainer>
-                {errors.file && (
-                  <ErrorMessage>{errors.file.message}</ErrorMessage>
+                    <input
+                      type="file"
+                      {...register(`file.${multiPhotos.length}`, {
+                        onChange: (event) => addPhotoFile(event),
+                        required: "Photo is required",
+                        validate: (value) =>
+                          !isInCorrectFormat(value[0]) ||
+                          "Incorrect file format, must be either a .png or .jpg",
+                      })}
+                    />
+                  </DragAndDropContainer>
+                </MultiplePhotosContainer>
+                {errors.file && errors.file[multiPhotos.length] && (
+                  <ErrorMessage>
+                    {errors.file[multiPhotos.length]?.message}
+                  </ErrorMessage>
                 )}
                 <Label htmlFor="name">Product Name</Label>
                 <Input
@@ -216,3 +244,11 @@ export const AddProductModal = ({
     </>
   );
 };
+const MultiplePhotosContainer = styled.div<{ $photoCount: number }>`
+  width: 100%;
+  max-width: 320px;
+  display: grid;
+  overflow-x: scroll;
+  grid-template-columns: repeat(${(props) => props.$photoCount}, 270px);
+  padding-bottom: 6px;
+`;
