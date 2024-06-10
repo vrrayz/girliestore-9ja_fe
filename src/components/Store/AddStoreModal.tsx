@@ -12,7 +12,6 @@ import React, { useState } from "react";
 import { closeModal, ErrorModal } from "../Modals/Modals";
 import Image from "next/image";
 import { ErrorMessage, Input, Label, TextArea } from "../Form";
-import { register } from "module";
 import styled from "styled-components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { addStore } from "@/actions/store";
@@ -20,9 +19,6 @@ import { addStore } from "@/actions/store";
 interface Props {
   setShowModal: (value: boolean) => void;
   setIsLoading: (value: boolean) => void;
-  // classes: Classes[];
-  // currentTerm: CurrentTerm;
-  // setClasses: (value: Classes[]) => void;
 }
 type ShopInput = {
   name: string;
@@ -56,14 +52,9 @@ export const AddStoreModal = ({ setShowModal, setIsLoading }: Props) => {
 
     addStore(formData).then(async (res) => {
       console.log("This is the response ", res);
-      //   setExtraError(res.statusCode !== 200 ? "Incorrect Credentials" : "");
       if (res.statusCode === 200) {
         console.log("Response success");
         setShowModal(false);
-        // setStores((prev) => [
-        //   ...prev,
-        //   { id: res.data.id, name: res.data.name },
-        // ]);
       }else{ setShowErrorModal(true) }
       setIsLoading(false);
     });
@@ -71,7 +62,6 @@ export const AddStoreModal = ({ setShowModal, setIsLoading }: Props) => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      // console.log(event.target.files[0])
       if (!isInCorrectFormat(event.target.files[0])) {
         setStoreImage(URL.createObjectURL(event.target.files[0]));
         setInputFile(event.target.files);
@@ -91,7 +81,7 @@ export const AddStoreModal = ({ setShowModal, setIsLoading }: Props) => {
           id="modal-overlay"
         >
           <Modal>
-            <ModalHeading>Add New Class</ModalHeading>
+            <ModalHeading>Add New Store</ModalHeading>
             <CloseButton onClick={() => setShowModal(false)}>
               <FontAwesomeIcon icon={faXmark} size="lg" />
             </CloseButton>
