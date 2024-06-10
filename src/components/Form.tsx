@@ -88,3 +88,36 @@ const InputIcon = styled(FontAwesomeIcon)`
   margin: auto;
   color: #666;
 `;
+export const DragAndDropContainer = styled.div`
+  width: 300px;
+  height: 200px;
+  border: 2px dashed ${Colors.darkslategray}8a;
+  margin: auto;
+  position: relative;
+  border-radius: 6px;
+
+  input[type="file"] {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+`;
+export const FileEmptyPlaceholder = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`;
+export const ImagePreview = styled.div`
+  width: 100%;
+  height: 100%;
+
+  img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+`;
