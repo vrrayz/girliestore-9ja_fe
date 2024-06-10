@@ -1,4 +1,3 @@
-"use client";
 
 import { HomePage } from "@/components/HomePage";
 import { InputField } from "@/components/Input";

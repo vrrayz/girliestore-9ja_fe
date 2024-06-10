@@ -11,14 +11,24 @@ import {
   CardContainer,
 } from "./Card";
 import { Product } from "@/types";
+import { useRouter } from "next/navigation";
 
 interface Props {
   product: Product;
+  hasLink?: boolean;
+  link?: string;
 }
 
-export const ProductItemCard = ({ product }: Props) => {
+export const ProductItemCard = ({ product, hasLink, link }: Props) => {
+  const router = useRouter();
+  const redirectToLink = (link?: string) => {
+    if (link) router.push(link);
+  };
   return (
-    <ProductItemCardContainer>
+    <ProductItemCardContainer
+      $hasLink={hasLink}
+      onClick={() => redirectToLink(link)}
+    >
       <ProductItemImage
         src={product.photos[0].url || "/assets/icons/toast_success.svg"}
       />
@@ -49,7 +59,8 @@ const ProductItemImage = styled.img`
   object-fit: cover;
   object-position: center;
 `;
-const ProductItemCardContainer = styled(CardContainer)`
+const ProductItemCardContainer = styled(CardContainer)<{ $hasLink?: boolean }>`
   flex: 48.8% 0 0;
   margin: auto;
+  cursor: ${(props) => (props.$hasLink ? "pointer" : "none")};
 `;

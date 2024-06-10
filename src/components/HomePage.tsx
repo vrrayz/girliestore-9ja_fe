@@ -21,7 +21,7 @@ export const HomePage = () => {
         {isLoading && <LoadingLogo />}
         <ProductListContainer>
           {products?.map((product, i) => (
-            <ProductItemCard product={product} key={i} />
+            <ProductItemCard link={`/products/${product.name.split(' ').join('-')}-${product.id.toString().padStart(7,'0')}`} hasLink product={product} key={i} />
           ))}
         </ProductListContainer>
       </section>
