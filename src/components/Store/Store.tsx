@@ -10,7 +10,6 @@ import {
 import Image from "next/image";
 import { Loading } from "../Loading";
 import { Button } from "../Buttons";
-import { AddStoreModal } from "./AddStoreModal";
 import {
   CardBody,
   CardBodyHeadingOne,
@@ -21,6 +20,7 @@ import { useStore } from "@/hooks/useStore";
 import { ProductItemCard, ProductListContainer } from "../Products/ProductItemCard";
 import { paramsToId } from "@/helpers";
 import { useParamsRedirect } from "@/hooks/useParamsRedirect";
+import { AddProductModal } from "../Products/AddProductModal";
 
 interface Props {
   id: string;
@@ -67,9 +67,10 @@ export const Store = ({ id }: Props) => {
             </Button>
           </SectionHeader>
           {showModal && (
-            <AddStoreModal
+            <AddProductModal
               setShowModal={setShowModal}
               setIsLoading={setIsLoading}
+              storeId={store.id}
             />
           )}
 
