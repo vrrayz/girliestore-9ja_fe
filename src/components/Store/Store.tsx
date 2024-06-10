@@ -5,14 +5,9 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGlobe,
-  faInfo,
   faInfoCircle,
-  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import { Colors, SCREENS } from "@/styles";
 import Image from "next/image";
-import { ErrorMessage, FormContainer, Input, Label, TextArea } from "../Form";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { Loading } from "../Loading";
 import { Button } from "../Buttons";
 import { AddStoreModal } from "./AddStoreModal";
@@ -32,7 +27,7 @@ interface Props {
 }
 
 export const Store = ({ id }: Props) => {
-  const { store, setStore, isLoading, setIsLoading } = useStore(
+  const { store, isLoading, setIsLoading } = useStore(
     paramsToId(id)
   );
   const {} = useParamsRedirect(id, store?.name);
@@ -89,9 +84,6 @@ export const Store = ({ id }: Props) => {
   );
 };
 
-const CustomFormContainer = styled(FormContainer)`
-  box-shadow: none;
-`;
 const SectionHeader = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -115,39 +107,5 @@ const StoreInfoContainer = styled(CardContainer)`
     span {
       margin: auto 0px;
     }
-  }
-`;
-const StoreItem = styled(CardContainer)`
-  display: flex;
-  padding: 0px 8px;
-  border-radius: 12px;
-  transform: scale(1);
-  transition: transform 500ms;
-  img {
-    width: 25%;
-    max-width: 70px;
-    max-height: 70px;
-    margin: auto;
-    border-radius: 8px;
-  }
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 1px 1px 3px 0px #0000008a;
-    background-color: ${Colors.red};
-    color: ${Colors.white};
-  }
-  ${CardBody} {
-    width: 100%;
-  }
-`;
-const StoreList = styled.div`
-  //   padding: 16px;
-  ${SCREENS.md} {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-  ${SCREENS.lg} {
-    grid-template-columns: repeat(3, 1fr);
   }
 `;
