@@ -6,7 +6,7 @@ import { Body } from "./Styled";
 import { Header } from "./Header";
 import { useProducts } from "@/hooks/useProducts";
 import { Loading, LoadingLogo } from "./Loading";
-import { ProductItemCard, ProductListContainer } from "./ProductItemCard";
+import { ProductItemCard, ProductListContainer } from "./Products/ProductItemCard";
 
 export const HomePage = () => {
   const { products, setProducts, isLoading } = useProducts();

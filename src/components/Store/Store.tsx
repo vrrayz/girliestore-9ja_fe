@@ -18,7 +18,7 @@ import {
   CardContainer,
 } from "../Card";
 import { useStore } from "@/hooks/useStore";
-import { ProductItemCard, ProductListContainer } from "../ProductItemCard";
+import { ProductItemCard, ProductListContainer } from "../Products/ProductItemCard";
 import { paramsToId } from "@/helpers";
 import { useParamsRedirect } from "@/hooks/useParamsRedirect";
 

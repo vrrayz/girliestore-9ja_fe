@@ -9,7 +9,7 @@ import {
   CardBodyHeadingTwo,
   CardBodyText,
   CardContainer,
-} from "./Card";
+} from "../Card";
 import { Product } from "@/types";
 import { useRouter } from "next/navigation";
 
