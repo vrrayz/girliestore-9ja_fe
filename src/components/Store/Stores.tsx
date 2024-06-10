@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Colors, SCREENS } from "@/styles";
 import Image from "next/image";
-import { ErrorMessage, FormContainer, Input, Label, TextArea } from "../Form";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { addStore } from "@/actions/store";
 import { Loading } from "../Loading";
 import { Button } from "../Buttons";
 import { AddStoreModal } from "./AddStoreModal";
@@ -19,17 +14,12 @@ import {
 import { useStores } from "@/hooks/useStores";
 
 export const Stores = () => {
-  const { stores, setStores, isLoading, setIsLoading } = useStores();
+  const { stores, isLoading, setIsLoading } = useStores();
   const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
     <section style={{ width: "100vw" }}>
       {isLoading && <Loading />}
-      {/* <CustomFormContainer>
-        <div className="lg:w-1/2 px-6 py-16">
-          
-        </div>
-      </CustomFormContainer> */}
       <SectionHeader className="my-3">
         <Button className="btn-primary" onClick={() => setShowModal(true)}>
           Add Store
@@ -56,9 +46,6 @@ export const Stores = () => {
   );
 };
 
-const CustomFormContainer = styled(FormContainer)`
-  box-shadow: none;
-`;
 const SectionHeader = styled.div`
   display: flex;
   justify-content: flex-end;
