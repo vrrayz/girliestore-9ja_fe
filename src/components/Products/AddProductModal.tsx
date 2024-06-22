@@ -18,6 +18,7 @@ import {
   ImagePreview,
   Input,
   Label,
+  Select,
   TextArea,
 } from "../Form";
 import styled from "styled-components";
@@ -50,8 +51,6 @@ export const AddProductModal = ({
   storeId,
 }: Props) => {
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
-  const [productImage, setProductImage] = useState<string>();
-  const [photoCount, setPhotoCount] = useState<number>(1);
   const [multiPhotos, setMultiPhotos] = useState<MultiPhotos[]>([]);
   const { categories } = useCategories();
   const {
@@ -77,7 +76,6 @@ export const AddProductModal = ({
     formData.append("categoryId", data.categoryId.toString());
     formData.append("price", data.price.toString());
     formData.append("quantity", data.quantity.toString());
-    // formData.append("files", JSON.stringify(data.file));
     multiPhotos.map(({ inputFile }) => {
       formData.append("file", inputFile[0]);
     });
@@ -97,7 +95,6 @@ export const AddProductModal = ({
   const addPhotoFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       if (!isInCorrectFormat(event.target.files[0])) {
-        // setProductImage(URL.createObjectURL(event.target.files[0]));
         setMultiPhotos([
           ...multiPhotos,
           {
@@ -105,7 +102,6 @@ export const AddProductModal = ({
             inputFile: event.target.files,
           },
         ]);
-        // setInputFile(event.target.files);
       }
     }
   };
@@ -177,7 +173,7 @@ export const AddProductModal = ({
                   <ErrorMessage>{errors.name.message}</ErrorMessage>
                 )}
                 <Label htmlFor="categoryId">Product Category</Label>
-                <select
+                <Select
                   {...register("categoryId", {
                     required: "Category is required",
                   })}
@@ -189,7 +185,7 @@ export const AddProductModal = ({
                       {category.name}
                     </option>
                   ))}
-                </select>
+                </Select>
                 {errors.categoryId && (
                   <ErrorMessage>{errors.categoryId.message}</ErrorMessage>
                 )}
@@ -203,7 +199,7 @@ export const AddProductModal = ({
                 {errors.description && (
                   <ErrorMessage>{errors.description.message}</ErrorMessage>
                 )}
-                <div className="flex">
+                <div className="flex gap-2">
                   <div>
                     <Label htmlFor="price">Price</Label>
                     <Input

@@ -49,6 +49,24 @@ export const Input = styled.input`
     border-color: ${Colors.saddlebrown};
   }
 `;
+export const Select = styled.select`
+  border: 1px solid #717171;
+  padding: 6px 8px;
+  width: 100%;
+  border-radius: 3px;
+  font-family: ${Poppins};
+
+  &.btn-primary {
+    background: ${Colors.red};
+    color: ${Colors.white};
+    border-color: ${Colors.red};
+  }
+  &.btn-primary.active,
+  &.btn-primary:hover {
+    background: ${Colors.saddlebrown};
+    border-color: ${Colors.saddlebrown};
+  }
+`;
 export const TextArea = styled.textarea`
   border: 1px solid #717171;
   padding: 6px 8px;
