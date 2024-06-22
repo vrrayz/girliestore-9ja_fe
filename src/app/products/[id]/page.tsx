@@ -1,3 +1,4 @@
+import { Product } from "@/components/Products/Product";
 import { paramsToName } from "@/helpers";
 import { Metadata, ResolvingMetadata } from "next";
 
@@ -16,5 +17,5 @@ export async function generateMetadata(
 }
 
 export default function Page({ params }: { params: { id: string } }) {
-  return <>The product single page id === {params.id}</>;
+  return <Product id={params.id} />;
 }
