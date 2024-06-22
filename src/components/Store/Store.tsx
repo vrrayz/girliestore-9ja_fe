@@ -42,7 +42,7 @@ export const Store = ({ id }: Props) => {
       {store && (
         <>
           <Image
-            src={store?.photo_url || "/assets/icons/toast_success.svg"}
+            src={store?.photo_url || "/assets/icons/default_product.png"}
             width={200}
             height={200}
             alt="store_image"

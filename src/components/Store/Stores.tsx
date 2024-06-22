@@ -34,7 +34,7 @@ export const Stores = () => {
       <StoreList>
         {stores?.map((store, i) => (
           <StoreItem as={"a"} href={`/user/store/${store.name.split(' ').join('-')}-${store.id.toString().padStart(7,'0')}`} key={i} className="mb-2">
-            <Image src={store.photo_url || "/assets/icons/toast_success.svg"} width={78} height={78} alt="store_image" />
+            <Image src={store.photo_url || "/assets/icons/default_product.png"} width={78} height={78} alt="store_image" />
             <CardBody>
               <CardBodyHeadingOne>{store.name}</CardBodyHeadingOne>
               <CardBodyText>{store.address}</CardBodyText>
