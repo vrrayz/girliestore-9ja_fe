@@ -17,12 +17,12 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Todo
+
 Since the majority of this project is still in developement, here's a list of things i am working on / have worked on.(This would help me to focus properly on the next steps i need to take while building this web app)
 
 ```
 ************** TODO **************
-Display All Products On The First Page
-User View Product Details
+User View Product Details (In progress: Add Description, Reviews and an Order button)
 User Order Product
 Store Owner / Admin View Order(s)
 Store Owner / Admin Starts Processing the Order
@@ -34,6 +34,7 @@ Add middlewares/restrictions That lets only the admin create the stores
 ************** Finished **************
 Create Store Feature (Done)
 Admin View the stores
+Display All Products On The First Page
+
 **************************************
 ```
-
