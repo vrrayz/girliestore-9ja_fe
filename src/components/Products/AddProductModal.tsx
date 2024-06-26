@@ -25,6 +25,7 @@ import styled from "styled-components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useCategories } from "@/hooks/useCategories";
 import { addProduct } from "@/actions/product";
+import { MultiplePhotosContainer } from "../Styled";
 
 interface Props {
   setShowModal: (value: boolean) => void;
@@ -240,11 +241,3 @@ export const AddProductModal = ({
     </>
   );
 };
-const MultiplePhotosContainer = styled.div<{ $photoCount: number }>`
-  width: 100%;
-  max-width: 320px;
-  display: grid;
-  overflow-x: scroll;
-  grid-template-columns: repeat(${(props) => props.$photoCount}, 270px);
-  padding-bottom: 6px;
-`;
