@@ -22,7 +22,8 @@ Since the majority of this project is still in developement, here's a list of th
 
 ```
 ************** TODO **************
-User View Product Details (In progress: Add Description, Reviews and an Order button)
+View all products on first page (In progress: sort by latest)
+User View Product Details Page (In progress: Add to Cart button)
 User Order Product
 Store Owner / Admin View Order(s)
 Store Owner / Admin Starts Processing the Order
@@ -35,6 +36,6 @@ Add middlewares/restrictions That lets only the admin create the stores
 Create Store Feature (Done)
 Admin View the stores
 Display All Products On The First Page
-
+User View Product Details (In progress: Add Description, Reviews and Ratings)
 **************************************
 ```
