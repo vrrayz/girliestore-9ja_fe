@@ -45,10 +45,18 @@ export const MultiplePhotosContainer = styled.div<{
 export const TextSmall = styled.p`
   font-size: 12px;
 `;
+export const Text = styled.p`
+  font-size: 16px;
+`;
+export const TextXl = styled.p`
+  font-size: 20px;
+`;
 export const InlineTextSmall = styled.span`
   font-size: 12px;
 `;
-
+export const InlineText = styled.span`
+  font-size: 16px;
+`;
 export const InlineTextXl = styled.span`
   font-size: 20px;
 `;
