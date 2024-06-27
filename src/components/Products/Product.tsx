@@ -15,19 +15,21 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretSquareRight } from "@fortawesome/free-regular-svg-icons/faCaretSquareRight";
 import {
+  InlineText,
   InlineTextSmall,
   InlineTextXl,
   MultiplePhotosContainer,
 } from "../Styled";
 import { faStar, faTags } from "@fortawesome/free-solid-svg-icons";
 import { Colors } from "@/styles";
+import { ReviewAndRating } from "./ReviewAndRating";
+import { StarRatings } from "./StarRatings";
 
 interface Props {
   id: string;
 }
 export const Product = ({ id }: Props) => {
   const { product, isLoading, setIsLoading } = useProduct(paramsToId(id));
-  const starRatings = new Array(5).fill(0);
   return (
     <section style={{ width: "100vw" }}>
       {isLoading && <Loading />}
@@ -44,12 +46,12 @@ export const Product = ({ id }: Props) => {
                 width={200}
                 height={200}
                 alt="product_image"
-                className="mx-auto my-4"
+                className="mx-auto mt-3"
                 key={i}
               />
             ))}
           </CustomMultiPhoto>
-          <ProductInfoContainer>
+          <ProductInfoContainer className="mb-5 mt-4">
             <CardBody>
               <CardBodyHeadingOne>{product.name}</CardBodyHeadingOne>
               <CardBodyText>
@@ -69,13 +71,40 @@ export const Product = ({ id }: Props) => {
               <CardBodyText className="mb-2">
                 <InlineTextSmall>{product.quantity} items left</InlineTextSmall>
               </CardBodyText>
-              <CardBodyText className="mb-2">
-                <StarRatingsContainer>
-                  {starRatings.map((rating, i) => (
-                    <FontAwesomeIcon icon={faStar} color={Colors.red} key={i} />
-                  ))}
-                </StarRatingsContainer>
+              <StarRatings
+                ratingsCount={5}
+                hasReviewersCount
+                reviewersCount={53}
+              />
+            </CardBody>
+          </ProductInfoContainer>
+          <ProductInfoContainer className="mb-5">
+            <CardBody>
+              <CardBodyHeadingOne>Description</CardBodyHeadingOne>
+              <CardBodyText className="my-3">
+                {product.description}
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero
+                quos, consequatur eum ea tempore amet ducimus saepe rerum
+                quisquam possimus corrupti dignissimos dolorem officiis?
+                Eligendi et placeat illum doloribus assumenda?
               </CardBodyText>
+            </CardBody>
+          </ProductInfoContainer>
+          <ProductInfoContainer className="mb-5">
+            <CardBody>
+              <CardBodyHeadingOne>Reviews and Ratings</CardBodyHeadingOne>
+              <CardBodyText className="mb-5">
+                <InlineTextSmall className="font-bold">
+                  Avg Rating:
+                </InlineTextSmall>
+                <InlineTextSmall className="font-extrabold text-red">
+                  <span>4.5/5</span>
+                  <span className="font-normal"> (from {53} customers)</span>
+                </InlineTextSmall>
+              </CardBodyText>
+              <ReviewAndRating />
+              <ReviewAndRating />
+              <ReviewAndRating />
             </CardBody>
           </ProductInfoContainer>
           {/* <SectionHeader className="my-3">
@@ -103,6 +132,7 @@ export const Product = ({ id }: Props) => {
 };
 const ProductInfoContainer = styled(CardContainer)`
   padding: 8px 16px;
+  box-shadow: 0px 5px 7px 0px #0000001a;
   ${CardBodyText} {
     display: flex;
     gap: 12px;
@@ -124,9 +154,4 @@ const ProductImage = styled(Image)`
 
 const CustomMultiPhoto = styled(MultiplePhotosContainer)`
   gap: 12px;
-`;
-
-const StarRatingsContainer = styled.div`
-  display: flex;
-  gap: 2px;
 `;
