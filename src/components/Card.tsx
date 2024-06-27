@@ -22,5 +22,6 @@ export const CardBodyHeadingTwo = styled.h4`
   font-size: 1rem;
 `;
 export const CardBodyText = styled.p`
-font-weight: 300;
-`
+  font-weight: 300;
+  font-size: 14px;
+`;
