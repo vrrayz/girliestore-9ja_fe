@@ -12,7 +12,7 @@ import {
 } from "./Products/ProductItemCard";
 
 export const HomePage = () => {
-  const { products, isLoading } = useProducts();
+  const { products, isLoading } = useProducts("desc");
   return (
     <Body>
       <Header displaySearch={true} />

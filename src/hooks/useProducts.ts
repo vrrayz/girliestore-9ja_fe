@@ -1,17 +1,19 @@
 import { getProducts } from "@/actions/product";
-import { Product } from "@/types";
+import { Product, SortOrder } from "@/types";
 import { useEffect, useState } from "react";
 
-export const useProducts = () => {
+export const useProducts = (sortOrder?: SortOrder) => {
   const [products, setProducts] = useState<Product[]>();
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
-    getProducts().then((res) => {
+    let data = { orderBy: "asc" };
+    if (sortOrder) data.orderBy = sortOrder;
+    getProducts(data).then((res) => {
       setProducts(res);
     });
-  },[]);
+  }, [sortOrder]);
   useEffect(() => {
-    if(products) setIsLoading(false)
-  },[products])
+    if (products) setIsLoading(false);
+  }, [products]);
   return { products, setProducts, isLoading, setIsLoading };
 };
