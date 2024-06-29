@@ -22,6 +22,7 @@ Since the majority of this project is still in developement, here's a list of th
 
 ```
 ************** TODO **************
+Styled buttons (Figma ref: https://www.figma.com/design/jKOYEUGOzPOYD3UvCg9HhZ/Trendy-Buttons-(Community)?node-id=17-2&t=r3zIgtBd4fqgFsRS-0)
 User View Product Details Page (In progress: Add to Cart button)
 User Order Product
 Store Owner / Admin View Order(s)
