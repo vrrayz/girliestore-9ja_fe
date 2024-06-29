@@ -7,13 +7,19 @@ import { getData } from "./actions";
 export async function middleware(request: NextRequest) {
   const profileRequest = await getData("/user/myprofile");
 
-  if(profileRequest.statusCode === 200 && request.nextUrl.pathname.startsWith('/auth')){
+  if (
+    profileRequest.statusCode === 200 &&
+    request.nextUrl.pathname.startsWith("/auth")
+  ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
-  if(profileRequest.statusCode !== 200 && request.nextUrl.pathname.startsWith('/vendor')){
+  if (
+    profileRequest.statusCode !== 200 &&
+    request.nextUrl.pathname.startsWith("/vendor")
+  ) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
-  return NextResponse.next()
+  return NextResponse.next();
 }
 
 // See "Matching Paths" below to learn more
