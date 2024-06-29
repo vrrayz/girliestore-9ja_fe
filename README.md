@@ -22,7 +22,6 @@ Since the majority of this project is still in developement, here's a list of th
 
 ```
 ************** TODO **************
-View all products on first page (In progress: sort by latest)
 User View Product Details Page (In progress: Add to Cart button)
 User Order Product
 Store Owner / Admin View Order(s)
@@ -33,6 +32,7 @@ Add middlewares/restrictions That lets only the admin create the stores
 **********************************
 
 ************** Finished **************
+View all products on first page (In progress: sort by latest)
 Create Store Feature (Done)
 Admin View the stores
 Display All Products On The First Page
