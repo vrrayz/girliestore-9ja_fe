@@ -40,17 +40,21 @@ export async function postDataUpload(
 }
 
 export async function getData(url = "", data = {}) {
-  const response = await fetch(
-    `${process.env.BE_API_URL}${url}?${new URLSearchParams(data)}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Bearer ${cookies().get("access_token")?.value}`,
-      },
-    }
-  );
-  return response.json(); // parses JSON response into native JavaScript objects
+  try {
+    const response = await fetch(
+      `${process.env.BE_API_URL}${url}?${new URLSearchParams(data)}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${cookies().get("access_token")?.value}`,
+        },
+      }
+    );
+    return response.json(); // parses JSON response into native JavaScript objects
+  } catch (error) {
+    return { statusCode: 502, message: "Error connecting" };
+  }
 }
 
 export async function deleteData(url = "") {
