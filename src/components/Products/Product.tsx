@@ -13,23 +13,27 @@ import {
   CardContainer,
 } from "../Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretSquareRight } from "@fortawesome/free-regular-svg-icons/faCaretSquareRight";
 import {
-  InlineText,
   InlineTextSmall,
   InlineTextXl,
   MultiplePhotosContainer,
 } from "../Styled";
-import { faStar, faTags } from "@fortawesome/free-solid-svg-icons";
-import { Colors } from "@/styles";
+import { faCartFlatbed, faTags } from "@fortawesome/free-solid-svg-icons";
 import { ReviewAndRating } from "./ReviewAndRating";
 import { StarRatings } from "./StarRatings";
+import { addToCart } from "@/actions";
 
 interface Props {
   id: string;
 }
 export const Product = ({ id }: Props) => {
   const { product, isLoading, setIsLoading } = useProduct(paramsToId(id));
+
+  const addProductToCart = () => {
+    if (product) {
+      addToCart(product);
+    }
+  };
   return (
     <section style={{ width: "100vw" }}>
       {isLoading && <Loading />}
@@ -37,7 +41,7 @@ export const Product = ({ id }: Props) => {
         <>
           <CustomMultiPhoto
             $photoCount={product.photos.length}
-            $maxWidth={380}
+            $maxWidth={400}
             $photoWidth={350}
           >
             {product.photos.map((photo, i) => (
@@ -76,6 +80,17 @@ export const Product = ({ id }: Props) => {
                 hasReviewersCount
                 reviewersCount={53}
               />
+              <button
+                className="styled-button gradient-olivedrab my-3"
+                onClick={() => addProductToCart()}
+              >
+                <FontAwesomeIcon
+                  icon={faCartFlatbed}
+                  size="lg"
+                  className="mr-1"
+                />
+                <span className="ml-1">Add To Cart</span>
+              </button>
             </CardBody>
           </ProductInfoContainer>
           <ProductInfoContainer className="mb-5">

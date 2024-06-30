@@ -11,10 +11,12 @@ export const UserToggler = () => {
   const [isNavToggled, setIsNavToggled] = useState(false);
   const { isLoggedIn, setIsLoggedIn } = useIsAuthenticated();
 
-  const logoutAction = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    event.preventDefault()
-    logout().then(res => setIsLoggedIn(false))
-  }
+  const logoutAction = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    logout().then((res) => setIsLoggedIn(false));
+  };
   return (
     <ToggleMenuContainer>
       <UserNavToggler
@@ -29,7 +31,11 @@ export const UserToggler = () => {
           <div className="dropdown-container">
             <a href="#">My Orders</a>
             <a href="#">Profile Settings</a>
-            {isLoggedIn && <a href="#" onClick={(event) => logoutAction(event)}>Log Out</a>}
+            {isLoggedIn && (
+              <a href="#" onClick={(event) => logoutAction(event)}>
+                Log Out
+              </a>
+            )}
             {!isLoggedIn && <a href="/auth/login">Log In / Sign up</a>}
           </div>
         </UserDropdown>
@@ -51,7 +57,7 @@ const UserDropdown = styled.div`
   min-width: 150px;
   position: absolute;
   top: 49px;
-  right: 0;
+  right: 20px;
   background: #fff;
   border-radius: 6px;
   box-shadow: 1px 1px 3px 0px #0000008a;
@@ -64,7 +70,7 @@ const UserDropdown = styled.div`
     height: 30px;
     background: #fff;
     top: -7px;
-    right: 13px;
+    right: 26px;
     transform: rotate(-19deg) skew(0deg, -45deg);
     box-shadow: 1px 1px 3px 0px #0000008a;
   }

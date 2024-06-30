@@ -5,9 +5,14 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { CustomInput } from "./Form";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartFlatbed,
+  faCartShopping,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import { Toggler } from "./Toggler";
 import { UserToggler } from "./UserToggler";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Props {
   displaySearch?: boolean;
@@ -34,9 +39,7 @@ export const Header = ({ displaySearch }: Props) => {
   return (
     <HeaderContainer $headerTop={headerTop}>
       {/* Toggler Would be fixed at the top left */}
-      <div
-        style={{ position: "fixed", top: "12px", left: "12px", zIndex: "1" }}
-      >
+      <div style={{ position: "fixed", top: "12px", left: "8px", zIndex: "1" }}>
         <Toggler />
       </div>
       {/* Logo and search */}
@@ -61,9 +64,12 @@ export const Header = ({ displaySearch }: Props) => {
       </LogoAndSearchContainer>
 
       {/* User Dropdown would be fixed at the top right */}
-      <div style={{ position: "fixed", top: "12px", right: "12px" }}>
+      <UserMenuItemsContainer>
         <UserToggler />
-      </div>
+        <Cart href="#">
+          <CartIcon icon={faCartFlatbed} />
+        </Cart>
+      </UserMenuItemsContainer>
     </HeaderContainer>
   );
 };
@@ -86,7 +92,7 @@ const HeaderContainer = styled.header<{ $headerTop: number }>`
   }
 
   div.header-input {
-    width: ${(props) => 100 - props.$headerTop / 2}%;
+    width: ${(props) => 100 - props.$headerTop / 2 - 5}%;
   }
 `;
 const LogoAndSearchContainer = styled.div`
@@ -95,4 +101,24 @@ const LogoAndSearchContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+`;
+
+const UserMenuItemsContainer = styled.div`
+  position: fixed;
+  top: 12px;
+  right: 0px;
+  display: flex;
+`;
+
+const Cart = styled.a`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 40px;
+  height: 40px;
+  z-index: 100;
+  color: ${Colors.olivedrab};
+`;
+const CartIcon = styled(FontAwesomeIcon)`
+  font-size: 1.5rem;
 `;
