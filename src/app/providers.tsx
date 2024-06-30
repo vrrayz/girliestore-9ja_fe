@@ -1,19 +1,18 @@
 "use client";
 
-import { AuthContext } from "@/components/AuthContext";
+import { CartContext } from "@/components/CartContext";
+import { useCart } from "@/hooks/useCart";
 import React, { ReactNode } from "react";
 
 interface Props {
-  access_token: string | undefined;
   children: ReactNode;
 }
 
-export const Providers = ({ children, access_token }: Props) => {
-  const isAuthenticated = access_token ? true : false;
-  const token = access_token || ''
+export const Providers = ({ children }: Props) => {
+  const { cartItems, setCartItems } = useCart();
   return (
-    <AuthContext.Provider value={{ isAuthenticated, access_token: token }}>
+    <CartContext.Provider value={{ cartItems, setCartItems }}>
       {children}
-    </AuthContext.Provider>
+    </CartContext.Provider>
   );
 };

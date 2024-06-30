@@ -2,7 +2,7 @@
 
 import { CURRENCY, paramsToId } from "@/helpers";
 import { useProduct } from "@/hooks/useProduct";
-import React from "react";
+import React, { useContext } from "react";
 import { Loading } from "../Loading";
 import Image from "next/image";
 import styled from "styled-components";
@@ -22,23 +22,26 @@ import { faCartFlatbed, faTags } from "@fortawesome/free-solid-svg-icons";
 import { ReviewAndRating } from "./ReviewAndRating";
 import { StarRatings } from "./StarRatings";
 import { addToCart } from "@/actions";
+import { CartContext } from "../CartContext";
 
 interface Props {
   id: string;
 }
 export const Product = ({ id }: Props) => {
   const { product, isLoading, setIsLoading } = useProduct(paramsToId(id));
+  const { cartItems, setCartItems } = useContext(CartContext);
 
   const addProductToCart = () => {
     if (product) {
-      addToCart({
+      const cartItem = {
         id: product.id,
         name: product.name,
         photoUrl: product.photos[0].url,
         quantity: product.quantity,
         quantityRequested: 1,
         price: product.price,
-      });
+      };
+      addToCart(cartItem).then(() => setCartItems([...cartItems, cartItem]));
     }
   };
   return (

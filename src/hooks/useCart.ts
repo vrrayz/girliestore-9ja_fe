@@ -6,7 +6,7 @@ export const useCart = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   useEffect(() => {
-    setCartItems(getCartItems());
+    getCartItems().then((res) => setCartItems(res));
   }, []);
 
   return { cartItems, setCartItems };

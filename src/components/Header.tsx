@@ -1,7 +1,7 @@
 "use client";
 
 import { Colors } from "@/styles";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { CustomInput } from "./Form";
@@ -14,6 +14,7 @@ import { Toggler } from "./Toggler";
 import { UserToggler } from "./UserToggler";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCart } from "@/hooks/useCart";
+import { CartContext } from "./CartContext";
 
 interface Props {
   displaySearch?: boolean;
@@ -21,7 +22,8 @@ interface Props {
 
 export const Header = ({ displaySearch }: Props) => {
   const [headerTop, setHeaderTop] = useState<number>(0);
-  const { cartItems } = useCart();
+  // const { cartItems } = useCart();
+  const { cartItems } = useContext(CartContext);
   useEffect(() => {
     const handleScroll = () => {
       if (displaySearch) {
@@ -70,11 +72,11 @@ export const Header = ({ displaySearch }: Props) => {
         <UserToggler />
         <Cart href="#">
           <CartIcon icon={faCartFlatbed} />
-          {cartItems.length > 0 ? (
-            <CartItemsCount>{cartItems.length}</CartItemsCount>
-          ) : (
+          {/* {cartItems.length > 0 ? ( */}
+          <CartItemsCount>{cartItems.length}</CartItemsCount>
+          {/* ) : (
             <></>
-          )}
+          )} */}
         </Cart>
       </UserMenuItemsContainer>
     </HeaderContainer>
@@ -131,7 +133,7 @@ const CartIcon = styled(FontAwesomeIcon)`
   font-size: 1.5rem;
 `;
 const CartItemsCount = styled.span`
-  background: ${Colors.coral};
+  background: ${Colors.tomato};
   position: absolute;
   top: 3px;
   right: 3px;

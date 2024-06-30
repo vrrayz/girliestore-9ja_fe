@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import "@fortawesome/fontawesome-svg-core/styles.css"
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import { cookies } from "next/headers";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import StyledComponentsRegistry from "@/lib/registry";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 config.autoAddCss = false;
@@ -27,7 +28,7 @@ export default function RootLayout({
         <StyledComponentsRegistry>
           <GoogleOAuthProvider clientId={`${process.env.GOOGLE_CLIENT_ID}`}>
             {/* <Providers access_token={access_token}>{children}</Providers> */}
-            {children}
+            <Providers>{children}</Providers>
           </GoogleOAuthProvider>
         </StyledComponentsRegistry>
       </body>

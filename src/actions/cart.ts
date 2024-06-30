@@ -19,12 +19,12 @@ QUICK LOGIC NOTE FOR THAT LAST PART
 
 export const addToCart = async (cartItem: CartItem) => {
   if (!cookies().get("cartItems")) cookies().set("cartItems", "[]");
-  const newCartItems: CartItem[] = getCartItems();
+  const newCartItems: CartItem[] = await getCartItems();
   newCartItems.push(cartItem);
   cookies().set("cartItems", JSON.stringify(newCartItems));
 };
 
-export const getCartItems = () => {
+export const getCartItems = async() => {
   const newCartItems: CartItem[] = JSON.parse(
     cookies().get("cartItems")?.value || "[]"
   );
