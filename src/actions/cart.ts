@@ -1,5 +1,5 @@
 "use server";
-import { Product } from "@/types";
+import { CartItem, Product } from "@/types";
 import { cookies } from "next/headers";
 
 /********************* VERY IMPORTANT INFO ***************************************************
@@ -16,12 +16,17 @@ QUICK LOGIC NOTE FOR THAT LAST PART
 -> if the updated amount available is less than the amount of that product the user added to cart, reduce the amount requested to the amount availble
 -> the user can't checkout the cart if the amount available is zero
 **********************************************************************************************/
-export const addToCart = async (product: Product) => {
+
+export const addToCart = async (cartItem: CartItem) => {
   if (!cookies().get("cartItems")) cookies().set("cartItems", "[]");
-  const newCartItems: Product[] = JSON.parse(
+  const newCartItems: CartItem[] = getCartItems();
+  newCartItems.push(cartItem);
+  cookies().set("cartItems", JSON.stringify(newCartItems));
+};
+
+export const getCartItems = () => {
+  const newCartItems: CartItem[] = JSON.parse(
     cookies().get("cartItems")?.value || "[]"
   );
-  newCartItems.push(product);
-  cookies().set("cartItems", JSON.stringify(newCartItems));
-  console.log("the new cart products are ", newCartItems);
+  return newCartItems;
 };

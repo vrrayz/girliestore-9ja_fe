@@ -31,7 +31,14 @@ export const Product = ({ id }: Props) => {
 
   const addProductToCart = () => {
     if (product) {
-      addToCart(product);
+      addToCart({
+        id: product.id,
+        name: product.name,
+        photoUrl: product.photos[0].url,
+        quantity: product.quantity,
+        quantityRequested: 1,
+        price: product.price,
+      });
     }
   };
   return (

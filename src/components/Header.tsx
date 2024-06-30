@@ -13,6 +13,7 @@ import {
 import { Toggler } from "./Toggler";
 import { UserToggler } from "./UserToggler";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useCart } from "@/hooks/useCart";
 
 interface Props {
   displaySearch?: boolean;
@@ -20,6 +21,7 @@ interface Props {
 
 export const Header = ({ displaySearch }: Props) => {
   const [headerTop, setHeaderTop] = useState<number>(0);
+  const { cartItems } = useCart();
   useEffect(() => {
     const handleScroll = () => {
       if (displaySearch) {
@@ -68,6 +70,11 @@ export const Header = ({ displaySearch }: Props) => {
         <UserToggler />
         <Cart href="#">
           <CartIcon icon={faCartFlatbed} />
+          {cartItems.length > 0 ? (
+            <CartItemsCount>{cartItems.length}</CartItemsCount>
+          ) : (
+            <></>
+          )}
         </Cart>
       </UserMenuItemsContainer>
     </HeaderContainer>
@@ -118,7 +125,22 @@ const Cart = styled.a`
   height: 40px;
   z-index: 100;
   color: ${Colors.olivedrab};
+  position: relative;
 `;
 const CartIcon = styled(FontAwesomeIcon)`
   font-size: 1.5rem;
+`;
+const CartItemsCount = styled.span`
+  background: ${Colors.coral};
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${Colors.white};
+  font-size: 12px;
 `;
