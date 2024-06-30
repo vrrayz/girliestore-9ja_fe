@@ -14,6 +14,8 @@ export const Body = ({ children, headerSpace }: Props) => {
 
 export const MainBody = styled.div<{ $headerSpace?: number }>`
   display: grid;
+  position: relative;
+  z-index: 0;
   grid-template-rows: ${(props) => props.$headerSpace || 120}px 1fr;
 `;
 export const Overlay = styled.div`
