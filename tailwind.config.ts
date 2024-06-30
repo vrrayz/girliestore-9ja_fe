@@ -11,6 +11,10 @@ export const tailwindColors = {
   darkslategray: "#414141",
   black: "#000",
   skyblue: "#8cd0c5",
+  olivedrab: "#6ab04c",
+  slateblue: "#7158e2",
+  coral: "#ff802a",
+  tomato: "#ff384a",
 };
 
 const config: Config = {
