@@ -67,7 +67,8 @@ input {
 
 .styled-button {
   display: flex;
-  width: 250px;
+  width: 100%;
+  max-width: 250px;
   height: 50px;
   background: var(--white);
   border: 1px solid var(--black);
