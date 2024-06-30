@@ -3,7 +3,7 @@
 export default function Home() {
   return (
     <div className="flex">
-      {/* <div className="w-1/2">
+      <div className="w-1/2">
         <a href="#" className="styled-button my-5 ml-5">
           Hello
         </a>
@@ -97,7 +97,7 @@ export default function Home() {
         <a href="#" className="styled-button gradient-olivedrab my-5 ml-5">
           Hello
         </a>
-      </div> */}
+      </div>
     </div>
   );
 }
