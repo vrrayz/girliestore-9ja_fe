@@ -7,8 +7,14 @@
 :root {
   --white: #fff;
   --black: #000;
-  --gradient-slateblue: linear-gradient(275.76deg, #7158E2 44.33%, #CD84F1 98.56%);
   --slateblue: #7158e2;
+  --coral: #ff802a;
+  --tomato: #ff384a;
+  --olivedrab: #6ab04c;
+  --gradient-slateblue: linear-gradient(275.76deg, #7158E2 44.33%, #CD84F1 98.56%);
+  --gradient-coral: conic-gradient(from -3.29deg at 100% -13%, #FFA502 0deg, #FF6348 360deg);
+  --gradient-tomato: linear-gradient(275.76deg, #FF384A 44.33%, #FF5463 98.56%);
+  --gradient-olivedrab: linear-gradient(275.76deg, #6AB04C 44.33%, #BADC58 98.56%);
 }
 
 /* 
@@ -157,6 +163,191 @@ input {
 .styled-button.gradient-slateblue__inverse:hover,
 .styled-button.gradient-slateblue__inverse:active {
   background: var(--gradient-slateblue);
+  color: var(--white);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: none;
+}
+
+.styled-button.gradient-coral {
+  background: var(--gradient-coral);
+  color: var(--white);
+  border: none;
+}
+
+.styled-button.gradient-coral:hover,
+.styled-button.gradient-coral:active {
+  background: var(--white);
+  color: var(--coral);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  /******important for gradient border*****/
+  position: relative;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  /******important for gradient border*****/
+}
+
+.styled-button.gradient-coral:hover::before,
+.styled-button.gradient-coral:active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -2px;
+  border-radius: inherit;
+  background: var(--gradient-coral);
+}
+
+.styled-button.gradient-coral__inverse {
+  background: var(--white);
+  color: var(--coral);
+  background-clip: padding-box;
+  position: relative;
+  border: 2px solid transparent;
+}
+
+.styled-button.gradient-coral__inverse::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -2px;
+  border-radius: inherit;
+  background: var(--gradient-coral);
+}
+
+.styled-button.gradient-coral__inverse:hover,
+.styled-button.gradient-coral__inverse:active {
+  background: var(--gradient-coral);
+  color: var(--white);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: none;
+}
+
+.styled-button.gradient-tomato {
+  background: var(--gradient-tomato);
+  color: var(--white);
+  border: none;
+}
+
+.styled-button.gradient-tomato:hover,
+.styled-button.gradient-tomato:active {
+  background: var(--white);
+  color: var(--tomato);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  /******important for gradient border*****/
+  position: relative;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  /******important for gradient border*****/
+}
+
+.styled-button.gradient-tomato:hover::before,
+.styled-button.gradient-tomato:active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -2px;
+  border-radius: inherit;
+  background: var(--gradient-tomato);
+}
+
+.styled-button.gradient-tomato__inverse {
+  background: var(--white);
+  color: var(--tomato);
+  background-clip: padding-box;
+  position: relative;
+  border: 2px solid transparent;
+}
+
+.styled-button.gradient-tomato__inverse::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -2px;
+  border-radius: inherit;
+  background: var(--gradient-tomato);
+}
+
+.styled-button.gradient-tomato__inverse:hover,
+.styled-button.gradient-tomato__inverse:active {
+  background: var(--gradient-tomato);
+  color: var(--white);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: none;
+}
+
+/* OLIVE DRAB COLORED BUTTONS */
+
+.styled-button.gradient-olivedrab {
+  background: var(--gradient-olivedrab);
+  color: var(--white);
+  border: none;
+}
+
+.styled-button.gradient-olivedrab:hover,
+.styled-button.gradient-olivedrab:active {
+  background: var(--white);
+  color: var(--olivedrab);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  /******important for gradient border*****/
+  position: relative;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  /******important for gradient border*****/
+}
+
+.styled-button.gradient-olivedrab:hover::before,
+.styled-button.gradient-olivedrab:active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -2px;
+  border-radius: inherit;
+  background: var(--gradient-olivedrab);
+}
+
+.styled-button.gradient-olivedrab__inverse {
+  background: var(--white);
+  color: var(--olivedrab);
+  background-clip: padding-box;
+  position: relative;
+  border: 2px solid transparent;
+}
+
+.styled-button.gradient-olivedrab__inverse::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -2px;
+  border-radius: inherit;
+  background: var(--gradient-olivedrab);
+}
+
+.styled-button.gradient-olivedrab__inverse:hover,
+.styled-button.gradient-olivedrab__inverse:active {
+  background: var(--gradient-olivedrab);
   color: var(--white);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border: none;
