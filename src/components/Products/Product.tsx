@@ -1,6 +1,5 @@
 "use client";
 
-import { CURRENCY, paramsToId } from "@/helpers";
 import { useProduct } from "@/hooks/useProduct";
 import React, { useContext } from "react";
 import { Loading } from "../Loading";
@@ -21,8 +20,8 @@ import {
 import { faCartFlatbed, faTags } from "@fortawesome/free-solid-svg-icons";
 import { ReviewAndRating } from "./ReviewAndRating";
 import { StarRatings } from "./StarRatings";
-import { addToCart } from "@/actions";
 import { CartContext } from "../CartContext";
+import { CURRENCY, addToCart, paramsToId } from "@/helpers";
 
 interface Props {
   id: string;
@@ -132,24 +131,6 @@ export const Product = ({ id }: Props) => {
               <ReviewAndRating />
             </CardBody>
           </ProductInfoContainer>
-          {/* <SectionHeader className="my-3">
-            <Button className="btn-primary" onClick={() => setShowModal(true)}>
-              Add Product
-            </Button>
-          </SectionHeader> */}
-          {/* {showModal && (
-            <AddProductModal
-              setShowModal={setShowModal}
-              setIsLoading={setIsLoading}
-              storeId={store.id}
-            />
-          )} */}
-
-          {/* <ProductListContainer>
-            {store.products?.map((product, i) => (
-              <ProductItemCard product={product} key={i} />
-            ))}
-          </ProductListContainer> */}
         </>
       )}
     </section>

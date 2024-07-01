@@ -1,4 +1,4 @@
-import { getCartItems } from "@/actions";
+import { getCartItems } from "@/helpers";
 import { CartItem } from "@/types";
 import { useEffect, useState } from "react";
 
