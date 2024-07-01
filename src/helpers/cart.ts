@@ -1,6 +1,4 @@
-"use server";
-import { CartItem, Product } from "@/types";
-import { cookies } from "next/headers";
+import { CartItem } from "@/types";
 
 /********************* VERY IMPORTANT INFO ***************************************************
 // Add to cart works... but modify this so that product doesn't show all the details of the product
@@ -18,15 +16,16 @@ QUICK LOGIC NOTE FOR THAT LAST PART
 **********************************************************************************************/
 
 export const addToCart = async (cartItem: CartItem) => {
-  if (!cookies().get("cartItems")) cookies().set("cartItems", "[]");
+  if (!localStorage.getItem("cartItems"))
+    localStorage.setItem("cartItems", "[]");
   const newCartItems: CartItem[] = await getCartItems();
   newCartItems.push(cartItem);
-  cookies().set("cartItems", JSON.stringify(newCartItems));
+  localStorage.setItem("cartItems", JSON.stringify(newCartItems));
 };
 
-export const getCartItems = async() => {
+export const getCartItems = async () => {
   const newCartItems: CartItem[] = JSON.parse(
-    cookies().get("cartItems")?.value || "[]"
+    localStorage.getItem("cartItems") || "[]"
   );
   return newCartItems;
 };
