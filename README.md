@@ -22,8 +22,7 @@ Since the majority of this project is still in developement, here's a list of th
 
 ```
 ************** TODO **************
-Styled buttons (Figma ref: https://www.figma.com/design/jKOYEUGOzPOYD3UvCg9HhZ/Trendy-Buttons-(Community)?node-id=17-2&t=r3zIgtBd4fqgFsRS-0)
-User View Product Details Page (In progress: Add to Cart button)
+User View Cart Details
 User Order Product
 Store Owner / Admin View Order(s)
 Store Owner / Admin Starts Processing the Order
@@ -33,6 +32,8 @@ Add middlewares/restrictions That lets only the admin create the stores
 **********************************
 
 ************** Finished **************
+Styled buttons (Figma ref: https://www.figma.com/design/jKOYEUGOzPOYD3UvCg9HhZ/Trendy-Buttons-(Community)?node-id=17-2&t=r3zIgtBd4fqgFsRS-0)
+User View Product Details Page (In progress: Add to Cart button)
 View all products on first page (In progress: sort by latest)
 Create Store Feature (Done)
 Admin View the stores
