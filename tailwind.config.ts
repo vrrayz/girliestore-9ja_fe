@@ -15,6 +15,7 @@ export const tailwindColors = {
   slateblue: "#7158e2",
   coral: "#ff802a",
   tomato: "#ff384a",
+  cornflowerblue: "#65acf0",
 };
 
 const config: Config = {

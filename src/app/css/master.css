@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --white: #fff;
+    --black: #000;
+    --slateblue: #7158e2;
+    --coral: #ff802a;
+    --tomato: #ff384a;
+    --olivedrab: #6ab04c;
+    --cornflowerblue: #65acf0;
+    --gradient-slateblue: linear-gradient(275.76deg, #7158E2 44.33%, #CD84F1 98.56%);
+    --gradient-coral: conic-gradient(from -3.29deg at 100% -13%, #FFA502 0deg, #FF6348 360deg);
+    --gradient-tomato: linear-gradient(275.76deg, #FF384A 44.33%, #FF5463 98.56%);
+    --gradient-olivedrab: linear-gradient(275.76deg, #6AB04C 44.33%, #BADC58 98.56%);
+}
+
+/* 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+*/
+body {
+    /* font-family: "Roboto", sans-serif; */
+    font-family: "Poppins", sans-serif;
+    background-color: #f0f1f2;
+}
+
+input {
+    border: 1px solid var(--black);
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 5px;
+    margin-top: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 14px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #fe3318b1;
+    border-radius: 14px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #680f04;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+
+@keyframes rotateLoading {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes scaleLoading {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.05);
+    }
+}
