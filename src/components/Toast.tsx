@@ -10,9 +10,11 @@ type ToastType = "info" | "warning" | "failure" | "success";
 interface Props {
   type?: ToastType;
   closeToast: () => void;
+  title: string;
+  message: string;
 }
 
-export const Toast = ({ type, closeToast }: Props) => {
+export const Toast = ({ type, closeToast, title, message }: Props) => {
   const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
   const close = useCallback(() => {
     setShouldAnimate(true);
@@ -39,10 +41,8 @@ export const Toast = ({ type, closeToast }: Props) => {
         <button className="closeButton" onClick={() => close()}>
           <FontAwesomeIcon icon={faClose} size="xl" />
         </button>
-        <h3 className="text-xl font-bold mb-1">Hello !</h3>
-        <p className="message mt-1">
-          You successfully read this important message
-        </p>
+        <h3 className="text-xl font-bold mb-1">{title}</h3>
+        <p className="message mt-1">{message}</p>
         <Image
           src={"/assets/logo_bw.png"}
           width={70}

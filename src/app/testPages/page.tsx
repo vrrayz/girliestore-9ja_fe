@@ -10,7 +10,14 @@ export default function Home() {
       <button className="styled-button" onClick={() => setToggleToast(true)}>
         Toggle Toast
       </button>
-      {toggleToast && <Toast type="success" closeToast={closeToast} />}
+      {toggleToast && (
+        <Toast
+          type="success"
+          closeToast={closeToast}
+          title={"Toast Done!!"}
+          message={"We now have a toast"}
+        />
+      )}
     </>
   );
 }
