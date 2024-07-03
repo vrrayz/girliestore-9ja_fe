@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Colors } from "@/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,21 +9,21 @@ type ToastType = "info" | "warning" | "failure" | "success";
 
 interface Props {
   type?: ToastType;
+  closeToast: () => void;
 }
 
-export const Toast = ({ type }: Props) => {
+export const Toast = ({ type, closeToast }: Props) => {
   const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
-  const closeToast = () => {
-    setShouldAnimate(!shouldAnimate);
-    // A call to the parent component close function should be placed here
-    //probably in a setTimeout
-  };
+  const close = useCallback(() => {
+    setShouldAnimate(true);
+    closeToast();
+  }, [closeToast]);
   useEffect(() => {
-    const timeout = setTimeout(() => setShouldAnimate(true), 2000);
+    const timeout = setTimeout(() => close(), 2000);
     return () => {
       clearTimeout(timeout);
     };
-  }, []);
+  }, [close]);
   return (
     <>
       <div className={`styled-toast ${type} ${shouldAnimate && "slideOut"}`}>
@@ -36,7 +36,7 @@ export const Toast = ({ type }: Props) => {
             className="toastImage"
           />
         )}
-        <button className="closeButton" onClick={() => closeToast()}>
+        <button className="closeButton" onClick={() => close()}>
           <FontAwesomeIcon icon={faClose} size="xl" />
         </button>
         <h3 className="text-xl font-bold mb-1">Hello !</h3>
