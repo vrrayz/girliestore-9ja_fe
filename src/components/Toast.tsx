@@ -4,17 +4,12 @@ import { Colors } from "@/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
-
-type ToastType = "info" | "warning" | "failure" | "success";
-
-interface Props {
-  type?: ToastType;
+import { Toast as ToastInterface } from "@/types";
+interface ToastProps extends ToastInterface {
   closeToast: () => void;
-  title: string;
-  message: string;
 }
 
-export const Toast = ({ type, closeToast, title, message }: Props) => {
+export const Toast = ({ type, closeToast, title, message }: ToastProps) => {
   const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
   const close = useCallback(() => {
     setShouldAnimate(true);
