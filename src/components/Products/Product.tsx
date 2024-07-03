@@ -1,7 +1,7 @@
 "use client";
 
 import { useProduct } from "@/hooks/useProduct";
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { Loading } from "../Loading";
 import Image from "next/image";
 import styled from "styled-components";
@@ -32,6 +32,13 @@ export const Product = ({ id }: Props) => {
   const { product, isLoading } = useProduct(paramsToId(id));
   const { cartItems, setCartItems } = useContext(CartContext);
   const { toggleToast, closeToast, toast, showToast } = useToast();
+
+  const isItemAdded = useCallback(
+    (itemId: number) => {
+      return cartItems.filter((item) => item.id === itemId).length > 0;
+    },
+    [cartItems]
+  );
 
   const addProductToCart = () => {
     if (product) {
@@ -100,17 +107,21 @@ export const Product = ({ id }: Props) => {
                 hasReviewersCount
                 reviewersCount={53}
               />
-              <button
-                className="styled-button gradient-olivedrab my-3"
-                onClick={() => addProductToCart()}
-              >
-                <FontAwesomeIcon
-                  icon={faCartFlatbed}
-                  size="lg"
-                  className="mr-1"
-                />
-                <span className="ml-1">Add To Cart</span>
-              </button>
+              {isItemAdded(product.id) ? (
+                <></>
+              ) : (
+                <button
+                  className="styled-button gradient-olivedrab my-3"
+                  onClick={() => addProductToCart()}
+                >
+                  <FontAwesomeIcon
+                    icon={faCartFlatbed}
+                    size="lg"
+                    className="mr-1"
+                  />
+                  <span className="ml-1">Add To Cart</span>
+                </button>
+              )}
             </CardBody>
           </ProductInfoContainer>
           <ProductInfoContainer className="mb-5">
