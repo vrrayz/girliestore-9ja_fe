@@ -22,13 +22,16 @@ import { ReviewAndRating } from "./ReviewAndRating";
 import { StarRatings } from "./StarRatings";
 import { CartContext } from "../CartContext";
 import { CURRENCY, addToCart, paramsToId } from "@/helpers";
+import { useToast } from "@/hooks/useToast";
+import { Toast } from "../Toast";
 
 interface Props {
   id: string;
 }
 export const Product = ({ id }: Props) => {
-  const { product, isLoading, setIsLoading } = useProduct(paramsToId(id));
+  const { product, isLoading } = useProduct(paramsToId(id));
   const { cartItems, setCartItems } = useContext(CartContext);
+  const { toggleToast, closeToast, toast, showToast } = useToast();
 
   const addProductToCart = () => {
     if (product) {
@@ -40,7 +43,15 @@ export const Product = ({ id }: Props) => {
         quantityRequested: 1,
         price: product.price,
       };
-      addToCart(cartItem).then(() => setCartItems([...cartItems, cartItem]));
+      addToCart(cartItem)
+        .then(() => setCartItems([...cartItems, cartItem]))
+        .then(() =>
+          showToast({
+            title: "Item Added !!",
+            message: "You've added an item to your cart",
+            type: "success",
+          })
+        );
     }
   };
   return (
@@ -132,6 +143,14 @@ export const Product = ({ id }: Props) => {
             </CardBody>
           </ProductInfoContainer>
         </>
+      )}
+      {toggleToast && toast && (
+        <Toast
+          type={toast.type}
+          closeToast={closeToast}
+          title={toast.title}
+          message={toast.message}
+        />
       )}
     </section>
   );
