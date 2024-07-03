@@ -70,7 +70,7 @@ export const Header = ({ displaySearch }: Props) => {
       {/* User Dropdown would be fixed at the top right */}
       <UserMenuItemsContainer>
         <UserToggler />
-        <Cart href="#">
+        <Cart href="/cart">
           <CartIcon icon={faCartFlatbed} />
           {/* {cartItems.length > 0 ? ( */}
           <CartItemsCount>{cartItems.length}</CartItemsCount>
