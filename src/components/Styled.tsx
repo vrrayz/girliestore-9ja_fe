@@ -1,7 +1,8 @@
 "use client";
 
-import { Colors } from "@/styles";
+import { Colors, SCREENS } from "@/styles";
 import styled from "styled-components";
+import { CardBody, CardContainer } from "./Card";
 
 interface Props {
   children: React.ReactNode;
@@ -43,6 +44,40 @@ export const MultiplePhotosContainer = styled.div<{
   padding-bottom: 6px;
   justify-content: ${(props) => (props.$photoCount === 1 ? "center" : "start")};
   align-items: ${(props) => (props.$photoCount === 1 ? "center" : "start")};
+`;
+export const ItemsListGroup = styled.div`
+  padding: 16px;
+  ${SCREENS.md} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  ${SCREENS.lg} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+export const Item = styled(CardContainer)`
+  display: flex;
+  padding: 0px 8px;
+  border-radius: 12px;
+  transform: scale(1);
+  transition: transform 500ms;
+  img {
+    width: 25%;
+    max-width: 70px;
+    max-height: 70px;
+    margin: auto;
+    border-radius: 8px;
+  }
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 1px 1px 3px 0px #0000008a;
+    background-color: ${Colors.red};
+    color: ${Colors.white};
+  }
+  ${CardBody} {
+    width: 100%;
+  }
 `;
 export const TextSmall = styled.p`
   font-size: 12px;
