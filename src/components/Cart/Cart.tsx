@@ -18,26 +18,39 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import { closePaymentModal, useFlutterwave } from "flutterwave-react-v3";
+import flwConfig from "@/data/flw.config";
 
 export const Cart = () => {
   const { cartItems, setCartItems } = useContext(CartContext);
   const [subtotal, setSubtotal] = useState<number>(0);
+
+  const handleFlutterPayment = useFlutterwave({
+    ...flwConfig,
+    amount: subtotal,
+    customer: {
+      email: "emmyvic98@gmail.com",
+      phone_number: "08146027086",
+      name: "john doe",
+    },
+  });
+
   const modifyQuantityRequested = (
     id: number,
     operation: "increase" | "decrease"
   ) => {
-    setCartItems(
-      cartItems
-        .map((cartItem) => {
-          if (cartItem.id === id) {
-            operation === "increase"
-              ? (cartItem.quantityRequested += 1)
-              : (cartItem.quantityRequested -= 1);
-          }
-          return cartItem;
-        })
-        .filter((cartItem) => cartItem.quantityRequested > 0)
-    );
+    const newCartItems = cartItems
+      .map((cartItem) => {
+        if (cartItem.id === id) {
+          operation === "increase"
+            ? (cartItem.quantityRequested += 1)
+            : (cartItem.quantityRequested -= 1);
+        }
+        return cartItem;
+      })
+      .filter((cartItem) => cartItem.quantityRequested > 0);
+    setCartItems(newCartItems);
+    localStorage.setItem("cartItems", JSON.stringify(newCartItems));
   };
   useEffect(() => {
     setSubtotal(
@@ -96,7 +109,18 @@ export const Cart = () => {
                 {new Intl.NumberFormat("en-US").format(subtotal)}
               </Text2Xl>
             </div>
-            <button className="styled-button gradient-olivedrab my-3">
+            <button
+              className="styled-button gradient-olivedrab my-3"
+              onClick={() => {
+                handleFlutterPayment({
+                  callback: (response) => {
+                    console.log(response);
+                    closePaymentModal(); // this will close the modal programmatically
+                  },
+                  onClose: () => {},
+                });
+              }}
+            >
               <FontAwesomeIcon icon={faCreditCard} size="lg" className="mr-1" />{" "}
               <span>Proceed To Checkout</span>
             </button>
