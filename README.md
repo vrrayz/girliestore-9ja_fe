@@ -22,8 +22,7 @@ Since the majority of this project is still in developement, here's a list of th
 
 ```
 ************** TODO **************
-User View Cart Details
-User Order Product
+User checkout(payment gateway integration)
 Store Owner / Admin View Order(s)
 Store Owner / Admin Starts Processing the Order
 
@@ -40,5 +39,7 @@ Create Store Feature (Done)
 Admin View the stores
 Display All Products On The First Page
 User View Product Details (In progress: Add Description, Reviews and Ratings)
+User View Cart Details
+
 **************************************
 ```
