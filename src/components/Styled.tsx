@@ -75,6 +75,10 @@ export const Item = styled(CardContainer)`
     background-color: ${Colors.red};
     color: ${Colors.white};
   }
+  &.no-hover:hover {
+    background-color: ${Colors.white};
+    color: ${Colors.black};
+  }
   ${CardBody} {
     width: 100%;
   }
@@ -88,6 +92,9 @@ export const Text = styled.p`
 export const TextXl = styled.p`
   font-size: 20px;
 `;
+export const Text2Xl = styled.p`
+  font-size: 24px;
+`;
 export const InlineTextSmall = styled.span`
   font-size: 12px;
 `;
@@ -96,4 +103,7 @@ export const InlineText = styled.span`
 `;
 export const InlineTextXl = styled.span`
   font-size: 20px;
+`;
+export const InlineText2Xl = styled.span`
+  font-size: 24px;
 `;
