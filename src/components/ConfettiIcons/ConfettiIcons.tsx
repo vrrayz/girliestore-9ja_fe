@@ -100,7 +100,7 @@ export const ConfettiArch = ({ top, left }: Props) => {
       <path
         d="M3.94171 20.7805C7.52445 15.6535 12.3024 11.4765 17.8622 8.61107C23.422 5.7456 29.5962 4.27787 35.8507 4.33485C42.1052 4.39183 48.2517 5.97181 53.7584 8.9381C59.265 11.9044 63.9661 16.1677 67.4548 21.3591"
         stroke="#E2A21F"
-        stroke-width="8"
+        strokeWidth="8"
       />
     </svg>
   );
@@ -122,7 +122,7 @@ export const ConfettiRibbon = ({ top, left }: Props) => {
       <path
         d="M6.11038 70.6426L26.6008 65.1522L21.1104 44.6618L41.6008 39.1714L36.1104 18.6811L56.6008 13.1907"
         stroke="#00A7E5"
-        stroke-width="8"
+        strokeWidth="8"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
@@ -146,7 +146,7 @@ export const ConfettiCircle = ({ top, left }: Props) => {
       <path
         d="M52 27.8362C52 40.7533 41.3219 51.3449 28 51.3449C14.6781 51.3449 4 40.7533 4 27.8362C4 14.9191 14.6781 4.32739 28 4.32739C41.3219 4.32739 52 14.9191 52 27.8362Z"
         stroke="#E40173"
-        stroke-width="8"
+        strokeWidth="8"
       />
     </svg>
   );
