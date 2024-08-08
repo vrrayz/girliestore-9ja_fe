@@ -3,6 +3,7 @@ import type { Config } from "tailwindcss";
 export const tailwindColors = {
   red: "#fe3418",
   saddlebrown: "#722d23",
+  dimgray: "#828282",
   brown: "#febd6d",
   white: "#fff",
   whitesmoke: "#f2f2f2",
