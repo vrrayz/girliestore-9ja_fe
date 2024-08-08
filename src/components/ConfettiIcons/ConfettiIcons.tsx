@@ -123,8 +123,8 @@ export const ConfettiRibbon = ({ top, left }: Props) => {
         d="M6.11038 70.6426L26.6008 65.1522L21.1104 44.6618L41.6008 39.1714L36.1104 18.6811L56.6008 13.1907"
         stroke="#00A7E5"
         strokeWidth="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
