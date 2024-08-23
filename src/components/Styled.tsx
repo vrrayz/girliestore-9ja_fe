@@ -44,6 +44,34 @@ export const MultiplePhotosContainer = styled.div<{
   padding-bottom: 6px;
   justify-content: ${(props) => (props.$photoCount === 1 ? "center" : "start")};
   align-items: ${(props) => (props.$photoCount === 1 ? "center" : "start")};
+  position: relative;
+
+  .container-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    // text-align: center;
+    display: flex;
+    justify-content: center;
+    z-index: 100;
+    flex-direction: column;
+    align-items: center;
+    svg {
+      width: 50px;
+      height: 50px;
+      fill: #ffffffb5;
+      transform: rotate(0deg);
+      animation: rotateLoading;
+      animation-duration: 1200ms;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+  }
 `;
 export const ItemsListGroup = styled.div`
   padding: 16px;

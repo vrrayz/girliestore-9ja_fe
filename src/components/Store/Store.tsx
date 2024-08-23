@@ -3,10 +3,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGlobe,
-  faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faGlobe, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { Loading } from "../Loading";
 import { Button } from "../Buttons";
@@ -17,7 +14,10 @@ import {
   CardContainer,
 } from "../Card";
 import { useStore } from "@/hooks/useStore";
-import { ProductItemCard, ProductListContainer } from "../Products/ProductItemCard";
+import {
+  ProductItemCard,
+  ProductListContainer,
+} from "../Products/ProductItemCard";
 import { paramsToId } from "@/helpers";
 import { useParamsRedirect } from "@/hooks/useParamsRedirect";
 import { AddProductModal } from "../Products/AddProductModal";
@@ -27,15 +27,10 @@ interface Props {
 }
 
 export const Store = ({ id }: Props) => {
-  const { store, isLoading, setIsLoading } = useStore(
-    paramsToId(id)
-  );
+  const { store, isLoading, setIsLoading } = useStore(paramsToId(id));
   const {} = useParamsRedirect(id, store?.name);
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  useEffect(() => {
-    console.log("Shops from ui ", store);
-  });
   return (
     <section style={{ width: "100vw" }}>
       {isLoading && <Loading />}

@@ -8,7 +8,7 @@ import {
 } from "@/styles";
 import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { closeModal, ErrorModal } from "../Modals/Modals";
 import Image from "next/image";
 import {
@@ -26,6 +26,11 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useCategories } from "@/hooks/useCategories";
 import { addProduct } from "@/actions/product";
 import { MultiplePhotosContainer } from "../Styled";
+import { PredictionType } from "./imagePrediction";
+import { setBackend } from "@tensorflow/tfjs";
+import { load, MobileNet } from "@tensorflow-models/mobilenet";
+import { useImagePrediction } from "@/hooks/useImagePrediction";
+import { LoadingIcon } from "../Icons/LoadingIcon";
 
 interface Props {
   setShowModal: (value: boolean) => void;
@@ -40,6 +45,10 @@ type ShopInput = {
   price: number;
   quantity: number;
   file: FileList[];
+  imageLabels: {
+    className: string;
+    probability: number;
+  }[];
 };
 interface MultiPhotos {
   image: string;
@@ -53,6 +62,10 @@ export const AddProductModal = ({
 }: Props) => {
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
   const [multiPhotos, setMultiPhotos] = useState<MultiPhotos[]>([]);
+  const [photoPredictions, setPhotoPredictions] = useState<PredictionType[]>(
+    []
+  );
+  const { showPredictions, isMachineLoading } = useImagePrediction();
   const { categories } = useCategories();
   const {
     register,
@@ -68,34 +81,44 @@ export const AddProductModal = ({
   const isInCorrectFormat = (blob: Blob) =>
     !blob || (blob.type !== "image/jpeg" && blob.type !== "image/png");
 
-  const onSubmit: SubmitHandler<ShopInput> = (data) => {
+  const onSubmit: SubmitHandler<ShopInput> = async (data) => {
     setIsLoading(true);
     let formData = new FormData();
+
     formData.append("name", data.name);
     formData.append("description", data.description);
     formData.append("shopId", data.shopId.toString());
     formData.append("categoryId", data.categoryId.toString());
     formData.append("price", data.price.toString());
     formData.append("quantity", data.quantity.toString());
+
     multiPhotos.map(({ inputFile }) => {
       formData.append("file", inputFile[0]);
     });
+    formData.append("imageLabels", JSON.stringify(photoPredictions));
 
     addProduct(formData).then(async (res) => {
-      console.log("This is the response ", res);
       if (res.statusCode === 200) {
         console.log("Response success");
         setShowModal(false);
       } else {
+        console.log("res error == ", res.message);
         setShowErrorModal(true);
       }
       setIsLoading(false);
     });
   };
 
-  const addPhotoFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const addPhotoFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       if (!isInCorrectFormat(event.target.files[0])) {
+        await showPredictions(event.target.files[0]).then((res) => {
+          console.log("The uploaded file predictions === ", res);
+          setPhotoPredictions([
+            ...photoPredictions,
+            ...(res as PredictionType[]),
+          ]);
+        });
         setMultiPhotos([
           ...multiPhotos,
           {
@@ -126,6 +149,12 @@ export const AddProductModal = ({
             <ModalBody>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <MultiplePhotosContainer $photoCount={multiPhotos.length + 1}>
+                  {isMachineLoading && (
+                    <div className="container-overlay">
+                      <LoadingIcon />
+                      <p>Please wait</p>
+                    </div>
+                  )}
                   {multiPhotos.map((productFile, i) => (
                     <DragAndDropContainer key={i} $width={270}>
                       <ImagePreview>
