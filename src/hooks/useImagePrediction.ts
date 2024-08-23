@@ -2,6 +2,11 @@ import { load, MobileNet } from "@tensorflow-models/mobilenet";
 import { setBackend } from "@tensorflow/tfjs";
 import { useEffect, useState } from "react";
 
+export type PredictionType = {
+  className: string;
+  probability: number;
+};
+
 export const useImagePrediction = () => {
   const [model, setModel] = useState<MobileNet>();
   const [isMachineLoading, setIsMachineLoading] = useState<boolean>(true);

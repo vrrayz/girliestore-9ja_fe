@@ -4,11 +4,10 @@ import {
   ModalHeading,
   CloseButton,
   ModalBody,
-  Colors,
 } from "@/styles";
 import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { closeModal, ErrorModal } from "../Modals/Modals";
 import Image from "next/image";
 import {
@@ -21,15 +20,11 @@ import {
   Select,
   TextArea,
 } from "../Form";
-import styled from "styled-components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useCategories } from "@/hooks/useCategories";
 import { addProduct } from "@/actions/product";
 import { MultiplePhotosContainer } from "../Styled";
-import { PredictionType } from "./imagePrediction";
-import { setBackend } from "@tensorflow/tfjs";
-import { load, MobileNet } from "@tensorflow-models/mobilenet";
-import { useImagePrediction } from "@/hooks/useImagePrediction";
+import { PredictionType, useImagePrediction } from "@/hooks/useImagePrediction";
 import { LoadingIcon } from "../Icons/LoadingIcon";
 
 interface Props {
