@@ -10,6 +10,7 @@ export type PredictionType = {
 export const useImagePrediction = () => {
   const [model, setModel] = useState<MobileNet>();
   const [isMachineLoading, setIsMachineLoading] = useState<boolean>(true);
+  const [hasMachineError, setHasMachineError] = useState<boolean>(false);
   const showPredictions = (imageFile: File) => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -47,22 +48,24 @@ export const useImagePrediction = () => {
   useEffect(() => {
     if (!model) {
       const startTime = new Date().getTime();
-      load({ version: 1, alpha: 0.25 }).then((res) => {
-        const endTime = (new Date().getTime() - startTime) / 1000;
-        console.log(
-          "The load result is this ",
-          res,
-          " taking ",
-          endTime,
-          " seconds"
-        );
-        setModel(res);
-      });
+      load({ version: 2, alpha: 1 })
+        .then((res) => {
+          const endTime = (new Date().getTime() - startTime) / 1000;
+          console.log(
+            "The load result is this ",
+            res,
+            " taking ",
+            endTime,
+            " seconds"
+          );
+          setModel(res);
+        })
+        .catch(() => setHasMachineError(true));
     }
     if (model) {
       setIsMachineLoading(false);
     }
   }, [model]);
 
-  return { showPredictions, isMachineLoading };
+  return { showPredictions, isMachineLoading, hasMachineError };
 };

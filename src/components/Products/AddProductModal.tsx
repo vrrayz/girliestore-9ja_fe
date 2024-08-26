@@ -60,7 +60,8 @@ export const AddProductModal = ({
   const [photoPredictions, setPhotoPredictions] = useState<PredictionType[]>(
     []
   );
-  const { showPredictions, isMachineLoading } = useImagePrediction();
+  const { showPredictions, isMachineLoading, hasMachineError } =
+    useImagePrediction();
   const { categories } = useCategories();
   const {
     register,
@@ -126,9 +127,9 @@ export const AddProductModal = ({
   };
   return (
     <>
-      {showErrorModal ? (
+      {showErrorModal || hasMachineError ? (
         <ErrorModal
-          title={"Error Creating Term"}
+          title={"Error Uploading Product"}
           setShowModal={setShowErrorModal}
         />
       ) : (
