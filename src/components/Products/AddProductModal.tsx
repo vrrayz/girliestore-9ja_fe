@@ -26,6 +26,7 @@ import { addProduct } from "@/actions/product";
 import { MultiplePhotosContainer } from "../Styled";
 import { PredictionType, useImagePrediction } from "@/hooks/useImagePrediction";
 import { LoadingIcon } from "../Icons/LoadingIcon";
+import { isImageInCorrectFormat } from "@/helpers";
 
 interface Props {
   setShowModal: (value: boolean) => void;
@@ -74,9 +75,6 @@ export const AddProductModal = ({
     },
   });
 
-  const isInCorrectFormat = (blob: Blob) =>
-    !blob || (blob.type !== "image/jpeg" && blob.type !== "image/png");
-
   const onSubmit: SubmitHandler<ShopInput> = async (data) => {
     setIsLoading(true);
     let formData = new FormData();
@@ -107,7 +105,7 @@ export const AddProductModal = ({
 
   const addPhotoFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      if (!isInCorrectFormat(event.target.files[0])) {
+      if (!isImageInCorrectFormat(event.target.files[0])) {
         await showPredictions(event.target.files[0]).then((res) => {
           console.log("The uploaded file predictions === ", res);
           setPhotoPredictions([
@@ -176,7 +174,7 @@ export const AddProductModal = ({
                         onChange: (event) => addPhotoFile(event),
                         required: "Photo is required",
                         validate: (value) =>
-                          !isInCorrectFormat(value[0]) ||
+                          !isImageInCorrectFormat(value[0]) ||
                           "Incorrect file format, must be either a .png or .jpg",
                       })}
                     />

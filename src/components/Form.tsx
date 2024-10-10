@@ -89,25 +89,25 @@ export const ErrorMessage = styled.span`
   margin-bottom: 8px;
   display: block;
 `;
-const InputContainer = styled.div`
+export const InputContainer = styled.div`
   display: flex;
   border-radius: 25px;
   background: ${Colors.whitesmoke};
   padding: 8px 16px;
-  gap: 6px;
+  // gap: 6px;
   height: 42px;
 `;
-const StyledInput = styled(Input)`
+export const StyledInput = styled(Input)`
   background: transparent;
   border: none !important;
   outline: none !important;
 `;
-const InputIcon = styled(FontAwesomeIcon)`
+export const InputIcon = styled(FontAwesomeIcon)`
   margin: auto;
   color: #666;
 `;
 export const DragAndDropContainer = styled.div<{ $width?: number }>`
-  width: ${(props) => props.$width ? props.$width : '300'}px;
+  width: ${(props) => (props.$width ? props.$width : "300")}px;
   height: 200px;
   border: 2px dashed ${Colors.darkslategray}8a;
   margin: auto;

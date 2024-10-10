@@ -10,3 +10,6 @@ export const paramsToName = (paramId: string) => {
   param.pop();
   return param.join(" ");
 };
+
+export const isImageInCorrectFormat = (blob: Blob) =>
+  !blob || (blob.type !== "image/jpeg" && blob.type !== "image/png");

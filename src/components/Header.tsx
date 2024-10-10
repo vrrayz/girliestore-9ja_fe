@@ -4,8 +4,9 @@ import { Colors } from "@/styles";
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { CustomInput } from "./Form";
+import { CustomInput, InputContainer, InputIcon, StyledInput } from "./Form";
 import {
+  faCamera,
   faCartFlatbed,
   faCartShopping,
   faSearch,
@@ -15,6 +16,9 @@ import { UserToggler } from "./UserToggler";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCart } from "@/hooks/useCart";
 import { CartContext } from "./CartContext";
+import { useImagePrediction } from "@/hooks/useImagePrediction";
+import { isImageInCorrectFormat } from "@/helpers";
+import { ImageSearchResults } from "./ImageSearchResults";
 
 interface Props {
   displaySearch?: boolean;
@@ -22,8 +26,28 @@ interface Props {
 
 export const Header = ({ displaySearch }: Props) => {
   const [headerTop, setHeaderTop] = useState<number>(0);
+  const { showPredictions, isMachineLoading, hasMachineError } =
+    useImagePrediction();
+  const [showImageSearchResults, setShowImageSearchResults] =
+    useState<boolean>(false);
+  const [imagePredictions, setImagePredictions] = useState<string>("");
   // const { cartItems } = useCart();
   const { cartItems } = useContext(CartContext);
+
+  const searchPhoto = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      if (!isImageInCorrectFormat(event.target.files[0])) {
+        await showPredictions(event.target.files[0]).then((res: any) => {
+          console.log("The uploaded file predictions === ", res);
+          const firstPrediction = res[0].className;
+          console.log("The first prediction === ", firstPrediction);
+          setImagePredictions(firstPrediction);
+          setShowImageSearchResults(true);
+        });
+      }
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       if (displaySearch) {
@@ -59,11 +83,28 @@ export const Header = ({ displaySearch }: Props) => {
           />
         </a>
         {displaySearch && (
-          <CustomInput
-            icon={faSearch}
-            placeholder={"Search"}
-            className="w-full mx-auto header-input"
-          />
+          // <CustomInput
+          //   icon={faSearch}
+          //   placeholder={"Search"}
+          //   className="w-full mx-auto header-input"
+          // />
+          <InputContainer className="w-full mx-auto header-input">
+            {isMachineLoading ? (
+              <InputIcon icon={faSearch} />
+            ) : (
+              <CameraButtonContainer>
+                <CameraFileInput
+                  type="file"
+                  id="cameraInput"
+                  accept="image/*"
+                  onChange={(event) => searchPhoto(event)}
+                  capture
+                />
+                <InputIcon icon={faCamera} />
+              </CameraButtonContainer>
+            )}
+            <StyledInput placeholder={"Search"} />
+          </InputContainer>
         )}
       </LogoAndSearchContainer>
 
@@ -79,6 +120,13 @@ export const Header = ({ displaySearch }: Props) => {
           )} */}
         </Cart>
       </UserMenuItemsContainer>
+
+      {showImageSearchResults && (
+        <ImageSearchResults
+          setShowModal={setShowImageSearchResults}
+          labels={imagePredictions}
+        />
+      )}
     </HeaderContainer>
   );
 };
@@ -145,4 +193,18 @@ const CartItemsCount = styled.span`
   align-items: center;
   color: ${Colors.white};
   font-size: 12px;
+`;
+
+const CameraButtonContainer = styled.div`
+  overflow: hidden;
+  max-width: 28px;
+  position: relative;
+  display: flex;
+`;
+
+const CameraFileInput = styled.input`
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
 `;

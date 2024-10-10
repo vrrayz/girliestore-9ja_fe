@@ -8,6 +8,14 @@ export const getProducts = async (data: {}) => {
   return request;
 };
 
+export const getProductsByLabel = async (data: {}) => {
+  const request = await getData("/product/find-label", data);
+  if (request.statusCode === 200) {
+    return request.data;
+  }
+  return request;
+};
+
 export const getProduct = async (id: number) => {
   const request = await getData(`/product/${id}`);
   if (request.statusCode === 200) {
