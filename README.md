@@ -22,6 +22,10 @@ Since the majority of this project is still in developement, here's a list of th
 
 ```
 ************** TODO **************
+Make All Pages Responsive for all devices
+View Product Redesign
+Edit Product Functionality
+Add Product and Edit Product Page
 User checkout(payment gateway integration)
 Store Owner / Admin View Order(s)
 Store Owner / Admin Starts Processing the Order
