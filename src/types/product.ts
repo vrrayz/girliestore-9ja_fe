@@ -12,6 +12,9 @@ export interface Product {
   }[];
   quantity: number;
   price: number;
+  color: string;
+  unit: string;
+  size: number;
   createdAt: Date;
   updatedAt: Date;
 }
