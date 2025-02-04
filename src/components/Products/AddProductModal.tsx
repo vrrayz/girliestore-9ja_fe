@@ -26,6 +26,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useCategories } from "@/hooks/useCategories";
 import { addProduct } from "@/actions/product";
 import { MultiplePhotosContainer } from "../Styled";
+import { imageFormatValidationMessage, isInCorrectFormat } from "@/helpers";
 
 interface Props {
   setShowModal: (value: boolean) => void;
@@ -64,9 +65,6 @@ export const AddProductModal = ({
       shopId: storeId,
     },
   });
-
-  const isInCorrectFormat = (blob: Blob) =>
-    !blob || (blob.type !== "image/jpeg" && blob.type !== "image/png");
 
   const onSubmit: SubmitHandler<ShopInput> = (data) => {
     setIsLoading(true);
@@ -152,7 +150,7 @@ export const AddProductModal = ({
                         required: "Photo is required",
                         validate: (value) =>
                           !isInCorrectFormat(value[0]) ||
-                          "Incorrect file format, must be either a .png or .jpg",
+                          imageFormatValidationMessage,
                       })}
                     />
                   </DragAndDropContainer>

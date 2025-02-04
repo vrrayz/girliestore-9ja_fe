@@ -11,10 +11,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { closeModal, ErrorModal } from "../Modals/Modals";
 import Image from "next/image";
-import { DragAndDropContainer, ErrorMessage, FileEmptyPlaceholder, ImagePreview, Input, Label, TextArea } from "../Form";
+import {
+  DragAndDropContainer,
+  ErrorMessage,
+  FileEmptyPlaceholder,
+  ImagePreview,
+  Input,
+  Label,
+  TextArea,
+} from "../Form";
 import styled from "styled-components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { addStore } from "@/actions/store";
+import { imageFormatValidationMessage, isInCorrectFormat } from "@/helpers";
 
 interface Props {
   setShowModal: (value: boolean) => void;
@@ -39,9 +48,6 @@ export const AddStoreModal = ({ setShowModal, setIsLoading }: Props) => {
     mode: "onChange",
   });
 
-  const isInCorrectFormat = (blob: Blob) =>
-    !blob || (blob.type !== "image/jpeg" && blob.type !== "image/png");
-
   const onSubmit: SubmitHandler<ShopInput> = (data) => {
     setIsLoading(true);
     let formData = new FormData();
@@ -55,7 +61,9 @@ export const AddStoreModal = ({ setShowModal, setIsLoading }: Props) => {
       if (res.statusCode === 200) {
         console.log("Response success");
         setShowModal(false);
-      }else{ setShowErrorModal(true) }
+      } else {
+        setShowErrorModal(true);
+      }
       setIsLoading(false);
     });
   };
@@ -112,7 +120,7 @@ export const AddStoreModal = ({ setShowModal, setIsLoading }: Props) => {
                       required: "Photo is required",
                       validate: (value) =>
                         !isInCorrectFormat(value[0]) ||
-                        "Incorrect file format, must be either a .png or .jpg",
+                        imageFormatValidationMessage,
                     })}
                   />
                 </DragAndDropContainer>
