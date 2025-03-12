@@ -65,6 +65,8 @@ const ProductItemImage = styled.img`
   object-fit: contain;
   object-position: center;
   background: #eaeaea;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 `;
 const ProductItemCardContainer = styled(CardContainer)<{ $hasLink?: boolean }>`
   margin: auto;
@@ -76,4 +78,10 @@ const ProductItemCardContainer = styled(CardContainer)<{ $hasLink?: boolean }>`
   display: flex;
   flex-direction: column;
   cursor: ${(props) => (props.$hasLink ? "pointer" : "none")};
+  border-radius: 16px;
+  border: 1px solid #ededed;
+
+  &:hover {
+    border-color: olivedrab;
+  }
 `;

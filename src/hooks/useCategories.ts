@@ -3,20 +3,16 @@ import { categoryMock } from "@/mocks/categories";
 import { Category } from "@/types";
 import { useEffect, useState } from "react";
 
-interface Props {
-  isMock?: boolean;
-}
-
-export const useCategories = ({ isMock }: Props) => {
+export const useCategories = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   useEffect(() => {
-    if (isMock) {
+    if (process.env.NEXT_PUBLIC_DATA_FETCH_MODE == "mock") {
       setCategories(categoryMock);
     } else {
       getCategories().then((res) => {
         setCategories(res);
       });
     }
-  }, [isMock]);
+  }, []);
   return { categories, setCategories };
 };

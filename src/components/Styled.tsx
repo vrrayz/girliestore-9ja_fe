@@ -3,6 +3,11 @@
 import { Colors, SCREENS } from "@/styles";
 import styled from "styled-components";
 import { CardBody, CardContainer } from "./Card";
+import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import { useCategories } from "@/hooks/useCategories";
 
 interface Props {
   children: React.ReactNode;
@@ -10,7 +15,87 @@ interface Props {
 }
 
 export const Body = ({ children, headerSpace }: Props) => {
-  return <MainBody $headerSpace={headerSpace}>{children}</MainBody>;
+  const { categories } = useCategories();
+
+  return (
+    <MainBody $headerSpace={headerSpace}>
+      {children}
+      <footer className="bg-olivedrab text-white relative lg:px-4">
+        <Image
+          src="/assets/footer_circle.svg"
+          alt="svg"
+          width={321}
+          height={401}
+          className="absolute top-0 right-0"
+        />
+        <div className="px-4 pt-[80px] pb-[30px] flex flex-col gap-[30px] items-start md:flex-row md:justify-between max-w-[1200px] mx-auto border-b border-b-[#05F3AB]">
+          <div className="flex flex-col gap-[20px]">
+            <a href="/" className="mr-auto">
+              <Image
+                src="/assets/logo_bw.png"
+                width={100}
+                height={100}
+                alt="Logo"
+              />
+            </a>
+            <div className="flex flex-col gap-[20px]">
+              <span className="font-bold">Contact Us</span>
+              <a className="flex gap-[11px] items-start">
+                <FontAwesomeIcon icon={faWhatsapp} color="white" size="1x" />
+                <div className="flex flex-col gap-[2px]">
+                  <span>Whatsapp</span>
+                  <span>+1 202-918-2132</span>
+                </div>
+              </a>
+              <a className="flex gap-[11px] items-start">
+                <FontAwesomeIcon icon={faPhone} color="white" size="1x" />
+                <div className="flex flex-col gap-[2px]">
+                  <span>Call Us</span>
+                  <span>+1 202-918-2132</span>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div className="flex flex-col gap-[20px]">
+            <span className="font-bold pb-[16px] border-b-white border-b-[3px]">
+              Categories
+            </span>
+            <ul className="flex flex-col gap-[14px]">
+              {categories.map((category, i) => (
+                <li key={i}>
+                  {" "}
+                  <a href="#">{category.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="flex flex-col gap-[20px]">
+            <span className="font-bold pb-[16px] border-b-white border-b-[3px]">
+              Customer Services
+            </span>
+            <ul className="flex flex-col gap-[14px]">
+              <li>
+                <a href="#">About Us</a>
+              </li>
+              <li>
+                <a href="#">Terms & Conditions</a>
+              </li>
+              <li>
+                <a href="#">FAQ</a>
+              </li>
+              <li>
+                <a href="#">Privacy Policy</a>
+              </li>
+            </ul>
+          </div>
+          <div></div>
+        </div>
+        <div className="text-center py-[30px]">
+          © 2025 All rights reserved. Girliestore9ja.
+        </div>
+      </footer>
+    </MainBody>
+  );
 };
 
 export const MainBody = styled.div<{ $headerSpace?: number }>`

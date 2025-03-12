@@ -6,7 +6,7 @@ import React from "react";
 import styled from "styled-components";
 
 const HorizontalNavigation = () => {
-  const { categories } = useCategories({ isMock: true });
+  const { categories } = useCategories();
   return (
     <OverflowContainer className="no-scrollbar w-full my-auto">
       <NavigationContainer>
@@ -38,6 +38,7 @@ const NavItem = styled.a`
   align-items: center;
   gap: 6px;
   background: #f3fbf9;
+  cursor: pointer;
   svg {
     color: ${Colors.olivedrab};
   }

@@ -1,5 +1,4 @@
-
-import { HomePage } from "@/components/HomePage";
+import { HomePage } from "@/components/Hompage/HomePage";
 import { InputField } from "@/components/Input";
 import { Loading } from "@/components/Loading";
 // import { LandingPage } from '@/component/LandingPage';
