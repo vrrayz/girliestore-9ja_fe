@@ -1,15 +1,20 @@
 import { useCategories } from "@/hooks/useCategories";
 import { Colors } from "@/styles";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
 
 const HorizontalNavigation = () => {
-  const { categories } = useCategories();
+  const { categories } = useCategories({ isMock: true });
   return (
-    <OverflowContainer className="no-scrollbar">
+    <OverflowContainer className="no-scrollbar w-full my-auto">
       <NavigationContainer>
         {categories?.map((item, i) => (
-          <NavItem key={i}>{item.name}</NavItem>
+          <NavItem key={i}>
+            <span>{item.name}</span>
+            <FontAwesomeIcon icon={faChevronDown} />
+          </NavItem>
         ))}
       </NavigationContainer>
     </OverflowContainer>
@@ -23,14 +28,28 @@ const NavigationContainer = styled.div`
   width: max-content;
   justify-content: center;
   margin: 0px 8px;
+  gap: 14px;
 `;
 const NavItem = styled.a`
-  padding: 2px 8px;
-  font-size: 0.95rem;
+  padding: 9px 14px;
+  font-size: 14px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f3fbf9;
+  svg {
+    color: ${Colors.olivedrab};
+  }
 
-  &.active {
-    border-radius: 2px;
-    border-bottom: 4px solid ${Colors.red};
+  &.active,
+  &:hover {
+    background: ${Colors.olivedrab};
+    color: ${Colors.white};
+
+    svg {
+      color: ${Colors.white};
+    }
   }
 `;
 export default HorizontalNavigation;

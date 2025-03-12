@@ -1,4 +1,4 @@
-import { Poppins } from "@/styles";
+import { HankenGrotesk } from "@/styles";
 import styled from "styled-components";
 
 export const CardContainer = styled.div`
@@ -14,12 +14,12 @@ export const CardBody = styled.div`
   padding: 16px 8px;
 `;
 export const CardBodyHeadingOne = styled.h4`
-  font-family: ${Poppins};
+  font-family: ${HankenGrotesk};
   font-weight: 400;
   font-size: 1rem;
 `;
 export const CardBodyHeadingTwo = styled.h4`
-  font-family: ${Poppins};
+  font-family: ${HankenGrotesk};
   font-weight: 600;
   font-size: 1rem;
 `;

@@ -1,4 +1,4 @@
-import { Poppins } from "@/styles";
+import { Poppins, SCREENS } from "@/styles";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -12,6 +12,7 @@ import {
 } from "../Card";
 import { Product } from "@/types";
 import { useRouter } from "next/navigation";
+import { CURRENCY } from "@/helpers";
 
 interface Props {
   product: Product;
@@ -32,35 +33,47 @@ export const ProductItemCard = ({ product, hasLink, link }: Props) => {
       <ProductItemImage
         src={product.photos[0]?.url || "/assets/icons/default_product.png"}
       />
-      <CardBody>
+      <div className="p-[12px] font-['Hanken Grotesk']">
         <CardBodyHeadingOne>{product.name}</CardBodyHeadingOne>
         <CardBodyHeadingTwo>
+          {CURRENCY}
           {new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "NGN",
+            style: "decimal",
           }).format(product.price)}
         </CardBodyHeadingTwo>
-        <CardBodyText>{product.quantity} Items</CardBodyText>
-      </CardBody>
+      </div>
     </ProductItemCardContainer>
   );
 };
 
 export const ProductListContainer = styled.div`
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   padding: 8px;
+
+  ${SCREENS.lg} {
+    grid-template-columns: repeat(5, 1fr);
+  }
 `;
 
 const ProductItemImage = styled.img`
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 64%;
+  max-height: 189px;
+  object-fit: contain;
   object-position: center;
+  background: #eaeaea;
 `;
 const ProductItemCardContainer = styled(CardContainer)<{ $hasLink?: boolean }>`
-  flex: 48.8% 0 0;
   margin: auto;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 0.76/1;
+  max-height: 295px;
+  max-width: 227px;
+  display: flex;
+  flex-direction: column;
   cursor: ${(props) => (props.$hasLink ? "pointer" : "none")};
 `;

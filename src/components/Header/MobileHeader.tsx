@@ -1,47 +1,21 @@
-"use client";
-
+import { cartItems } from "@/mocks";
 import { Colors } from "@/styles";
-import React, { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
-import Image from "next/image";
-import { CustomInput } from "./Form";
-import {
-  faCartFlatbed,
-  faCartShopping,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
-import { Toggler } from "./Toggler";
-import { UserToggler } from "./UserToggler";
+import { faSearch, faCartFlatbed } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useCart } from "@/hooks/useCart";
-import { CartContext } from "./CartContext";
+import React from "react";
+import styled from "styled-components";
+import { CustomInput } from "../Form";
+import { Toggler } from "../Toggler";
+import { UserToggler } from "../UserToggler";
+import Image from "next/image";
 
 interface Props {
   displaySearch?: boolean;
 }
 
-export const Header = ({ displaySearch }: Props) => {
-  const [headerTop, setHeaderTop] = useState<number>(0);
-  // const { cartItems } = useCart();
-  const { cartItems } = useContext(CartContext);
-  useEffect(() => {
-    const handleScroll = () => {
-      if (displaySearch) {
-        if (window.scrollY > 0 && window.scrollY <= 62) {
-          setHeaderTop(window.scrollY);
-        }
-        if (window.scrollY > 62) setHeaderTop(62);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [displaySearch]);
+export const MobileHeader = ({ displaySearch }: Props) => {
   return (
-    <HeaderContainer $headerTop={headerTop}>
+    <div className="mobile-header-container">
       {/* Toggler Would be fixed at the top left */}
       <div style={{ position: "fixed", top: "12px", left: "8px", zIndex: "1" }}>
         <Toggler />
@@ -75,35 +49,14 @@ export const Header = ({ displaySearch }: Props) => {
           {/* {cartItems.length > 0 ? ( */}
           <CartItemsCount>{cartItems.length}</CartItemsCount>
           {/* ) : (
-            <></>
-          )} */}
+      <></>
+    )} */}
         </Cart>
       </UserMenuItemsContainer>
-    </HeaderContainer>
+    </div>
   );
 };
-const HeaderContainer = styled.header<{ $headerTop: number }>`
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  background: ${Colors.white};
-  box-shadow: #00000059 0px -1px 4px 1px;
-  padding: 12px 16px;
-  width: 100vw;
-  z-index: 1;
-  top: ${(props) => 0 - props.$headerTop}px;
-  //   transition: top 0ms;
 
-  .logo {
-    opacity: ${(props) => 1 - (props.$headerTop / 100) * 2};
-    // transition: opacity 0ms;
-  }
-
-  div.header-input {
-    width: ${(props) => 100 - props.$headerTop / 2 - 5}%;
-  }
-`;
 const LogoAndSearchContainer = styled.div`
   position: relative;
   top: 0px;
@@ -132,7 +85,7 @@ const Cart = styled.a`
 const CartIcon = styled(FontAwesomeIcon)`
   font-size: 1.5rem;
 `;
-const CartItemsCount = styled.span`
+export const CartItemsCount = styled.span`
   background: ${Colors.tomato};
   position: absolute;
   top: 3px;
