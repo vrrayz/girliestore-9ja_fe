@@ -1,7 +1,7 @@
 "use client";
 
 import HorizontalNavigation from "@/components/Hompage/HorizontalNavigation";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Body } from "../Styled";
 import { Header } from "../Header/Header";
 import { useProducts } from "@/hooks/useProducts";
@@ -14,9 +14,16 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { SectionListHeader } from "./SectionListHeader";
+import { FingerPrintContext } from "../context/FingerPrintContext";
 
 export const HomePage = () => {
   const { products, isLoading } = useProducts("desc");
+  const { fingerPrint } = useContext(FingerPrintContext);
+
+  useEffect(
+    () => console.log("The fingerprint is == ", fingerPrint),
+    [fingerPrint]
+  );
   return (
     <Body>
       <Header displaySearch={true} />

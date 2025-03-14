@@ -3,7 +3,7 @@
 import { Colors, SCREENS } from "@/styles";
 import React, { useContext, useEffect, useState, useMemo } from "react";
 import styled from "styled-components";
-import { CartContext } from "../CartContext";
+import { CartContext } from "../context/CartContext";
 import { MobileHeader } from "./MobileHeader";
 import { LargeHeader } from "./LargeHeader";
 

@@ -20,7 +20,7 @@ import {
 import { faCartFlatbed, faTags } from "@fortawesome/free-solid-svg-icons";
 import { ReviewAndRating } from "./ReviewAndRating";
 import { StarRatings } from "./StarRatings";
-import { CartContext } from "../CartContext";
+import { CartContext } from "../context/CartContext";
 import { CURRENCY, addToCart, paramsToId } from "@/helpers";
 import { useToast } from "@/hooks/useToast";
 import { Toast } from "../Toast";

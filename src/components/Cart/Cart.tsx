@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import { CartContext } from "../CartContext";
+import { CartContext } from "../context/CartContext";
 import { InlineText, Item, Text, Text2Xl, TextXl } from "../Styled";
 import {
   CardBody,
