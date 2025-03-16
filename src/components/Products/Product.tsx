@@ -1,7 +1,7 @@
 "use client";
 
 import { useProduct } from "@/hooks/useProduct";
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import { Loading } from "../Loading";
 import Image from "next/image";
 import styled from "styled-components";
@@ -17,11 +17,21 @@ import {
   InlineTextXl,
   MultiplePhotosContainer,
 } from "../Styled";
-import { faCartFlatbed, faTags } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartFlatbed,
+  faMinus,
+  faPlus,
+  faTags,
+} from "@fortawesome/free-solid-svg-icons";
 import { ReviewAndRating } from "./ReviewAndRating";
 import { StarRatings } from "./StarRatings";
 import { CartContext } from "../context/CartContext";
-import { CURRENCY, addToCart, paramsToId } from "@/helpers";
+import {
+  CURRENCY,
+  addToCart,
+  modifyQuantityRequested,
+  paramsToId,
+} from "@/helpers";
 import { useToast } from "@/hooks/useToast";
 import { Toast } from "../Toast";
 
@@ -32,10 +42,19 @@ export const Product = ({ id }: Props) => {
   const { product, isLoading } = useProduct(paramsToId(id));
   const { cartItems, setCartItems } = useContext(CartContext);
   const { toggleToast, closeToast, toast, showToast } = useToast();
+  const [activePhotoIndex, setActivePhotoIndex] = useState(0);
 
   const isItemAdded = useCallback(
     (itemId: number) => {
       return cartItems.filter((item) => item.id === itemId).length > 0;
+    },
+    [cartItems]
+  );
+
+  const getCartItemQuantity = useCallback(
+    (itemId: number) => {
+      return cartItems.filter((item) => item.id === itemId)[0]
+        .quantityRequested;
     },
     [cartItems]
   );
@@ -62,80 +81,127 @@ export const Product = ({ id }: Props) => {
     }
   };
   return (
-    <section style={{ width: "100vw" }}>
+    <section style={{ width: "100vw", maxWidth: "1200px" }} className="mx-auto">
       {isLoading && <Loading />}
       {product && (
-        <>
-          <CustomMultiPhoto
-            $photoCount={product.photos.length}
-            $maxWidth={400}
-            $photoWidth={350}
-          >
-            {product.photos.map((photo, i) => (
-              <ProductImage
-                src={photo.url || "/assets/icons/default_product.png"}
+        <div className="grid gap-[16px] p-[16px]">
+          <div className="flex flex-col xl:flex-row gap-[16px] xl:items-start">
+            <div className="lg:flex lg:flex-row gap-[16px] lg:items-start justify-center xl:min-w-[700px]">
+              <div className="grid grid-cols-5 lg:grid-rows-5 lg:grid-cols-1 lg:w-[170px] gap-[8px]">
+                {product.photos.map((photo, i) => (
+                  <Image
+                    src={photo.url || "/assets/icons/default_product.png"}
+                    width={200}
+                    height={200}
+                    alt="product_image"
+                    className={`aspect-[85/69] w-full object-cover rounded-[4px] ${
+                      activePhotoIndex == i
+                        ? "border-[2px] border-olivedrab"
+                        : ""
+                    } hover:border-[2px] hover:border-olivedrab`}
+                    key={i}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => setActivePhotoIndex(i)}
+                  />
+                ))}
+              </div>
+              <Image
+                src={
+                  product.photos[activePhotoIndex].url ||
+                  "/assets/icons/default_product.png"
+                }
                 width={200}
                 height={200}
                 alt="product_image"
-                className="mx-auto mt-3"
-                key={i}
+                className="aspect-[5/6] w-full max-w-[500px] object-cover rounded-[4px] mx-auto lg:mx-0 max-h"
               />
-            ))}
-          </CustomMultiPhoto>
-          <ProductInfoContainer className="mb-5 mt-4">
-            <CardBody>
-              <CardBodyHeadingOne>{product.name}</CardBodyHeadingOne>
-              <CardBodyText>
-                <InlineTextSmall>
-                  Category:{" "}
-                  <a href="#" className="text-red font-bold">
-                    {product.category.name}
-                  </a>
-                </InlineTextSmall>
-              </CardBodyText>
-              <CardBodyText>
-                <FontAwesomeIcon icon={faTags} />
-                <InlineTextXl className="font-extrabold">
-                  {CURRENCY} {product.price}
-                </InlineTextXl>
-              </CardBodyText>
-              <CardBodyText className="mb-2">
-                <InlineTextSmall>{product.quantity} items left</InlineTextSmall>
-              </CardBodyText>
-              <StarRatings
-                ratingsCount={5}
-                hasReviewersCount
-                reviewersCount={53}
-              />
-              {isItemAdded(product.id) ? (
-                <></>
-              ) : (
-                <button
-                  className="styled-button gradient-olivedrab my-3"
-                  onClick={() => addProductToCart()}
-                >
-                  <FontAwesomeIcon
-                    icon={faCartFlatbed}
-                    size="lg"
-                    className="mr-1"
-                  />
-                  <span className="ml-1">Add To Cart</span>
-                </button>
-              )}
-            </CardBody>
-          </ProductInfoContainer>
-          <ProductInfoContainer className="mb-5">
-            <CardBody>
-              <CardBodyHeadingOne>Description</CardBodyHeadingOne>
-              <CardBodyText className="my-3">
-                {product.description}
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero
-                quos, consequatur eum ea tempore amet ducimus saepe rerum
-                quisquam possimus corrupti dignissimos dolorem officiis?
-                Eligendi et placeat illum doloribus assumenda?
-              </CardBodyText>
-            </CardBody>
-          </ProductInfoContainer>
+            </div>
+            <ProductInfoContainer className="mb-5 mt-4 xl:my-0">
+              <CardBody>
+                <h4 className="font-bold text-[24px]">{product.name}</h4>
+                <StarRatings
+                  ratingsCount={5}
+                  hasReviewersCount
+                  reviewersCount={53}
+                />
+                <CardBodyText>
+                  <InlineTextSmall>
+                    Category:{" "}
+                    <a href="#" className="text-red font-bold">
+                      {product.category.name}
+                    </a>
+                  </InlineTextSmall>
+                </CardBodyText>
+                <CardBodyText>
+                  <FontAwesomeIcon icon={faTags} />
+                  <InlineTextXl className="font-extrabold">
+                    {CURRENCY} {product.price}
+                  </InlineTextXl>
+                </CardBodyText>
+                <CardBodyText className="mb-2">
+                  <InlineTextSmall>
+                    {product.quantity} items left
+                  </InlineTextSmall>
+                </CardBodyText>
+                <CardBodyHeadingOne>Description</CardBodyHeadingOne>
+                <CardBodyText className="my-3">
+                  {product.description}
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero
+                  quos, consequatur eum ea tempore amet ducimus saepe rerum
+                  quisquam possimus corrupti dignissimos dolorem officiis?
+                  Eligendi et placeat illum doloribus assumenda?
+                </CardBodyText>
+                {isItemAdded(product.id) ? (
+                  <div className="flex w-[159px] h-[44px]">
+                    <button
+                      className="w-[40px] border border-gainsboro rounded-tl rounded-bl"
+                      onClick={() =>
+                        modifyQuantityRequested(
+                          product.id,
+                          cartItems,
+                          "decrease",
+                          setCartItems
+                        )
+                      }
+                    >
+                      <FontAwesomeIcon icon={faMinus} />
+                    </button>
+                    <input
+                      type="number"
+                      className="w-[79px] text-center border-gainsboro border-x-0"
+                      value={getCartItemQuantity(product.id)}
+                      disabled
+                    />
+                    <button
+                      className="w-[40px] bg-olivedrab text-white border border-olivedrab rounded-tr rounded-br"
+                      onClick={() =>
+                        modifyQuantityRequested(
+                          product.id,
+                          cartItems,
+                          "increase",
+                          setCartItems
+                        )
+                      }
+                    >
+                      <FontAwesomeIcon icon={faPlus} />
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    className="styled-button gradient-olivedrab my-3"
+                    onClick={() => addProductToCart()}
+                  >
+                    <FontAwesomeIcon
+                      icon={faCartFlatbed}
+                      size="lg"
+                      className="mr-1"
+                    />
+                    <span className="ml-1">Add To Cart</span>
+                  </button>
+                )}
+              </CardBody>
+            </ProductInfoContainer>
+          </div>
           <ProductInfoContainer className="mb-5">
             <CardBody>
               <CardBodyHeadingOne>Reviews and Ratings</CardBodyHeadingOne>
@@ -153,7 +219,7 @@ export const Product = ({ id }: Props) => {
               <ReviewAndRating />
             </CardBody>
           </ProductInfoContainer>
-        </>
+        </div>
       )}
       {toggleToast && toast && (
         <Toast

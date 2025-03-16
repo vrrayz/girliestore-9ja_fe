@@ -5,9 +5,15 @@ export const productsJson = [
     id: 25,
     name: "Shoe One",
     photos: [
+      // {
+      //   url: "https://res.cloudinary.com/dnxhfgvtu/image/upload/v1718040402/ytwgfyksyh6gufqlvyhu.png",
+      // },
       {
-        url: "https://res.cloudinary.com/dnxhfgvtu/image/upload/v1718040402/ytwgfyksyh6gufqlvyhu.png",
+        url: "https://i.imgur.com/9rvNrFA.jpeg",
       },
+      { url: "https://i.imgur.com/ZMfOt27.jpeg" },
+      { url: "https://i.imgur.com/1zWhuYZ.jpeg" },
+      { url: "https://i.imgur.com/7JVrYg7.jpeg" },
     ],
     description: "Lorem ipsum...",
     categoryId: 25,

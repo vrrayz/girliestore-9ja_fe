@@ -11,9 +11,10 @@ import Image from "next/image";
 
 interface Props {
   displaySearch?: boolean;
+  totalCartItems: number;
 }
 
-export const MobileHeader = ({ displaySearch }: Props) => {
+export const MobileHeader = ({ displaySearch, totalCartItems }: Props) => {
   return (
     <div className="mobile-header-container">
       {/* Toggler Would be fixed at the top left */}
@@ -47,7 +48,7 @@ export const MobileHeader = ({ displaySearch }: Props) => {
         <Cart href="/cart">
           <CartIcon icon={faCartFlatbed} />
           {/* {cartItems.length > 0 ? ( */}
-          <CartItemsCount>{cartItems.length}</CartItemsCount>
+          <CartItemsCount>{totalCartItems}</CartItemsCount>
           {/* ) : (
       <></>
     )} */}

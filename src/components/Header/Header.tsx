@@ -35,7 +35,11 @@ export const Header = ({ displaySearch }: Props) => {
   }, [displaySearch, showMobileHeader]);
   return (
     <HeaderContainer $headerTop={headerTop} className="lg:h-[132px]">
-      {showMobileHeader ? <MobileHeader displaySearch /> : <LargeHeader />}
+      {showMobileHeader ? (
+        <MobileHeader displaySearch totalCartItems={cartItems.length} />
+      ) : (
+        <LargeHeader totalCartItems={cartItems.length} />
+      )}
     </HeaderContainer>
   );
 };

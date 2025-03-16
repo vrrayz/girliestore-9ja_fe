@@ -6,3 +6,5 @@ export interface CartItem {
   quantityRequested: number;
   price: number;
 }
+
+export type CartOperation = "increase" | "decrease";

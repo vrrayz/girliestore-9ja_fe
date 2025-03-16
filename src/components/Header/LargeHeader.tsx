@@ -10,10 +10,13 @@ import {
 import { CustomInput } from "../Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { cartItems } from "@/mocks";
 import { CartItemsCount } from "./MobileHeader";
 
-export const LargeHeader = () => {
+interface Props {
+  totalCartItems: number;
+}
+
+export const LargeHeader = ({ totalCartItems }: Props) => {
   return (
     <div className="h-full flex flex-col">
       <div className="bg-topHeaderBg h-[42px] px-4">
@@ -54,11 +57,11 @@ export const LargeHeader = () => {
                 <span>Sign Up/Sign In</span>
               </a>
               <span className="text-gainsboro">|</span>
-              <a href="#" className="flex gap-[6px] items-center relative">
+              <a href="/cart" className="flex gap-[6px] items-center relative">
                 <FontAwesomeIcon icon={faCartFlatbed} color="olivedrab" />
                 <span>Cart</span>
                 <CartItemsCount style={{ right: "-15px" }}>
-                  {cartItems.length}
+                  {totalCartItems}
                 </CartItemsCount>
               </a>
             </div>
