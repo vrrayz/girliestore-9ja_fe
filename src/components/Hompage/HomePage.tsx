@@ -15,15 +15,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { SectionListHeader } from "./SectionListHeader";
 import { FingerPrintContext } from "../context/FingerPrintContext";
+import { useTrendingProducts } from "@/hooks/useTrendingProducts";
+import { TrendingProducts } from "./TrendingProducts";
+import { AuthContext } from "../context/AuthContext";
 
 export const HomePage = () => {
   const { products, isLoading } = useProducts("desc");
+  const { trendingProducts, isTrendingProductLoading } = useTrendingProducts();
   const { fingerPrint } = useContext(FingerPrintContext);
+  const { authUser } = useContext(AuthContext);
 
-  useEffect(
-    () => console.log("The fingerprint is == ", fingerPrint),
-    [fingerPrint]
-  );
+  useEffect(() => {
+    console.log("The fingerprint is == ", fingerPrint);
+    console.log("The user === ", authUser);
+  }, [authUser, fingerPrint]);
   return (
     <Body>
       <Header displaySearch={true} />
@@ -42,23 +47,9 @@ export const HomePage = () => {
               className="block w-full h-full object-cover"
             />
           </div>
-          <div className="mb-[40px]">
-            <SectionListHeader link={"#"}>
-              Trending & <span className="text-olivedrab">Best Sellers</span>
-            </SectionListHeader>
-            <ProductListContainer>
-              {products?.map((product, i) => (
-                <ProductItemCard
-                  link={`/products/${product.name
-                    .split(" ")
-                    .join("-")}-${product.id.toString().padStart(7, "0")}`}
-                  hasLink
-                  product={product}
-                  key={i}
-                />
-              ))}
-            </ProductListContainer>
-          </div>
+          {trendingProducts && (
+            <TrendingProducts trendingProducts={trendingProducts} />
+          )}
           <div className="mb-[40px]">
             <SectionListHeader link="#">
               Special Offers & <span className="text-olivedrab">Discount</span>

@@ -34,7 +34,17 @@ export const ProductItemCard = ({ product, hasLink, link }: Props) => {
         src={product.photos[0]?.url || "/assets/icons/default_product.png"}
       />
       <div className="p-[12px] font-['Hanken Grotesk']">
-        <CardBodyHeadingOne>{product.name}</CardBodyHeadingOne>
+        <CardBodyHeadingOne
+          style={{
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 1,
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+          }}
+        >
+          {product.name}
+        </CardBodyHeadingOne>
         <CardBodyHeadingTwo>
           {CURRENCY}
           {new Intl.NumberFormat("en-US", {

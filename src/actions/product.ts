@@ -25,6 +25,22 @@ export const addProduct = async (data: FormData) => {
   };
 };
 
+export const getTrendingProducts = async () => {
+  const request = await getData("/product/trending");
+  if (request.statusCode === 200) {
+    return request.data;
+  }
+  return request;
+};
+
+export const recordProductView = async (data: FormData) => {
+  const request = await postData("/product-view/create", data);
+  if (request.statusCode === 200) {
+    return request.data;
+  }
+  return request;
+};
+
 // export const deleteShop = async (data = {}, productId: number) => {
 //   const request = await deleteData("/product/delete/" + productId);
 //   return {

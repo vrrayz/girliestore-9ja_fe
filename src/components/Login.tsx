@@ -1,7 +1,7 @@
 "use client";
 
-import { login } from "@/actions";
-import React, { useEffect, useState } from "react";
+import { authenticationRequest, login } from "@/actions";
+import React, { useContext, useEffect, useState } from "react";
 import { GoogleLoginClient } from "./GoogleLoginClient";
 import { sendGoogleLoginDetails } from "@/actions/googleLogin";
 import {
@@ -15,6 +15,8 @@ import Image from "next/image";
 import { Colors } from "@/styles";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { redirect } from "next/navigation";
+import { useIsAuthenticated } from "@/hooks/useIsAuthenticated";
+import { AuthContext } from "./context/AuthContext";
 
 type LoginFormInputs = {
   email: string;
@@ -29,17 +31,25 @@ export const Login = () => {
   } = useForm<LoginFormInputs>();
   const [extraError, setExtraError] = useState<string>();
   const [shouldRedirect, setShouldRedirect] = useState<boolean>();
+  const { setAuthUser } = useContext(AuthContext);
 
   const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
     login(data).then(async (res) => {
       setExtraError(res.statusCode !== 200 ? "Incorrect Credentials" : "");
-      if (res.statusCode === 200) setShouldRedirect(true);
+      if (res.statusCode === 200) {
+        authenticationRequest().then((authRes) => {
+          if (authRes.id) {
+            setAuthUser(authRes);
+            setShouldRedirect(true);
+          }
+        });
+      }
     });
   };
 
   useEffect(() => {
     if (shouldRedirect) {
-      redirect("/")
+      redirect("/");
     }
   }, [shouldRedirect]);
 
@@ -88,7 +98,10 @@ export const Login = () => {
 
               <Input type="submit" value="Login" className="btn-primary mb-4" />
             </form>
-            <GoogleLoginClient setExtraError={setExtraError} setShouldRedirect={setShouldRedirect} />
+            <GoogleLoginClient
+              setExtraError={setExtraError}
+              setShouldRedirect={setShouldRedirect}
+            />
             <div className="flex justify-between text-sm mt-2">
               <a href="#">Forgot your password?</a>
               <span>

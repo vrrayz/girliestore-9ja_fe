@@ -1,7 +1,13 @@
 "use client";
 
 import { useProduct } from "@/hooks/useProduct";
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Loading } from "../Loading";
 import Image from "next/image";
 import styled from "styled-components";
@@ -34,6 +40,9 @@ import {
 } from "@/helpers";
 import { useToast } from "@/hooks/useToast";
 import { Toast } from "../Toast";
+import { recordProductView } from "@/actions/product";
+import { FingerPrintContext } from "../context/FingerPrintContext";
+import { AuthContext } from "../context/AuthContext";
 
 interface Props {
   id: string;
@@ -43,7 +52,8 @@ export const Product = ({ id }: Props) => {
   const { cartItems, setCartItems } = useContext(CartContext);
   const { toggleToast, closeToast, toast, showToast } = useToast();
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
-
+  const { fingerPrint } = useContext(FingerPrintContext);
+  const { authUser } = useContext(AuthContext);
   const isItemAdded = useCallback(
     (itemId: number) => {
       return cartItems.filter((item) => item.id === itemId).length > 0;
@@ -80,14 +90,28 @@ export const Product = ({ id }: Props) => {
         );
     }
   };
+
+  useEffect(() => {
+    if (product) {
+      let formData = new FormData();
+      formData.append("productId", product.id.toString());
+      formData.append("deviceId", fingerPrint);
+      if (authUser) {
+        formData.append("userId", authUser.id.toString());
+      }
+      recordProductView(formData).then((res) => {
+        if (res.id) console.log("Engagement recorded");
+      });
+    }
+  }, [authUser, fingerPrint, product]);
   return (
     <section style={{ width: "100vw", maxWidth: "1200px" }} className="mx-auto">
       {isLoading && <Loading />}
       {product && (
         <div className="grid gap-[16px] p-[16px]">
           <div className="flex flex-col xl:flex-row gap-[16px] xl:items-start">
-            <div className="lg:flex lg:flex-row gap-[16px] lg:items-start justify-center xl:min-w-[700px]">
-              <div className="grid grid-cols-5 lg:grid-rows-5 lg:grid-cols-1 lg:w-[170px] gap-[8px]">
+            <div className="flex flex-col lg:flex-row gap-[16px] lg:items-start justify-center xl:min-w-[700px]">
+              <div className="grid grid-cols-4 lg:grid-rows-4 lg:grid-cols-1 lg:w-[170px] gap-[8px]">
                 {product.photos.map((photo, i) => (
                   <Image
                     src={photo.url || "/assets/icons/default_product.png"}

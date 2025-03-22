@@ -22,8 +22,8 @@ Since the majority of this project is still in developement, here's a list of th
 
 ```
 ************** TODO **************
-Make All Pages Responsive for all devices
-View Product Redesign
+List Trending Products
+Make All Pages Responsive for all devices (In Progress)
 Edit Product Functionality
 Add Product and Edit Product Page
 User checkout(payment gateway integration)
@@ -35,6 +35,7 @@ Add middlewares/restrictions That lets only the admin create the stores
 **********************************
 
 ************** Finished **************
+View Product Redesign
 Toast Message (Figma ref: https://www.figma.com/design/v9PqSARzhSaKfLn7CCZfuS/Flash-messages-pack-(Community)?node-id=0-1&t=CIwlG4YIBOsciQN8-0)
 Styled buttons (Figma ref: https://www.figma.com/design/jKOYEUGOzPOYD3UvCg9HhZ/Trendy-Buttons-(Community)?node-id=17-2&t=r3zIgtBd4fqgFsRS-0)
 User View Product Details Page (In progress: Add to Cart button)

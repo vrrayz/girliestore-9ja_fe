@@ -2,12 +2,12 @@
 import { cookies } from "next/headers";
 import { getData, postData } from ".";
 
-export const isUserAuthenticated = async () => {
+export const authenticationRequest = async () => {
   const request = await getData("/user/profile");
   if (request.statusCode === 200) {
-    return true;
+    return request.data;
   }
-  return false;
+  return request;
 };
 
 export const login = async (data = {}) => {
