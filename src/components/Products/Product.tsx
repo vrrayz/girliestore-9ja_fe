@@ -28,6 +28,7 @@ import {
   faMinus,
   faPlus,
   faTags,
+  faHeart as faHeartSolid,
 } from "@fortawesome/free-solid-svg-icons";
 import { ReviewAndRating } from "./ReviewAndRating";
 import { StarRatings } from "./StarRatings";
@@ -43,6 +44,9 @@ import { Toast } from "../Toast";
 import { recordProductView } from "@/actions/product";
 import { FingerPrintContext } from "../context/FingerPrintContext";
 import { AuthContext } from "../context/AuthContext";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { WishlistContext } from "../context/WishlistContext";
+import { createWishlist, deleteWishlist } from "@/actions/wishlist";
 
 interface Props {
   id: string;
@@ -54,13 +58,21 @@ export const Product = ({ id }: Props) => {
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const { fingerPrint } = useContext(FingerPrintContext);
   const { authUser } = useContext(AuthContext);
+  const { wishlist, setWishlist } = useContext(WishlistContext);
   const isItemAdded = useCallback(
     (itemId: number) => {
       return cartItems.filter((item) => item.id === itemId).length > 0;
     },
     [cartItems]
   );
-
+  const wishlistItem = useMemo(
+    () =>
+      wishlist.filter(
+        ({ productId, userId }) =>
+          productId == product?.id && userId == authUser?.id
+      )[0],
+    [authUser?.id, product?.id, wishlist]
+  );
   const getCartItemQuantity = useCallback(
     (itemId: number) => {
       return cartItems.filter((item) => item.id === itemId)[0]
@@ -90,6 +102,29 @@ export const Product = ({ id }: Props) => {
         );
     }
   };
+
+  const productWishlistAction = useCallback(() => {
+    if (authUser) {
+      if (wishlistItem) {
+        deleteWishlist(wishlistItem.id).then((res) => {
+          if (res.id) {
+            setWishlist(wishlist.filter(({ id }) => id != wishlistItem.id));
+          }
+        });
+      } else if (!wishlistItem && product) {
+        let wishlistFormData = new FormData();
+        wishlistFormData.append("userId", authUser.id.toString());
+        wishlistFormData.append("productId", product.id.toString());
+        createWishlist(wishlistFormData).then((res) => {
+          if (res.id) {
+            setWishlist([...wishlist, { ...res }]);
+          }
+        });
+      }
+    } else {
+      console.log("Throw a modal or redirect the user! User needs to login");
+    }
+  }, [authUser, product, wishlist, wishlistItem]);
 
   useEffect(() => {
     if (product) {
@@ -175,54 +210,71 @@ export const Product = ({ id }: Props) => {
                   quisquam possimus corrupti dignissimos dolorem officiis?
                   Eligendi et placeat illum doloribus assumenda?
                 </CardBodyText>
-                {isItemAdded(product.id) ? (
-                  <div className="flex w-[159px] h-[44px]">
+                <div className="flex gap-[8px] items-center my-3">
+                  {isItemAdded(product.id) ? (
+                    <div className="flex w-[159px] h-[44px] flex-shrink">
+                      <button
+                        className="w-[40px] border border-gainsboro rounded-tl rounded-bl"
+                        onClick={() =>
+                          modifyQuantityRequested(
+                            product.id,
+                            cartItems,
+                            "decrease",
+                            setCartItems
+                          )
+                        }
+                      >
+                        <FontAwesomeIcon icon={faMinus} />
+                      </button>
+                      <input
+                        type="number"
+                        className="w-[79px] text-center border-gainsboro border-x-0"
+                        value={getCartItemQuantity(product.id)}
+                        disabled
+                      />
+                      <button
+                        className="w-[40px] bg-olivedrab text-white border border-olivedrab rounded-tr rounded-br"
+                        onClick={() =>
+                          modifyQuantityRequested(
+                            product.id,
+                            cartItems,
+                            "increase",
+                            setCartItems
+                          )
+                        }
+                      >
+                        <FontAwesomeIcon icon={faPlus} />
+                      </button>
+                    </div>
+                  ) : (
                     <button
-                      className="w-[40px] border border-gainsboro rounded-tl rounded-bl"
-                      onClick={() =>
-                        modifyQuantityRequested(
-                          product.id,
-                          cartItems,
-                          "decrease",
-                          setCartItems
-                        )
-                      }
+                      className="styled-button gradient-olivedrab flex-shrink"
+                      onClick={() => addProductToCart()}
                     >
-                      <FontAwesomeIcon icon={faMinus} />
+                      <FontAwesomeIcon
+                        icon={faCartFlatbed}
+                        size="lg"
+                        className="mr-1"
+                      />
+                      <span className="ml-1">Add To Cart</span>
                     </button>
-                    <input
-                      type="number"
-                      className="w-[79px] text-center border-gainsboro border-x-0"
-                      value={getCartItemQuantity(product.id)}
-                      disabled
-                    />
-                    <button
-                      className="w-[40px] bg-olivedrab text-white border border-olivedrab rounded-tr rounded-br"
-                      onClick={() =>
-                        modifyQuantityRequested(
-                          product.id,
-                          cartItems,
-                          "increase",
-                          setCartItems
-                        )
-                      }
-                    >
-                      <FontAwesomeIcon icon={faPlus} />
-                    </button>
-                  </div>
-                ) : (
+                  )}
                   <button
-                    className="styled-button gradient-olivedrab my-3"
-                    onClick={() => addProductToCart()}
+                    className="w-[50px] aspect-[1/1] border border-gainsboro rounded"
+                    // disabled={wishlistItem ? true : false}
+                    onClick={() => productWishlistAction()}
                   >
-                    <FontAwesomeIcon
-                      icon={faCartFlatbed}
-                      size="lg"
-                      className="mr-1"
-                    />
-                    <span className="ml-1">Add To Cart</span>
+                    {wishlistItem ? (
+                      <FontAwesomeIcon
+                        icon={faHeartSolid}
+                        size="xl"
+                        color="red"
+                      />
+                    ) : (
+                      <FontAwesomeIcon icon={faHeart} size="xl" color="gray" />
+                    )}
                   </button>
-                )}
+                </div>
               </CardBody>
             </ProductInfoContainer>
           </div>

@@ -1,5 +1,5 @@
 import { Colors, SCREENS } from "@/styles";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { MobileNavToggler, ToggleMenuContainer } from "./Toggler";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,9 +7,11 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { useIsAuthenticated } from "@/hooks/useIsAuthenticated";
 import { logout } from "@/actions";
 import { AuthContext } from "./context/AuthContext";
+import { redirect } from "next/navigation";
 
 export const UserToggler = () => {
   const [isNavToggled, setIsNavToggled] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
   const { isLoggedIn, setIsLoggedIn } = useIsAuthenticated();
   const { setAuthUser } = useContext(AuthContext);
 
@@ -17,11 +19,18 @@ export const UserToggler = () => {
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
     event.preventDefault();
-    logout().then((res) => {
-      setAuthUser(undefined);
-      setIsLoggedIn(false);
-    });
+    logout()
+      .then((res) => {
+        setAuthUser(undefined);
+        setIsLoggedIn(false);
+      })
+      .then(() => setShouldRedirect(true));
   };
+  useEffect(() => {
+    if (shouldRedirect) {
+      redirect("/");
+    }
+  }, [shouldRedirect]);
   return (
     <ToggleMenuContainer>
       <UserNavToggler
@@ -34,6 +43,7 @@ export const UserToggler = () => {
       {isNavToggled && (
         <UserDropdown>
           <div className="dropdown-container">
+            <a href="/wishlist">Wishlist</a>
             <a href="#">My Orders</a>
             <a href="#">Profile Settings</a>
             {isLoggedIn && (

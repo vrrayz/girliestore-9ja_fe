@@ -4,7 +4,7 @@ import React, { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
-  link: string;
+  link?: string;
 }
 
 export const SectionListHeader = ({ link, children }: Props) => {
@@ -13,13 +13,15 @@ export const SectionListHeader = ({ link, children }: Props) => {
       <span className="text-gray pb-[16px] border-b-[3px] border-olivedrab">
         {children}
       </span>
-      <a
-        href={link}
-        className="font-light text-[16px] flex gap-[6px] items-center"
-      >
-        View all
-        <FontAwesomeIcon icon={faChevronRight} color="olivedrab" />
-      </a>
+      {link && (
+        <a
+          href={link}
+          className="font-light text-[16px] flex gap-[6px] items-center"
+        >
+          View all
+          <FontAwesomeIcon icon={faChevronRight} color="olivedrab" />
+        </a>
+      )}
     </div>
   );
 };

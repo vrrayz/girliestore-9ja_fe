@@ -5,7 +5,8 @@ import { getData } from "./actions";
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-  const profileRequest = await getData("/user/myprofile");
+  const profileRequest = await getData("/user/profile");
+  const authRoutes = ["/wishlist"];
 
   if (
     profileRequest.statusCode === 200 &&
@@ -15,7 +16,7 @@ export async function middleware(request: NextRequest) {
   }
   if (
     profileRequest.statusCode !== 200 &&
-    request.nextUrl.pathname.startsWith("/vendor")
+    authRoutes.indexOf(request.nextUrl.pathname) >= 0
   ) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
