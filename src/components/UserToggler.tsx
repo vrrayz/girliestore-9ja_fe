@@ -1,21 +1,26 @@
 import { Colors, SCREENS } from "@/styles";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { MobileNavToggler, ToggleMenuContainer } from "./Toggler";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { useIsAuthenticated } from "@/hooks/useIsAuthenticated";
 import { logout } from "@/actions";
+import { AuthContext } from "./context/AuthContext";
 
 export const UserToggler = () => {
   const [isNavToggled, setIsNavToggled] = useState(false);
   const { isLoggedIn, setIsLoggedIn } = useIsAuthenticated();
+  const { setAuthUser } = useContext(AuthContext);
 
   const logoutAction = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
     event.preventDefault();
-    logout().then((res) => setIsLoggedIn(false));
+    logout().then((res) => {
+      setAuthUser(undefined);
+      setIsLoggedIn(false);
+    });
   };
   return (
     <ToggleMenuContainer>
