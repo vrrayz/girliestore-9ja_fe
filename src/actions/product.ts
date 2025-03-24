@@ -41,6 +41,14 @@ export const recordProductView = async (data: FormData) => {
   return request;
 };
 
+export const recordCartPoints = async (data: FormData) => {
+  const request = await postData("/product-engagement/cart-points", data);
+  if (request.statusCode === 200) {
+    return request.data;
+  }
+  return request;
+};
+
 // export const deleteShop = async (data = {}, productId: number) => {
 //   const request = await deleteData("/product/delete/" + productId);
 //   return {

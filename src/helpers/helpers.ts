@@ -1,3 +1,4 @@
+import { getTrendingProducts, recordCartPoints } from "@/actions/product";
 import { CartItem, CartOperation } from "@/types";
 
 export const CURRENCY = "₦";
@@ -13,12 +14,20 @@ export const paramsToName = (paramId: string) => {
   return param.join(" ");
 };
 
-export const modifyQuantityRequested = (
+export const modifyQuantityRequested = async (
   id: number,
   cartItems: CartItem[],
   operation: CartOperation,
   setCartItems: (value: CartItem[]) => void
 ) => {
+  let itemToDelete: CartItem | null = {
+    id: 0,
+    name: "",
+    photoUrl: "",
+    quantity: 0,
+    quantityRequested: 0,
+    price: 0,
+  };
   const newCartItems = cartItems
     .map((cartItem) => {
       if (cartItem.id === id) {
@@ -28,7 +37,23 @@ export const modifyQuantityRequested = (
       }
       return cartItem;
     })
-    .filter((cartItem) => cartItem.quantityRequested > 0);
+    .filter((cartItem) => {
+      if (cartItem.quantityRequested <= 0) {
+        itemToDelete = cartItem;
+      }
+      return cartItem.quantityRequested > 0;
+    });
+
   setCartItems(newCartItems);
   localStorage.setItem("cartItems", JSON.stringify(newCartItems));
+  if (
+    itemToDelete.id != 0 &&
+    process.env.NEXT_PUBLIC_DATA_FETCH_MODE != "mock"
+  ) {
+    let cartEngagementData = new FormData();
+    cartEngagementData.append("productId", itemToDelete.id.toString());
+    cartEngagementData.append("score", (3).toString());
+    cartEngagementData.append("scoreAction", "decrement");
+    recordCartPoints(cartEngagementData);
+  }
 };

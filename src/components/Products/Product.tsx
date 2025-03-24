@@ -41,7 +41,7 @@ import {
 } from "@/helpers";
 import { useToast } from "@/hooks/useToast";
 import { Toast } from "../Toast";
-import { recordProductView } from "@/actions/product";
+import { recordCartPoints, recordProductView } from "@/actions/product";
 import { FingerPrintContext } from "../context/FingerPrintContext";
 import { AuthContext } from "../context/AuthContext";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
@@ -59,12 +59,11 @@ export const Product = ({ id }: Props) => {
   const { fingerPrint } = useContext(FingerPrintContext);
   const { authUser } = useContext(AuthContext);
   const { wishlist, setWishlist } = useContext(WishlistContext);
-  const isItemAdded = useCallback(
-    (itemId: number) => {
-      return cartItems.filter((item) => item.id === itemId).length > 0;
-    },
-    [cartItems]
-  );
+  const isItemAdded = useMemo(() => {
+    return (
+      product && cartItems.filter((item) => item.id === product?.id).length > 0
+    );
+  }, [cartItems, product]);
   const wishlistItem = useMemo(
     () =>
       wishlist.filter(
@@ -99,7 +98,14 @@ export const Product = ({ id }: Props) => {
             message: "You've added an item to your cart",
             type: "success",
           })
-        );
+        )
+        .then(() => {
+          let cartEngagementData = new FormData();
+          cartEngagementData.append("productId", product.id.toString());
+          cartEngagementData.append("score", (3).toString());
+          cartEngagementData.append("scoreAction", "increment");
+          recordCartPoints(cartEngagementData);
+        });
     }
   };
 
@@ -136,6 +142,8 @@ export const Product = ({ id }: Props) => {
       }
       recordProductView(formData).then((res) => {
         if (res.id) console.log("Engagement recorded");
+        console.log("Form Data == ", formData);
+        console.log("Engagement res == ", res);
       });
     }
   }, [authUser, fingerPrint, product]);
@@ -211,7 +219,7 @@ export const Product = ({ id }: Props) => {
                   Eligendi et placeat illum doloribus assumenda?
                 </CardBodyText>
                 <div className="flex gap-[8px] items-center my-3">
-                  {isItemAdded(product.id) ? (
+                  {isItemAdded ? (
                     <div className="flex w-[159px] h-[44px] flex-shrink">
                       <button
                         className="w-[40px] border border-gainsboro rounded-tl rounded-bl"
