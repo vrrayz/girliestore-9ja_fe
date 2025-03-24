@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getData } from "./actions";
+import { profile } from "console";
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
@@ -13,6 +14,15 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/auth")
   ) {
     return NextResponse.redirect(new URL("/", request.url));
+  }
+  if (request.nextUrl.pathname.startsWith("/user/store")) {
+    if (
+      profileRequest.statusCode !== 200 ||
+      (profileRequest.statusCode === 200 &&
+        profileRequest.data.role !== "admin")
+    ) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
   }
   if (
     profileRequest.statusCode !== 200 &&

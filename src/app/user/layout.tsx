@@ -15,10 +15,11 @@ export default function StoreLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Body headerSpace={80}>
+    <Body>
       <Header displaySearch={false} />
-      <div></div>
-      {children}
+      <section className="w-full max-w-[1200px] mx-auto px-[16px]">
+        {children}
+      </section>
     </Body>
   );
 }
