@@ -14,12 +14,5 @@ export default function StoreLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <Body>
-      <Header displaySearch={false} />
-      <section className="w-full max-w-[1200px] mx-auto px-[16px]">
-        {children}
-      </section>
-    </Body>
-  );
+  return { children };
 }
