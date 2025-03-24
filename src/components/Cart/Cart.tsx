@@ -83,16 +83,27 @@ export const Cart = () => {
           </div>
           {cartItems.map((item, index) => (
             <div key={index} className="mt-1 mb-3 no-hover shadow p-4">
-              <div className="grid grid-cols-2 md:grid-cols-[1fr_100px_1fr_100px] gap-[20px] items-center">
+              <div className="grid grid-cols-[1fr_100px] md:grid-cols-[1fr_100px_1fr_100px] gap-[20px] items-center">
                 <div className="flex items-center gap-[20px]">
                   <Image
                     src={item.photoUrl}
                     width={78}
                     height={78}
                     alt="item_image"
-                    className="rounded"
+                    className="rounded max-w-[78px] max-h-[78px] flex-grow object-cover aspect-[1/1]"
                   />
-                  <h4 className="font-bold text-[18px]">{item.name}</h4>
+                  <h4
+                    className="font-bold text-[18px]"
+                    style={{
+                      display: "-webkit-box",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 3,
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {item.name}
+                  </h4>
                 </div>
 
                 <div>
