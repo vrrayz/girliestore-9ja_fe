@@ -6,7 +6,7 @@ import React from "react";
 import styled from "styled-components";
 import { CustomInput } from "../Form";
 import { Toggler } from "../Toggler";
-import { UserToggler } from "../UserToggler";
+import { UserToggler } from "./UserToggler";
 import Image from "next/image";
 
 interface Props {
