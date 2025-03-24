@@ -83,14 +83,22 @@ export const LargeHeader = ({ totalCartItems }: Props) => {
             <div className="flex gap-[20px] grow items-center font-['Hanken Grotesk'] text-gray">
               <div className="relative">
                 {authUser ? (
-                  <a
-                    href="#"
-                    className="flex gap-[6px] items-center"
-                    onClick={() => setIsNavToggled(!isNavToggled)}
-                  >
-                    <FontAwesomeIcon icon={faUser} color="olivedrab" />
-                    <span>Welcome, {authUser.name.split(" ")[0]}</span>
-                  </a>
+                  <>
+                    <a
+                      href="#"
+                      className="flex gap-[6px] items-center"
+                      onClick={() => setIsNavToggled(!isNavToggled)}
+                    >
+                      <FontAwesomeIcon icon={faUser} color="olivedrab" />
+                      <span>Welcome, {authUser.name.split(" ")[0]}</span>
+                    </a>
+
+                    <UserTogglerDropdown
+                      isNavToggled={isNavToggled}
+                      isLoggedIn={isLoggedIn}
+                      logoutAction={logoutAction}
+                    />
+                  </>
                 ) : (
                   <a
                     href="/auth/login"
@@ -101,11 +109,6 @@ export const LargeHeader = ({ totalCartItems }: Props) => {
                     <span>Sign Up/Sign In</span>
                   </a>
                 )}
-                <UserTogglerDropdown
-                  isNavToggled={isNavToggled}
-                  isLoggedIn={isLoggedIn}
-                  logoutAction={logoutAction}
-                />
               </div>
               <span className="text-gainsboro">|</span>
               <a href="/cart" className="flex gap-[6px] items-center relative">
