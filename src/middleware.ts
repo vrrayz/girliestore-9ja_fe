@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getData } from "./actions";
 import { profile } from "console";
+import { adminRoutes } from "./constants/routes";
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
@@ -17,7 +18,7 @@ export async function middleware(request: NextRequest) {
   }
   if (
     request.nextUrl.pathname.startsWith("/user/store") ||
-    request.nextUrl.pathname.startsWith("/admin")
+    request.nextUrl.pathname.startsWith(adminRoutes.home)
   ) {
     if (
       profileRequest.statusCode !== 200 ||
