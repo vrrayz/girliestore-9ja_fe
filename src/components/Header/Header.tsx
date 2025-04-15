@@ -13,10 +13,16 @@ interface Props {
 
 export const Header = ({ displaySearch }: Props) => {
   const [headerTop, setHeaderTop] = useState<number>(0);
-
-  const showMobileHeader = useMemo(() => window.screen.availWidth < 1024, []);
   // const { cartItems } = useCart();
+
+  // const showMobileHeader = useMemo(() => window.screen.availWidth < 1024, []);
+  const [showMobileHeader, setShowMobileHeader] = useState(false);
   const { cartItems } = useContext(CartContext);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setShowMobileHeader(window.screen.availWidth < 1024);
+    }
+  }, []);
   useEffect(() => {
     const handleScroll = () => {
       if (displaySearch && showMobileHeader) {

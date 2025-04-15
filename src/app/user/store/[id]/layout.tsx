@@ -1,7 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Body } from "@/components/Styled";
-import { Header } from "@/components/Header/Header";
 import { Sidebar } from "@/components/Store/Sidebar";
 
 export const metadata: Metadata = {
