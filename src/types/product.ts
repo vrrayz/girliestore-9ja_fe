@@ -1,4 +1,4 @@
-import { Category } from "./category";
+import { Category, SubCategory } from "./category";
 
 export interface Product {
   id: number;
@@ -6,16 +6,22 @@ export interface Product {
   description: string;
   categoryId: number;
   category: Category;
+  subCategoryId: number;
+  subCategory: SubCategory;
   shopId: number;
   photos: {
     url: string;
   }[];
   quantity: number;
   price: number;
-  color: string;
-  unit: string;
-  size: number;
+  size?: number;
+  unit?: string;
+  color?: string;
   productEngagementId?: string;
+  discountType?: string;
+  discountPercentage?: number;
+  quantityForDiscount?: number;
+  hasDiscount?: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

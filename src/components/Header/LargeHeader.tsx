@@ -48,7 +48,7 @@ export const LargeHeader = ({ totalCartItems }: Props) => {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="bg-topHeaderBg h-[42px] px-4">
+      <div className="bg-gray2 h-[42px] px-4">
         <div className="w-full flex items-center max-w-[1200px] mx-auto h-full text-gray justify-between">
           <span>Welcome to Girliestore9ja</span>
           <div className="flex gap-[16px] items-center font-['Hanken Grotesk'] font-light text-gray">

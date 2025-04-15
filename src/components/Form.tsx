@@ -37,6 +37,7 @@ export const Input = styled.input`
   width: 100%;
   border-radius: 3px;
   font-family: ${Poppins};
+  background: ${Colors.gray2};
 
   &.btn-primary {
     background: ${Colors.red};
@@ -55,6 +56,7 @@ export const Select = styled.select`
   width: 100%;
   border-radius: 3px;
   font-family: ${Poppins};
+  background: ${Colors.gray2};
 
   &.btn-primary {
     background: ${Colors.red};
@@ -107,7 +109,7 @@ const InputIcon = styled(FontAwesomeIcon)`
   color: #666;
 `;
 export const DragAndDropContainer = styled.div<{ $width?: number }>`
-  width: ${(props) => props.$width ? props.$width : '300'}px;
+  width: ${(props) => (props.$width ? props.$width : "300")}px;
   height: 200px;
   border: 2px dashed ${Colors.darkslategray}8a;
   margin: auto;

@@ -22,19 +22,26 @@ Since the majority of this project is still in developement, here's a list of th
 
 ```
 ************** TODO **************
-List Trending Products
-Make All Pages Responsive for all devices (In Progress)
+Record Trending Items For each purchase
+Add Review Functionality To Products(Users can make and see reviews)
+Add New Product From Store
 Edit Product Functionality
+Discount Functionality (In Progress)
+Make All Pages Responsive for all devices (In Progress)
 Add Product and Edit Product Page
 User checkout(payment gateway integration)
 Store Owner / Admin View Order(s)
 Store Owner / Admin Starts Processing the Order
 
-Add New Product From Store
 Add middlewares/restrictions That lets only the admin create the stores
 **********************************
 
 ************** Finished **************
+Large Header Should Include Wishlist and Cart Links
+Record Trending Items For each wishlist
+Record Trending Items For each carts
+List Trending Products
+Record Trending Items By View
 View Product Redesign
 Toast Message (Figma ref: https://www.figma.com/design/v9PqSARzhSaKfLn7CCZfuS/Flash-messages-pack-(Community)?node-id=0-1&t=CIwlG4YIBOsciQN8-0)
 Styled buttons (Figma ref: https://www.figma.com/design/jKOYEUGOzPOYD3UvCg9HhZ/Trendy-Buttons-(Community)?node-id=17-2&t=r3zIgtBd4fqgFsRS-0)

@@ -29,10 +29,16 @@ export const ProductItemCard = ({ product, hasLink, link }: Props) => {
     <ProductItemCardContainer
       $hasLink={hasLink}
       onClick={() => redirectToLink(link)}
+      className="relative"
     >
       <ProductItemImage
         src={product.photos[0]?.url || "/assets/icons/default_product.png"}
       />
+      {product.hasDiscount && (
+        <div className="w-[50px] h-[53px] absolute top-0 right-0 bg-olivedrab text-center text-[14px] font-semibold flex items-center flex-col text-white rounded-tr-2xl rounded-bl-2xl justify-center">
+          {product.discountPercentage}% OFF
+        </div>
+      )}
       <div className="p-[12px] font-['Hanken Grotesk']">
         <CardBodyHeadingOne
           style={{
@@ -46,10 +52,32 @@ export const ProductItemCard = ({ product, hasLink, link }: Props) => {
           {product.name}
         </CardBodyHeadingOne>
         <CardBodyHeadingTwo>
-          {CURRENCY}
-          {new Intl.NumberFormat("en-US", {
-            style: "decimal",
-          }).format(product.price)}
+          {product.hasDiscount && product.discountPercentage ? (
+            <div className="flex justify-between text-[14px]">
+              <span>
+                {CURRENCY}
+                {new Intl.NumberFormat("en-US", {
+                  style: "decimal",
+                }).format(
+                  product.price -
+                    (product.discountPercentage / 100) * product.price
+                )}
+              </span>
+              <s className="font-light">
+                {CURRENCY}
+                {new Intl.NumberFormat("en-US", {
+                  style: "decimal",
+                }).format(product.price)}
+              </s>
+            </div>
+          ) : (
+            <>
+              {CURRENCY}
+              {new Intl.NumberFormat("en-US", {
+                style: "decimal",
+              }).format(product.price)}
+            </>
+          )}
         </CardBodyHeadingTwo>
       </div>
     </ProductItemCardContainer>

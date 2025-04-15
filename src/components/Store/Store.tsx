@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
@@ -20,16 +20,15 @@ import {
 } from "../Products/ProductItemCard";
 import { paramsToId } from "@/helpers";
 import { useParamsRedirect } from "@/hooks/useParamsRedirect";
-import { AddProductModal } from "../Products/AddProductModal";
+import Link from "next/link";
 
 interface Props {
   id: string;
 }
 
 export const Store = ({ id }: Props) => {
-  const { store, isLoading, setIsLoading } = useStore(paramsToId(id));
+  const { store, isLoading } = useStore(paramsToId(id));
   const {} = useParamsRedirect(id, store?.name);
-  const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     console.log("Shops from ui ", store);
@@ -38,7 +37,7 @@ export const Store = ({ id }: Props) => {
     <>
       {isLoading && <Loading />}
       {store && (
-        <>
+        <div>
           <Image
             src={store?.photo_url || "/assets/icons/default_product.png"}
             width={200}
@@ -60,24 +59,20 @@ export const Store = ({ id }: Props) => {
             </CardBody>
           </StoreInfoContainer>
           <SectionHeader className="my-3">
-            <Button className="btn-primary" onClick={() => setShowModal(true)}>
+            <Link
+              href={`${id}/create-product`}
+              className="bg-tomato px-[8px] py-[6px] rounded w-6/12 max-w-[200px] text-white text-center border border-tomato hover:bg-saddlebrown hover:border-saddlebrown"
+            >
               Add Product
-            </Button>
+            </Link>
           </SectionHeader>
-          {showModal && (
-            <AddProductModal
-              setShowModal={setShowModal}
-              setIsLoading={setIsLoading}
-              storeId={store.id}
-            />
-          )}
 
           <ProductListContainer>
             {store.products?.map((product, i) => (
               <ProductItemCard product={product} key={i} />
             ))}
           </ProductListContainer>
-        </>
+        </div>
       )}
     </>
   );

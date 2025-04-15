@@ -47,6 +47,7 @@ import { AuthContext } from "../context/AuthContext";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { WishlistContext } from "../context/WishlistContext";
 import { createWishlist, deleteWishlist } from "@/actions/wishlist";
+import parse from "html-react-parser";
 
 interface Props {
   id: string;
@@ -180,7 +181,7 @@ export const Product = ({ id }: Props) => {
                 width={200}
                 height={200}
                 alt="product_image"
-                className="aspect-[5/6] w-full max-w-[500px] object-cover rounded-[4px] mx-auto lg:mx-0 max-h"
+                className="aspect-[5/6] w-full max-w-[500px] object-contain rounded-[4px] mx-auto lg:mx-0 max-h"
               />
             </div>
             <ProductInfoContainer className="mb-5 mt-4 xl:my-0">
@@ -210,14 +211,10 @@ export const Product = ({ id }: Props) => {
                     {product.quantity} items left
                   </InlineTextSmall>
                 </CardBodyText>
-                <CardBodyHeadingOne>Description</CardBodyHeadingOne>
-                <CardBodyText className="my-3">
-                  {product.description}
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero
-                  quos, consequatur eum ea tempore amet ducimus saepe rerum
-                  quisquam possimus corrupti dignissimos dolorem officiis?
-                  Eligendi et placeat illum doloribus assumenda?
-                </CardBodyText>
+                {/* <CardBodyHeadingOne>Description</CardBodyHeadingOne> */}
+                <div className="my-3 text-[14px]" style={{ fontWeight: 400 }}>
+                  {parse(product.description)}
+                </div>
                 <div className="flex gap-[8px] items-center my-3">
                   {isItemAdded ? (
                     <div className="flex w-[159px] h-[44px] flex-shrink">

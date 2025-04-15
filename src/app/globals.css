@@ -1,3 +1,84 @@
 @import "./css/master.css";
 @import "./css/buttons.css";
 @import "./css/toast.css";
+
+.multi-upload-container {
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow: scroll;
+    gap: 20px;
+    padding: 20px 0px;
+}
+
+.upload-container {
+    position: relative;
+    width: 100%;
+    min-width: 300px;
+    max-width: 445px;
+    height: 202px;
+    border: 1px dashed rgba(75, 88, 120, 0.3);
+}
+
+.upload-container input[type="file"] {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    opacity: 0;
+}
+
+.upload-container .cover-element {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    font-family: "Montserrat", serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 13px;
+}
+
+.upload-container .cover-element svg {
+    color: olivedrab;
+}
+
+.upload-container .cover-element .info {
+    font-size: 12px;
+    color: #676767;
+}
+
+.upload-container .cover-element .upload-label {
+    font-weight: 600;
+}
+
+.upload-container .cover-element .upload-label span {
+    color: olivedrab;
+    text-decoration: underline;
+}
+
+.upload-container .close-btn {
+    border-radius: 50%;
+    background-color: #ff384a;
+    color: #fff;
+    position: absolute;
+    top: -4%;
+    right: -2%;
+    padding: 2px;
+    z-index: 1;
+}
+
+.upload-container .preview-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background-color: #fff;
+}
+
+.upload-container .preview-container .preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}

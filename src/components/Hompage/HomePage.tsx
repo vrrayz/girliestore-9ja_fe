@@ -14,10 +14,10 @@ import { FingerPrintContext } from "../context/FingerPrintContext";
 import { useTrendingProducts } from "@/hooks/useTrendingProducts";
 import { TrendingProducts } from "./TrendingProducts";
 import { AuthContext } from "../context/AuthContext";
+import { DiscountedProducts } from "./DiscountedProducts";
 
 export const HomePage = () => {
   const { products, isLoading } = useProducts("desc");
-  const { trendingProducts, isTrendingProductLoading } = useTrendingProducts();
   const { fingerPrint } = useContext(FingerPrintContext);
   const { authUser } = useContext(AuthContext);
 
@@ -30,8 +30,7 @@ export const HomePage = () => {
       <div className="px-4 h-[69px] border border-gainsboro border-x-0 border-t-0 flex flex-col items-center">
         <HorizontalNavigation />
       </div>
-      {isLoading && <LoadingLogo />}
-      <div className="px-4 xl:px-0">
+      <div className="px-0">
         <div className="w-full aspect-[3/1] md:aspect-[3/1] max-w-[1201px] overflow-hidden mx-auto relative rounded-[16px] my-[34px] lg:my-[120px]">
           <Image
             src={"/assets/banners/banner_1.jpg"}
@@ -41,31 +40,15 @@ export const HomePage = () => {
             className="block w-full h-full object-cover"
           />
         </div>
-        {trendingProducts && (
-          <TrendingProducts trendingProducts={trendingProducts} />
-        )}
-        <div className="mb-[40px]">
-          <SectionListHeader link="#">
-            Special Offers & <span className="text-olivedrab">Discount</span>
-          </SectionListHeader>
-          <ProductListContainer>
-            {products?.map((product, i) => (
-              <ProductItemCard
-                link={`/products/${product.name
-                  .split(" ")
-                  .join("-")}-${product.id.toString().padStart(7, "0")}`}
-                hasLink
-                product={product}
-                key={i}
-              />
-            ))}
-          </ProductListContainer>
-        </div>
+
+        <TrendingProducts />
+        <DiscountedProducts />
         <div className="mb-[40px]">
           <SectionListHeader link="#">
             New Arrivals |{" "}
             <span className="text-olivedrab">Latest Collection</span>
           </SectionListHeader>
+          {isLoading && <LoadingLogo />}
           <ProductListContainer>
             {products?.map((product, i) => (
               <ProductItemCard

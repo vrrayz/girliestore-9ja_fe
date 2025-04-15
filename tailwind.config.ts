@@ -16,7 +16,7 @@ export const tailwindColors = {
   coral: "#ff802a",
   tomato: "#ff384a",
   cornflowerblue: "#65acf0",
-  topHeaderBg: "#f5f5f5",
+  gray2: "#f5f5f5",
   gray: "#666666",
   gainsboro: "#d9d9d9",
 };
