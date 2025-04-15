@@ -24,10 +24,10 @@ export const AdminSidebar = () => {
         <h5 className="font-bold">Stores</h5>
         <ul className="ml-4 mt-[16px] flex flex-col gap-[12px]">
           <li>
-            <a href={`/admin/stores`}>View Stores</a>
+            <a href={adminRoutes.stores}>View Stores</a>
           </li>
           <li>
-            <a href={`/admin/stores/create-store`}>Create Store</a>
+            <a href={adminRoutes.createStore}>Create Store</a>
           </li>
         </ul>
       </div>

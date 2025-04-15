@@ -1,35 +1,50 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Colors, SCREENS } from "@/styles";
 import Image from "next/image";
 import { Loading } from "../Loading";
 import { Button } from "../Buttons";
-import { AddStoreModal } from "./AddStoreModal";
-import {
-  CardBody,
-  CardBodyHeadingOne,
-  CardBodyText,
-  CardContainer,
-} from "../Card";
+import { AddStoreModal } from "../Store/AddStoreModal";
+import { CardBody, CardBodyHeadingOne, CardBodyText } from "../Card";
 import { useStores } from "@/hooks/useStores";
 import { Item, ItemsListGroup } from "../Styled";
+import { useToast } from "@/hooks/useToast";
+import { Toast } from "../Toast";
 
 export const Stores = () => {
-  const { stores, isLoading, setIsLoading } = useStores();
+  const { stores, setStores, isLoading, setIsLoading } = useStores();
   const [showModal, setShowModal] = useState<boolean>(false);
+  const { toggleToast, setToast, closeToast, toast, showToast } = useToast();
+
+  const showAddStoreModal = () => {
+    setToast(undefined);
+    setShowModal(true);
+  };
+
+  useEffect(() => {
+    if (toast && toast.type == "success" && showModal) {
+      console.log("show modal === ", showModal);
+      setShowModal(false);
+    }
+  }, [showModal, toast]);
 
   return (
-    <section style={{ width: "100vw" }}>
+    <section>
       {isLoading && <Loading />}
       <SectionHeader className="my-3">
-        <Button className="btn-primary" onClick={() => setShowModal(true)}>
+        <h4 className="text-[24px]">All Gs9ja Stores</h4>
+        <Button className="btn-primary" onClick={() => showAddStoreModal()}>
           Add Store
         </Button>
       </SectionHeader>
-      {showModal && (
+      {showModal && stores && (
         <AddStoreModal
           setShowModal={setShowModal}
+          setShowToast={showToast}
           setIsLoading={setIsLoading}
+          stores={stores}
+          setStores={setStores}
         />
       )}
       <ItemsListGroup>
@@ -40,13 +55,14 @@ export const Stores = () => {
               .toString()
               .padStart(7, "0")}`}
             key={i}
-            className="mb-2"
+            className="mb-2 shadow"
           >
             <Image
               src={store.photo_url || "/assets/icons/default_product.png"}
               width={78}
               height={78}
               alt="store_image"
+              className="object-cover"
             />
             <CardBody>
               <CardBodyHeadingOne>{store.name}</CardBodyHeadingOne>
@@ -55,13 +71,21 @@ export const Stores = () => {
           </Item>
         ))}
       </ItemsListGroup>
+      {toggleToast && toast && (
+        <Toast
+          type={toast.type}
+          closeToast={closeToast}
+          title={toast.title}
+          message={toast.message}
+        />
+      )}
     </section>
   );
 };
 
 const SectionHeader = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   ${Button} {
     width: 50%;
     max-width: 200px;

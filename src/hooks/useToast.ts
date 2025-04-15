@@ -14,5 +14,12 @@ export const useToast = () => {
     setToggleToast(true);
   };
 
-  return { toggleToast, setToggleToast, closeToast, toast, showToast };
+  return {
+    toggleToast,
+    setToggleToast,
+    setToast,
+    closeToast,
+    toast,
+    showToast,
+  };
 };

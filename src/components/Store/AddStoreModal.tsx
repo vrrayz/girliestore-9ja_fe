@@ -24,10 +24,14 @@ import styled from "styled-components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { addStore } from "@/actions/store";
 import { imageFormatValidationMessage, isInCorrectFormat } from "@/helpers";
+import { Shop, Toast } from "@/types";
 
 interface Props {
   setShowModal: (value: boolean) => void;
   setIsLoading: (value: boolean) => void;
+  setShowToast: ({ title, message, type }: Toast) => void;
+  setStores: (value: Shop[]) => void;
+  stores: Shop[];
 }
 type ShopInput = {
   name: string;
@@ -36,7 +40,13 @@ type ShopInput = {
   file: FileList;
 };
 
-export const AddStoreModal = ({ setShowModal, setIsLoading }: Props) => {
+export const AddStoreModal = ({
+  setShowModal,
+  setIsLoading,
+  setShowToast,
+  setStores,
+  stores,
+}: Props) => {
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
   const [storeImage, setStoreImage] = useState<string>();
   const [inputFile, setInputFile] = useState<FileList>();
@@ -57,11 +67,22 @@ export const AddStoreModal = ({ setShowModal, setIsLoading }: Props) => {
     formData.append("file", data.file[0]);
 
     addStore(formData).then(async (res) => {
-      console.log("This is the response ", res);
       if (res.statusCode === 200) {
-        console.log("Response success");
-        setShowModal(false);
+        console.log("Response == ", res.data);
+        setStores([...stores, res.data]);
+        setShowToast({
+          title: "Store Added !!",
+          message: "You've added a store to the platform",
+          type: "success",
+        });
+        // setShowModal(false);
       } else {
+        console.log("Response == ", res);
+        setShowToast({
+          title: "Error Uploading Store",
+          message: "There was an error uploading the store",
+          type: "failure",
+        });
         setShowErrorModal(true);
       }
       setIsLoading(false);

@@ -1,7 +1,6 @@
 "use client";
 
-import { Stores } from "@/components/Store/Stores";
-
+import { Stores } from "@/components/Admin/Stores";
 
 export default function Page() {
   // return <LandingPage />;
