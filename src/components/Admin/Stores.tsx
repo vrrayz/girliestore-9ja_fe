@@ -13,12 +13,16 @@ import { useToast } from "@/hooks/useToast";
 import { Toast } from "../Toast";
 import { generateParamRoute } from "@/helpers";
 import { adminRoutes } from "@/constants/routes";
+import { Breadcrumb } from "../Breadcrumb";
 
 export const Stores = () => {
   const { stores, setStores, isLoading, setIsLoading } = useStores();
   const [showModal, setShowModal] = useState<boolean>(false);
   const { toggleToast, setToast, closeToast, toast, showToast } = useToast();
-
+  const breadcrumbItems = [
+    { name: "Admin Home", link: adminRoutes.home },
+    { name: "View Stores", link: "#" },
+  ];
   const showAddStoreModal = () => {
     setToast(undefined);
     setShowModal(true);
@@ -32,6 +36,7 @@ export const Stores = () => {
 
   return (
     <section>
+      <Breadcrumb breadcrumbItems={breadcrumbItems} />
       {isLoading && <Loading />}
       <SectionHeader className="my-3">
         <h4 className="text-[24px]">All Gs9ja Stores</h4>

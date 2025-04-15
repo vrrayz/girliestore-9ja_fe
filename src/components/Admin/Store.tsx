@@ -21,6 +21,8 @@ import {
 import { paramsToId } from "@/helpers";
 import { useParamsRedirect } from "@/hooks/useParamsRedirect";
 import Link from "next/link";
+import { Breadcrumb } from "../Breadcrumb";
+import { adminRoutes } from "@/constants/routes";
 
 interface Props {
   id: string;
@@ -29,48 +31,56 @@ interface Props {
 export const Store = ({ id }: Props) => {
   const { store, isLoading } = useStore(paramsToId(id));
   const {} = useParamsRedirect(id, store?.name);
+  const breadcrumbItems = [
+    { name: "Admin Home", link: adminRoutes.home },
+    { name: "View Stores", link: adminRoutes.stores },
+    { name: store ? store.name : "unknown", link: "#" },
+  ];
 
   return (
     <>
-      {isLoading && <Loading />}
-      {store && (
-        <div>
-          <Image
-            src={store?.photo_url || "/assets/icons/default_product.png"}
-            width={200}
-            height={200}
-            alt="store_image"
-            className="mx-auto my-4"
-          />
-          <StoreInfoContainer>
-            <CardBody>
-              <CardBodyHeadingOne>Store Info</CardBodyHeadingOne>
-              <CardBodyText>
-                <FontAwesomeIcon icon={faGlobe} />
-                <span>{store.address}</span>
-              </CardBodyText>
-              <CardBodyText>
-                <FontAwesomeIcon icon={faInfoCircle} />
-                <span>{store.description}</span>
-              </CardBodyText>
-            </CardBody>
-          </StoreInfoContainer>
-          <SectionHeader className="my-3">
-            <Link
-              href={`${id}/create-product`}
-              className="bg-tomato px-[8px] py-[6px] rounded w-6/12 max-w-[200px] text-white text-center border border-tomato hover:bg-saddlebrown hover:border-saddlebrown"
-            >
-              Add Product
-            </Link>
-          </SectionHeader>
+      <div>
+        <Breadcrumb breadcrumbItems={breadcrumbItems} />
+        {isLoading && <Loading />}
+        {store && (
+          <div>
+            <Image
+              src={store?.photo_url || "/assets/icons/default_product.png"}
+              width={200}
+              height={200}
+              alt="store_image"
+              className="mx-auto my-4"
+            />
+            <StoreInfoContainer>
+              <CardBody>
+                <CardBodyHeadingOne>Store Info</CardBodyHeadingOne>
+                <CardBodyText>
+                  <FontAwesomeIcon icon={faGlobe} />
+                  <span>{store.address}</span>
+                </CardBodyText>
+                <CardBodyText>
+                  <FontAwesomeIcon icon={faInfoCircle} />
+                  <span>{store.description}</span>
+                </CardBodyText>
+              </CardBody>
+            </StoreInfoContainer>
+            <SectionHeader className="my-3">
+              <Link
+                href={`${id}/create-product`}
+                className="bg-tomato px-[8px] py-[6px] rounded w-6/12 max-w-[200px] text-white text-center border border-tomato hover:bg-saddlebrown hover:border-saddlebrown"
+              >
+                Add Product
+              </Link>
+            </SectionHeader>
 
-          <ProductListContainer>
-            {store.products?.map((product, i) => (
-              <ProductItemCard product={product} key={i} />
-            ))}
-          </ProductListContainer>
-        </div>
-      )}
+            <ProductListContainer>
+              {store.products?.map((product, i) => (
+                <ProductItemCard product={product} key={i} />
+              ))}
+            </ProductListContainer>
+          </div>
+        )}
+      </div>
     </>
   );
 };
