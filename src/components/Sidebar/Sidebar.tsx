@@ -3,11 +3,13 @@ import { Colors, Poppins } from "@/styles";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faPhone, faShop, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { Overlay } from "../Styled";
 import { SidebarItemDropdown } from "./SidebarItemDropdown";
 import { storeLinks } from "@/actions/store";
+import { useIsAuthenticated } from "@/hooks/useIsAuthenticated";
+import { AuthContext } from "../context/AuthContext";
 
 interface Props {
   toggleSidebar: (value: boolean) => void;
@@ -15,6 +17,8 @@ interface Props {
 
 export const SidebarComponent = ({ toggleSidebar }: Props) => {
   const { categories } = useCategories();
+  // const { isLoggedIn } = useIsAuthenticated();
+  const { authUser } = useContext(AuthContext);
 
   const closeSidebar = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -23,21 +27,22 @@ export const SidebarComponent = ({ toggleSidebar }: Props) => {
     if (newEvent.id === "sidebar-overlay") toggleSidebar(false);
   };
 
+  useEffect(() => {
+    console.log("User  == ", authUser);
+  }, [authUser]);
+
   return (
     <Overlay id="sidebar-overlay" onClick={(event) => closeSidebar(event)}>
       <Sidebar>
         <div></div>
         <SidebarList>
-          {categories?.map((item, i) => (
-            <SidebarListItem href="#" key={i}>
-              {item.name}
-            </SidebarListItem>
-          ))}
-          <SidebarItemDropdown
-            dropdownIconName={faShop}
-            dropdownItems={storeLinks}
-            sidebarItemName="Store"
-          />
+          {authUser && authUser.role == "admin" && (
+            <SidebarItemDropdown
+              dropdownIconName={faShop}
+              dropdownItems={storeLinks}
+              sidebarItemName="Store"
+            />
+          )}
           <SidebarListItem>
             {" "}
             <FontAwesomeIcon icon={faPhone} /> <span>Contact Us</span>
@@ -50,6 +55,11 @@ export const SidebarComponent = ({ toggleSidebar }: Props) => {
             <FontAwesomeIcon icon={faUserPlus} />
             <span>Sign up</span>
           </SidebarListItem>
+          {categories?.map((item, i) => (
+            <SidebarListItem href="#" key={i}>
+              {item.name}
+            </SidebarListItem>
+          ))}
         </SidebarList>
       </Sidebar>
     </Overlay>

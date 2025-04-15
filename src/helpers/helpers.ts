@@ -57,3 +57,8 @@ export const modifyQuantityRequested = async (
     recordCartPoints(cartEngagementData);
   }
 };
+
+export const generateParamRoute = (route: string, paramId: string) => {
+  const newRoute = route.replace(":id", paramId);
+  return newRoute;
+};
