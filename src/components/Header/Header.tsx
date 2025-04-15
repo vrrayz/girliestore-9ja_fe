@@ -15,7 +15,6 @@ export const Header = ({ displaySearch }: Props) => {
   const [headerTop, setHeaderTop] = useState<number>(0);
   // const { cartItems } = useCart();
 
-  // const showMobileHeader = useMemo(() => window.screen.availWidth < 1024, []);
   const [showMobileHeader, setShowMobileHeader] = useState(false);
   const { cartItems } = useContext(CartContext);
   useEffect(() => {
