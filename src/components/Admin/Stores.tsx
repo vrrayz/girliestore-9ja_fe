@@ -11,6 +11,8 @@ import { useStores } from "@/hooks/useStores";
 import { Item, ItemsListGroup } from "../Styled";
 import { useToast } from "@/hooks/useToast";
 import { Toast } from "../Toast";
+import { generateParamRoute } from "@/helpers";
+import { adminRoutes } from "@/constants/routes";
 
 export const Stores = () => {
   const { stores, setStores, isLoading, setIsLoading } = useStores();
@@ -50,9 +52,12 @@ export const Stores = () => {
         {stores?.map((store, i) => (
           <Item
             as={"a"}
-            href={`/user/store/${store.name.split(" ").join("-")}-${store.id
-              .toString()
-              .padStart(7, "0")}`}
+            href={generateParamRoute(
+              adminRoutes.store,
+              `${store.name.split(" ").join("-")}-${store.id
+                .toString()
+                .padStart(7, "0")}`
+            )}
             key={i}
             className="mb-2 shadow"
           >
@@ -63,9 +68,11 @@ export const Stores = () => {
               alt="store_image"
               className="object-cover"
             />
-            <CardBody>
-              <CardBodyHeadingOne>{store.name}</CardBodyHeadingOne>
-              <CardBodyText>{store.address}</CardBodyText>
+            <CardBody className="overflow-hidden">
+              <CardBodyHeadingOne className="truncate">
+                {store.name}
+              </CardBodyHeadingOne>
+              <CardBodyText className="truncate">{store.address}</CardBodyText>
             </CardBody>
           </Item>
         ))}

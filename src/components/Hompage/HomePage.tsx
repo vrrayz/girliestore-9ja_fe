@@ -1,7 +1,7 @@
 "use client";
 
 import HorizontalNavigation from "@/components/Hompage/HorizontalNavigation";
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { useProducts } from "@/hooks/useProducts";
 import { LoadingLogo } from "../Loading";
 import {
@@ -10,21 +10,12 @@ import {
 } from "../Products/ProductItemCard";
 import Image from "next/image";
 import { SectionListHeader } from "./SectionListHeader";
-import { FingerPrintContext } from "../context/FingerPrintContext";
-import { useTrendingProducts } from "@/hooks/useTrendingProducts";
 import { TrendingProducts } from "./TrendingProducts";
-import { AuthContext } from "../context/AuthContext";
 import { DiscountedProducts } from "./DiscountedProducts";
 
 export const HomePage = () => {
   const { products, isLoading } = useProducts("desc");
-  const { fingerPrint } = useContext(FingerPrintContext);
-  const { authUser } = useContext(AuthContext);
 
-  useEffect(() => {
-    console.log("The fingerprint is == ", fingerPrint);
-    console.log("The user === ", authUser);
-  }, [authUser, fingerPrint]);
   return (
     <>
       <div className="px-4 h-[69px] border border-gainsboro border-x-0 border-t-0 flex flex-col items-center">

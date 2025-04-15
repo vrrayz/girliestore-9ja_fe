@@ -30,9 +30,6 @@ export const Store = ({ id }: Props) => {
   const { store, isLoading } = useStore(paramsToId(id));
   const {} = useParamsRedirect(id, store?.name);
 
-  useEffect(() => {
-    console.log("Shops from ui ", store);
-  });
   return (
     <>
       {isLoading && <Loading />}

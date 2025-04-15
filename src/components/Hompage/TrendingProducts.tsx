@@ -1,4 +1,3 @@
-import { TrendingProduct } from "@/types";
 import React from "react";
 import {
   ProductListContainer,
