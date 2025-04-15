@@ -7,6 +7,6 @@ export const adminRoutes = {
   createStore: `${ADMIN_PREFIX}/stores/create-store`,
   editStore: `${ADMIN_PREFIX}/stores/edit-store`,
   store: `${ADMIN_PREFIX}/stores/:id`,
-  storeProducts: `${ADMIN_PREFIX}/stores/:id/product`,
+  storesProducts: `${ADMIN_PREFIX}/stores/:id/product`,
   orders: `${ADMIN_PREFIX}/orders`,
 };
