@@ -22,7 +22,6 @@ Since the majority of this project is still in developement, here's a list of th
 
 ```
 ************** TODO **************
-Record Trending Items For each purchase
 Add Review Functionality To Products(Users can make and see reviews)
 Add New Product From Store
 Edit Product Functionality
@@ -37,6 +36,8 @@ Add middlewares/restrictions That lets only the admin create the stores
 **********************************
 
 ************** Finished **************
+Add Shops/Stores
+Record Trending Items For each purchase
 Large Header Should Include Wishlist and Cart Links
 Record Trending Items For each wishlist
 Record Trending Items For each carts
