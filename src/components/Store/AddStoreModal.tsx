@@ -4,7 +4,6 @@ import {
   ModalHeading,
   CloseButton,
   ModalBody,
-  Colors,
 } from "@/styles";
 import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,7 +19,6 @@ import {
   Label,
   TextArea,
 } from "../Form";
-import styled from "styled-components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { addStore } from "@/actions/store";
 import { imageFormatValidationMessage, isInCorrectFormat } from "@/helpers";
@@ -68,7 +66,7 @@ export const AddStoreModal = ({
 
     addStore(formData).then(async (res) => {
       if (res.statusCode === 200) {
-        console.log("Response == ", res.data);
+        // console.log("Response == ", res.data);
         setStores([...stores, res.data]);
         setShowToast({
           title: "Store Added !!",
@@ -77,7 +75,7 @@ export const AddStoreModal = ({
         });
         // setShowModal(false);
       } else {
-        console.log("Response == ", res);
+        // console.log("Response == ", res);
         setShowToast({
           title: "Error Uploading Store",
           message: "There was an error uploading the store",

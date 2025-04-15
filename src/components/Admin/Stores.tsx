@@ -24,7 +24,6 @@ export const Stores = () => {
 
   useEffect(() => {
     if (toast && toast.type == "success" && showModal) {
-      console.log("show modal === ", showModal);
       setShowModal(false);
     }
   }, [showModal, toast]);
